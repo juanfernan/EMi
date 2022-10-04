@@ -1,0 +1,36 @@
+@import "./../../../../styles-variables.scss";
+:root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+}
+
+ion-content {
+    font-family: 'Mark OT', sans-serif;
+    align-self: center;
+    height: 90%;
+    width: 85%;
+}
+
+.invoices-status-select {
+    margin-left: auto;
+    margin-right: 0px;
+}
+
+.invoices-date-picker-indicator {
+    text-align: end;
+    margin-right: 5px;
+}
+
+.sc-ion-alert-ios-h {
+    --max-width: 85% !important;
+    --width: 85% !important;
+    font-size: 13px !important;
+}
+
+.table {
+    font-size: 9px;
+}
+
+ion-icon {
+    color: $primary-color;
+}

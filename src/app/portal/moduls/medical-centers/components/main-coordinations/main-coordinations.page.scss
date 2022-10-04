@@ -1,0 +1,38 @@
+@import './../../../../../../styles-variables.scss';
+:root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+}
+
+ion-content {
+    font-family: 'Mark OT', sans-serif;
+    align-self: center;
+    height: 90%;
+    width: 85%;
+}
+
+.main-coordinations__container {
+    background-color: #f2f2f2;
+}
+
+.pending-coordinations-container {
+    background-color: #f2f2f2;
+    height: 79vh;
+}
+
+.main-coordinations__section-selector {
+    display: flex;
+    font-size: medium;
+    font-weight: bold;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+    background-color: white;
+    span {
+        padding: 10px;
+    }
+    text-align: center;
+}
+
+.main-coordinations__selected-section {
+    border-bottom: 3px solid $primary-color;
+}

@@ -1,0 +1,17 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Mis Facturas</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <app-invoices-filter *ngIf="statusInvoice && unpaid !==''" [listStatus]="statusInvoice" [unpaid]="unpaid"></app-invoices-filter>
+    <app-invoices-grid *ngIf="listFactureServices" [facturesList]="listFactureServices"></app-invoices-grid>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+</ion-content>

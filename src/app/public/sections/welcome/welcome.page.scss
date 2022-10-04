@@ -1,0 +1,60 @@
+@import './../../../../styles-variables.scss';
+.container-welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.imgProperties {
+    width: 180px;
+}
+
+.welcome {
+    flex-direction: column;
+}
+
+.padding-header {
+    padding: 45px 0;
+}
+
+.title-container {
+    margin: 0;
+}
+
+.ion-register {
+    color: $secondary-color;
+    font-weight: bold;
+    font-size: medium;
+    line-height: 19px;
+    text-decoration-line: underline;
+}
+
+.title-welcome {
+    font-weight: bold;
+    font-size: x-large;
+    line-height: 35px;
+    color: $primary-color;
+}
+
+.ion-text-footer {
+    text-align: center;
+    font-size: small;
+    font-weight: normal;
+    color: gray;
+    font-style: italic;
+}
+
+.border-divider {
+    position: relative;
+}
+
+.border-divider:after {
+    content: "";
+    background: #E7E7EF;
+    position: absolute;
+    top: 0;
+    left: 20px;
+    text-align: center;
+    height: 1px;
+    width: 85%;
+}

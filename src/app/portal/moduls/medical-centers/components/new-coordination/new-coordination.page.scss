@@ -1,0 +1,198 @@
+@import './../../../../../../styles-variables.scss';
+:root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+}
+
+.sc-ion-alert-ios-h {
+    --max-width: 85% !important;
+    --width: 85% !important;
+    font-size: 13px !important;
+}
+
+.container {
+    font-size: smaller !important;
+}
+
+.container-time {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+agm-map {
+    display: inline-block;
+    width: 100%;
+    height: 75vh;
+}
+
+ion-content {
+    align-self: center;
+    height: 90%;
+    width: 85%;
+}
+
+ion-item {
+    border: none !important;
+}
+
+ion-row {
+    margin-bottom: 1px !important;
+}
+
+.text-title {
+    font-size: 14px;
+    color: #00466c;
+}
+
+.text-subtitle {
+    font-size: 12px !important;
+}
+
+.ion-label-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: $primary-color;
+}
+
+.ion-label-subtitle {
+    font-size: 12px;
+}
+
+.ion-item-form-input {
+    border: 1px solid #F3F3F3 !important;
+    --background: #F3F3F3 !important;
+    width: 100% !important;
+}
+
+.new-coordinations__section-title {
+    padding-left: 12px;
+    padding-top: 10px;
+    font-weight: bold;
+    color: $primary-color;
+}
+
+.new__coordination__continue-button {
+    margin-right: 20px;
+}
+
+.check-box {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-bottom: 1px solid #cac9c9;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.new-coordinations__form__error {
+    color: red;
+    font-size: small;
+    padding-left: 12px;
+}
+
+.new-coordinations__schedule-selector {
+    margin-top: 20px;
+    overflow-y: scroll;
+    height: 45vh;
+}
+
+.new-coordinations__submit-btn {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.new-coordinations__detail__container {
+    padding-right: 0px;
+}
+
+.new-coordinations__detail__back-button {
+    width: 100%;
+    background-color: white;
+}
+
+.new-coordinations__detail__title-clinc {
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.new-coordinations__detail__clinic-card {
+    text-align: start;
+    display: flex;
+    padding: 10px;
+}
+
+.new-coordinations__detail__fullname {
+    font-size: medium;
+    font-weight: bold;
+    color: $primary-color;
+    width: 100%;
+}
+
+.mat-typography p {
+    margin-bottom: 0px;
+}
+
+.mat-typography h1 {
+    font-weight: bold;
+}
+
+.new-coordinations__detail__speciality-name {
+    margin-top: 0px;
+    padding-top: 0px;
+    width: 100%;
+    color: #8c8c8c;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.new-coordinations__detail__detail-data {
+    text-align: start;
+    padding-bottom: 5px;
+}
+
+.new-coordinations__payment-detail-buttons-container {
+    display: flex;
+    justify-content: center;
+}
+
+.new-coordination__pagos__franchises-container {
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    figure {
+        justify-content: center;
+        display: flex;
+        font-size: 25px;
+        align-items: center;
+        align-content: center;
+        border: 6px solid #ddd;
+        background: $primary-color;
+        border-radius: 50%;
+        width: 56px;
+        align-self: center;
+        height: 55px;
+    }
+    .new-coordination__pagos__online-pay-icon-container {
+        justify-content: center;
+        padding-left: 20px;
+        color: white;
+        padding-top: 6px;
+    }
+    .new-coordination__pagos__franchises-payment-title {
+        color: $primary-color;
+        font-weight: bold;
+        padding-top: 15px;
+    }
+    .new-coordination__pagos__franchises-pay-button-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding: 20px;
+    }
+}
+
+ion-icon {
+    color: $primary-color;
+}

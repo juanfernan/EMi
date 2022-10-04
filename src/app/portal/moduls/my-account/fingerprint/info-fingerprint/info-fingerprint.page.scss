@@ -1,0 +1,41 @@
+@import '../../../../../../styles-variables.scss';
+
+.container-fingerprint {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logoProperties {
+    width: 120px;
+    margin-bottom: 40px;
+}
+
+.iconProperties {
+    width: 110px;
+    margin-bottom: 30px;
+}
+
+.tittle-fingerprint {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 35px;
+    color: $primary-color;
+}
+
+
+.subtittle-fingerprint {
+    margin: 0 40px 10px;
+    text-align: center;
+}
+
+.asociateinfo-fingerprint {
+    margin: 0 30px 30px;
+    text-align: center;
+}
+
+.padding-header {
+    padding: 45px 0;
+}
+
+

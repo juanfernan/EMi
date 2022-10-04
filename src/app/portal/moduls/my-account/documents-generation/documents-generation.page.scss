@@ -1,0 +1,91 @@
+@import './../../../../../styles-variables.scss';
+ion-content {
+    align-self: center;
+    height: 90%;
+    width: 85%;
+}
+
+ion-item {
+    border: none !important;
+}
+
+ion-label {
+    pointer-events: all !important;
+}
+
+ion-icon {
+    font-size: 28px;
+    color: $primary-color;
+}
+
+table {
+    font-size: 10px;
+}
+
+.modal-rounded {
+    .modal-content {
+        border-radius: 35px !important;
+        width: 750px;
+        border: none !important;
+    }
+}
+
+.documents-generation__lower-container__left {
+    display: flex;
+    justify-content: center;
+    border-right: 1px solid #e6e6e6;
+    height: 55vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 10px;
+    background-color: rgb(247, 247, 247);
+    .documents-generation__clients-card-container {
+        display: flex;
+        justify-content: center;
+    }
+    .documents-generation__client-card {
+        margin: 10px;
+        margin-left: 42px;
+        width: 80%;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        .documents-generation__client-card__data-container-outer {
+            display: flex;
+            align-items: center;
+        }
+        .documents-generation__client-card__data-container {
+            display: flex;
+            align-items: center;
+            .documents-generation__client-card__name {
+                font-size: large;
+                font-weight: bold;
+                color: $primary-color;
+            }
+            .documents-generation__client-card__ci {
+                font-size: small;
+                color: #4d4d4d;
+            }
+        }
+    }
+    .documents-generation__client-card:hover {
+        cursor: pointer;
+        background-color: #e9e9e9;
+    }
+}
+
+.documents-generation__table-container {
+    padding: 20px;
+    .table> :not(:first-child) {
+        border-top: solid 2px $primary-color;
+    }
+    .action-icon {
+        cursor: pointer;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+.documents-generation__groups-card__container {
+    padding: 0px;
+}

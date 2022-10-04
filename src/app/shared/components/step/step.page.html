@@ -1,0 +1,5 @@
+<div class="d-flex align-items-center">
+    <span [ngClass]="hasFocus ? 'styleCirclePrevious' : 'styleCircleNext'"><label
+            style="vertical-align: sub;">{{index}}</label></span>
+    <hr class="line-slide" *ngIf="!isLast">
+</div>

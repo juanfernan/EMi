@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Coord. Pendientes</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-row style="text-align: end;">
+        <ion-label (click)="returnList($event)">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+            {{ "PORTAL.NEARBY-CLINICS-DETAIL.BackToList" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="title-primary">{{"PORTAL.DETAILS-PENDING-COORDINATION.Title" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label>{{objDetail.detail?.Names}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label>{{objDetail.detail?.SpecialityName}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label>{{objDetail.detail?.MedicalCenter?.ClinicName}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label>{{objDetail.detail?.MedicalCenter?.Address}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label>{{objDetail.detail?.Date}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label>{{objDetail.detail?.Price}}</ion-label>
+    </ion-row>
+
+    <ion-row *ngIf="objDetail.detail?.Recommendations">
+        <ion-label>{{"PORTAL.DETAILS-PENDING-COORDINATION.Recommendations" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row *ngIf="objDetail.detail?.Recommendations">
+        <ion-label>{{objDetail.detail?.Recommendations}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-col size="6">
+            <ion-button (click)="call()">{{"PORTAL.DETAILS-PENDING-COORDINATION.TitleButtonCall" | translate}}</ion-button>
+        </ion-col>
+        <ion-col size="6">
+            <ion-button (click)="cancelCoordination()">{{"PORTAL.DETAILS-PENDING-COORDINATION.TitleButtonCancelCoordination" | translate}}</ion-button>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <agm-map [latitude]="latitude" [longitude]="longitude">
+            <agm-marker [latitude]="latitude" [longitude]="longitude" [iconUrl]="'./assets/uy/images/icon-emi5.png'">
+            </agm-marker>
+        </agm-map>
+    </ion-row>
+
+</ion-content>

@@ -1,0 +1,77 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>tracing-event-types</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="emi1-txttitulofamiliar">{{"PORTAL.TRACING-EVENT-TYPES.Title" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="emi1-txtfamiliar">{{"PORTAL.TRACING-EVENT-TYPES.TitleInformation" | translate}}</ion-label>
+    </ion-row>
+
+    <div *ngFor="let obj of getEventStatus">
+
+        <ion-row class="ion-padding-top">
+            <ion-label>{{"PORTAL.TRACING-EVENT-TYPES.VoucherNumber" | translate}} {{obj.VoucherNumber}}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label><span class="status-service">{{obj.EventStatusName}}</span></ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-col>
+                <ion-label>{{obj.PersonOccurredEvent}}</ion-label>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <p class="card-subtitle"><i class="fa fa-calendar" aria-hidden="true"></i> {{"PORTAL.TRACING-EVENT-TYPES.ReportDate" | translate}}
+            </p>
+            <p class="card-text"><i aria-hidden="true"></i>{{obj.ReportDate}}</p>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <p class="card-subtitle"><i class="fa fa-calendar" aria-hidden="true"></i>
+                <span class="padding-small-icon">{{"PORTAL.TRACING-EVENT-TYPES.EventDate" | translate}}</span>
+            </p>
+            <p class="card-text"><i aria-hidden="true"></i>{{obj.EventDate}}</p>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <p class="card-subtitle">
+                {{"PORTAL.TRACING-EVENT-TYPES.EventType" | translate}}</p>
+            <p class="card-text"><i aria-hidden="true"></i>{{obj.EventTypeName}}</p>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <p class="card-subtitle">
+                {{"PORTAL.TRACING-EVENT-TYPES.SelectedArea" | translate}}</p>
+            <p class="card-text"><i aria-hidden="true"></i>{{obj.EventRelatedAreaName}}</p>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <p class="card-subtitle">
+                {{"PORTAL.TRACING-EVENT-TYPES.Commentary" | translate}}</p>
+            <p class="card-text"><i aria-hidden="true"></i>{{obj.Commentary}}</p>
+        </ion-row>
+
+    </div>
+
+    <ion-row class="ion-padding-top">
+        <section class="col-md-12 service-history__pagination" *ngIf="showPagination">
+            <!-- <ng-container>
+                    <pagination-controls previousLabel="" nextLabel="" [autoHide]="true" (pageChange)="pageChanged($event)">
+                    </pagination-controls>
+                </ng-container> -->
+            </section>
+    </ion-row>
+
+</ion-content>

@@ -1,0 +1,27 @@
+@import './../../../../../../styles-variables.scss';
+.alert-danger-email {
+    font-size: 11px;
+    float: left;
+    width: 100%;
+    font-weight: 400 !important;
+    color: #c12a2b !important;
+}
+
+.content-family .emi1-txttitulofamiliar {
+    text-align: left;
+}
+
+.emi1-txttitulofamiliar {
+    font-size: 22px;
+    text-align: center;
+    color: #494949;
+    margin: 0;
+    text-align: left;
+}
+
+body {
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}

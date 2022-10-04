@@ -1,0 +1,41 @@
+<ion-grid class="padding-header container-fingerprint">
+
+  <ion-row>
+      <ion-col class="ion-content-center" size="12">
+          <img class="logoProperties" src="{{imgRoute}}logo-emi-1.svg">
+      </ion-col>
+  </ion-row>
+
+  <ion-row>
+      <ion-col class="ion-content-center" size="12">
+          <img class="iconProperties" src="{{imgRoute}}icons/icon-onboarding-2.svg">
+      </ion-col>
+  </ion-row>
+
+  <ion-row >
+      <ion-col class="ion-content-center fingerprint" size="12">
+          <span class="tittle-fingerprint">{{'PORTAL.FINGERPRINT.Title' | translate}}</span>
+      </ion-col>
+  </ion-row>
+
+  <ion-row >
+      <ion-col class="ion-content-center fingerprint" size="12">
+          <span class="subtittle-fingerprint">{{'PORTAL.FINGERPRINT.Subtitle' | translate}}</span>
+      </ion-col>
+  </ion-row>
+
+  <ion-row >
+      <ion-col class="ion-content-center fingerprint" size="12">
+          <span class="asociateinfo-fingerprint">{{'PORTAL.FINGERPRINT.AsociateInfo' | translate}}</span>
+      </ion-col>
+  </ion-row>
+
+  
+  <ion-row >
+      <ion-col class="ion-content-center fingerprint" size="12">
+          <app-button [configuration]="configurationButtonAccept" (click)="back()"></app-button>
+      </ion-col>
+  </ion-row>
+ 
+
+</ion-grid>

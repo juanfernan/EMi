@@ -1,0 +1,7 @@
+{
+    "name": "Portal Clientes y Ventas Movil V2",
+    "integrations": {
+        "capacitor": {}
+    },
+    "type": "angular"
+}

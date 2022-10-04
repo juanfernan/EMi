@@ -1,0 +1,43 @@
+@import "./../../../../../styles-variables";
+.text-description {
+    /* body 2 */
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+}
+
+.cambiar {
+    /* link */
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    text-decoration-line: underline;
+    color: $secondary-color;
+}
+
+.text-terminos {
+    display: inline;
+    margin: 0;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 19px;
+    cursor: pointer;
+    padding: 0;
+    vertical-align: text-bottom;
+}
+
+.number-tel {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 23px;
+    color: $primary-color;
+    text-decoration: none;
+}
+
+.number-tel:hover {
+    text-decoration: underline;
+}

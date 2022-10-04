@@ -1,0 +1,58 @@
+@import './../../../../../../../styles-variables.scss';
+.plans-card-container {
+    width: 90%;
+    margin: auto;
+    opacity: 90%;
+    font-weight: 500;
+    padding: 0px 10px;
+}
+
+.header-row {
+    padding: 15px 10px;
+    align-items: center;
+    border-bottom: 3px solid $primary-color;
+}
+
+.plans-card-header-separator {
+    margin: 0px;
+}
+
+.plans-row {
+    padding: 10px;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.plans-card-action-button {
+    padding-left: 0px;
+    color: $primary-color;
+}
+
+.plans-card-plan-separator {
+    margin: 0px;
+}
+
+.last-row {
+    border-bottom: none;
+}
+
+.plans-row-mobile-indicator {
+    display: none;
+}
+
+// @media screen and (max-width: 768px) {
+//     .header-row {
+//         text-align: center;
+//     }
+//     .plans-row {
+//         text-align: center;
+//         border-bottom: 2px solid #c4c4c4;
+//     }
+//     .mobile-hide {
+//         display: none;
+//     }
+//     .plans-row-mobile-indicator {
+//         display: block;
+//         color: $primary-color;
+//     }
+// }

@@ -1,0 +1,42 @@
+/* INICIO Para modificar los colores principales de la aplicación */
+
+$primary-color: #FF1E2D;
+$secondary-color: #66182A;
+$secondary-color-dark-blue: #121A44;
+$secondary-color-dark-grey: #415565;
+$ternary-color: #FFE600;
+$principal-gray: #4c4c4b;
+$line-gray: #e7e7ef;
+$link-color: #ff1e2d;
+$color-menu: #ffffff;
+$color-icon-menu: #009cdf;
+.button-personalizado {
+    --border-width: 1px;
+    text-transform: none;
+    font-style: normal;
+}
+
+.color-button-primary {
+    --background: #FF1E2D !important;
+    --color: #fff !important;
+    --border: 1px solid !important;
+    --border-color: $primary-color !important;
+}
+
+.color-button-secondary {
+    --background: #66182A !important;
+    --color: #fff !important;
+    --border: 1px solid !important;
+    --border-color: $secondary-color !important;
+}
+
+.color-button-ternary {
+    --background: $ternary-color;
+    --color: #fff;
+    --border: 1px solid !important;
+    --border-color: var(--ion-color-secondary);
+}
+
+button:disabled {
+    opacity: 0.4;
+}

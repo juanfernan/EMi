@@ -1,0 +1,84 @@
+@import "./../../../../../styles-variables";
+.text-city {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 150%;
+}
+
+.cancel-button {
+    opacity: 0.4;
+    align-self: center;
+    margin-right: 26px;
+    font-size: 18px;
+}
+
+.text-cen {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.spacing-buttons {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.select-style {
+    border: none;
+    border-bottom: 1px solid #040404;
+    height: 51px;
+    background-color: #f5f5f5;
+    border-radius: 4px 4px 0px 0px;
+}
+
+.modal-rounded {
+    .modal-content {
+        height: 297px;
+        border-radius: 9px;
+        border: none !important;
+        margin: 0 27px;
+    }
+}
+
+.text-description {
+    /* body 2 */
+    font-family: Mark OT;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+}
+
+.cambiar {
+    /* link */
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    text-decoration-line: underline;
+    color: $secondary-color;
+}
+
+.text-terminos {
+    display: inline;
+    margin: 0;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 19px;
+    cursor: pointer;
+    padding: 0;
+    vertical-align: text-bottom;
+}
+
+.number-tel {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 23px;
+    color: $primary-color;
+    text-decoration: none;
+}
+
+.number-tel:hover {
+    text-decoration: underline;
+}

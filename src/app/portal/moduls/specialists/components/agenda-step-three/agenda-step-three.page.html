@@ -1,0 +1,62 @@
+<section>
+
+    <!-- Form left -->
+    <form [formGroup]="filterForm">
+
+        <!-- Especialidad -->
+        <ion-row class="ion-padding-top">
+            <ion-col size="12">
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{ "PORTAL.SPECIALIST.AGENDA.STEP_THREE.textSelectSpecialty" | translate }}</ion-label>
+                    <ion-select formControlName="specialtyCode" (ngModelChange)="changeInputSpecialty()" mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                        <ion-select-option *ngFor="let specialty of lists.specialisties" [value]="specialty.code">
+                            {{ specialty.name }}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <!-- Especialista -->
+        <ion-row class="ion-padding-top">
+            <ion-col size="12">
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{ "PORTAL.SPECIALIST.AGENDA.STEP_THREE.textSelectSpecilist" | translate }}</ion-label>
+                    <ion-select formControlName="specialistId" (ngModelChange)="changeInputSpecialist()" mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                        <ng-container *ngFor="let specialist of lists.specialists">
+                            <ion-select-option *ngIf="showSpecialist(specialist)" [value]="specialist.id">
+                                {{ specialist.names }}
+                            </ion-select-option>
+                        </ng-container>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <!-- Ubicacion -->
+        <ion-row class="ion-padding-top">
+            <ion-col size="12">
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{ "PORTAL.SPECIALIST.AGENDA.STEP_THREE.textSelectLocation" | translate }}</ion-label>
+                    <ion-select formControlName="locationCode" (ngModelChange)="changeInputLocation()" mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                        <ng-container *ngFor="let consultantCity of lists.consultantCities">
+                            <ion-select-option *ngIf="showLocation(consultantCity)" [value]="consultantCity.code">
+                                {{ consultantCity.name }}
+                            </ion-select-option>
+                        </ng-container>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+    </form>
+
+    <!-- <ion-row>
+        <a class="locationlink" (click)="generateMapModal(specialist)">
+            <img [src]="positionIcon" alt="" style="width: 20px; height: 20px; margin-right: 10px; margin-left: 5px;"> {{"PORTAL.SPECIALIST.AGENDA.STEP_THREE.textLocationSpecialistRowTable" | translate }}
+        </a>
+    </ion-row> -->
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+</section>

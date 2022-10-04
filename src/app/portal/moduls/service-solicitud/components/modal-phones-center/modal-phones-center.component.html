@@ -1,0 +1,16 @@
+<div class="contenedor">
+    <div class="icon-close">
+        <a class="cancel">
+            <img src="{{imgRoute}}icons/cancel.svg" alt="Imagen" (click)="cancel()">
+        </a>
+    </div>
+    <div class="list-phones">
+        <span>Línea médica</span>
+    </div>
+    <div class="phones" *ngFor="let uphone of listPhoneNumbers.UPhoneses, let i = index">
+        <hr *ngIf="i == 0">
+        <span>{{ uphone.CityName }}</span>
+        <a [href]="'tel:' + item.Tel" *ngFor="let item of uphone.Phones">{{ item.Tel }}</a>
+        <hr>
+    </div>
+</div>

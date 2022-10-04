@@ -1,0 +1,30 @@
+@import "styles-variables";
+.styleCircleNext {
+    background-color: rgb(219, 219, 219);
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    color: gray;
+    border: 1.75691px solid gray;
+    box-sizing: border-box;
+}
+
+.styleCirclePrevious {
+    background-color: $secondary-color;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    border: 0.878453px solid $secondary-color;
+    box-sizing: border-box;
+}
+
+.line-slide {
+    width: 35.14px;
+    height: 1.76px;
+    color: gray;
+}

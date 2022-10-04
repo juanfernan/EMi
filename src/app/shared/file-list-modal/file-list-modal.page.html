@@ -1,0 +1,23 @@
+<div class="modal-dialog modal-md modal-center-align">
+    <div class="modal-body modal-check col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="contenedor">
+                    <div class="icon-close cursor-pointer">
+                        <a class="cancel" (click)="closeModal()">
+                            <img src="{{imgRoute}}icons/cancel.svg" alt="Imagen">
+                        </a>
+                    </div>
+                    <div class="title-list-files">
+                        <span>¿Qué archivo desea abrir?</span>
+                    </div>
+
+                    <div class="body-description">
+                        <div *ngFor="let item of listFiles">
+                            <span class="file-span" (click)="openFile(item)">{{item.NameFile}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

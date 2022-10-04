@@ -1,0 +1,106 @@
+@import "../../../../../../../styles-variables.scss";
+.plans-card-container {
+    width: 93%;
+    opacity: 90%;
+    font-weight: 500;
+    padding: 0px 10px;
+}
+
+.header-row {
+    padding: 15px 10px;
+    align-items: center;
+    border-bottom: 3px solid $primary-color;
+}
+
+.plans-card-header-separator {
+    margin: 0px;
+}
+
+.payments-row {
+    padding: 10px;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.plans-card-action-button {
+    padding-left: 0px;
+    color: $primary-color;
+}
+
+.plans-card-plan-separator {
+    margin: 0px;
+}
+
+.last-row {
+    border-bottom: none;
+}
+
+.svg-stroke {
+    stroke: $primary-color;
+    width: 28px;
+    height: 30px;
+}
+
+.svg-stroke-disabled {
+    stroke: gray;
+    width: 28px;
+    height: 30px;
+}
+
+.mobile-indicator {
+    display: none;
+}
+
+.svg-fill {
+    fill: $primary-color;
+    width: 28px;
+    height: 30px;
+}
+
+.chip-unpaid {
+    background-color: $primary-color !important;
+    color: #ffffff !important;
+}
+
+.chip-paid {
+    background-color: #ffffff !important;
+    color: $primary-color !important;
+    border: solid 1px;
+}
+
+@media screen and (max-width: 768px) {
+    .header-row {
+        display: none;
+    }
+    .payments-row {
+        text-align: center;
+        border-bottom: 2px solid #c4c4c4;
+    }
+    .mobile-indicator {
+        display: flex;
+        color: $primary-color;
+    }
+    .center-mobile-chip {
+        display: flex;
+        justify-content: center;
+        padding: 10px 0px 10px 0px;
+        order: 1;
+    }
+    .chip-content mat-chip {
+        width: 150px;
+        justify-content: center;
+    }
+    .data {
+        order: 2;
+    }
+    .data-container span {
+        display: flex;
+        justify-content: flex-start;
+    }
+    .data-row {
+        margin-top: 15px;
+    }
+    .action-list {
+        margin-top: 15px;
+    }
+}

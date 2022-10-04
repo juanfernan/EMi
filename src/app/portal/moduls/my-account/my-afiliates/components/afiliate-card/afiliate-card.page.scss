@@ -1,0 +1,30 @@
+@import "./../../../../../../../styles-variables.scss";
+ion-content {
+    font-family: 'Mark OT', sans-serif;
+    align-self: center;
+    height: 90%;
+    width: 85%;
+}
+
+ion-item {
+    border: none !important;
+}
+
+ion-row {
+    margin-bottom: 10px !important;
+}
+
+ion-card-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: $primary-color;
+}
+
+ion-card-subtitle {
+    font-size: 12px;
+}
+
+ion-label {
+    font-size: 12px;
+    ;
+}

@@ -1,0 +1,57 @@
+<div class="modal-body modal-check col-md-12">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="contenedor">
+
+                <div class="icon-close cursor-pointer">
+                    <a class="cancel" (click)="closeModal()">
+                        <img src="{{imgRoute}}icons/cancel.svg" alt="Imagen">
+                    </a>
+                </div>
+
+                <div class="icon-header">
+                    <img src="{{imgRoute}}icons/alert-check.svg" alt="icon-header" />
+                </div>
+
+                <div class="subTitle">
+                    <span class="title-modal"><strong>{{title}}</strong> <strong><em>{{nameCompanyCountry}}</em></strong></span>
+                </div>
+
+                <div class="description row">
+                    <p class="title-modal"><strong>{{messageQuestion}}</strong></p>
+                    <p class="span-modal"><span>{{messageSpan}}</span></p>
+                </div>
+
+                <ion-item>
+                    <ion-label value="" disabled>(*) Selecciona una razón</ion-label>
+                    <ion-select id="deactivatedQuestion" name="deactivatedQuestion" (ionChange)="onSelectedPastDeactivateQuestion($event)" mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                        <ion-select-option *ngFor="let QuestionsDeactivate of questionsDeactivateAccount" [value]="QuestionsDeactivate.DeactivationTypeId">{{QuestionsDeactivate.Name}}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
+
+                <ion-row *ngIf="selectOtherMotive">
+                    <ion-label>Motivo</ion-label>
+                    <ion-input [(ngModel)]="alternateReason"></ion-input>
+                </ion-row>
+
+                <ion-row class="ion-padding-top buttons">
+                    <ion-col size="6">
+                        <app-button [configuration]="configurationButton1" (click)="cancel()"></app-button>
+                    </ion-col>
+                    <ion-col size="6">
+                        <app-button [configuration]="configurationButton2" (click)="confirm()" [disabled]="!validationButtonGo">
+                        </app-button>
+                    </ion-col>
+                </ion-row>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

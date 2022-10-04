@@ -1,0 +1,220 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Certificado Red Siem</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-row *ngIf="certificateCode == '5'" class="ion-padding-top">
+        <ion-label class="title-primary">{{"PORTAL.GENERATE-CERTIFICATE-MODAL.titleCertificateRedSiem" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row *ngIf="certificateCode == '5'" class="ion-padding-top">
+        <ion-label>{{"PORTAL.GENERATE-CERTIFICATE-MODAL.subtitleCertificateRedSiem" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row *ngIf="certificateCode == '4'" class="ion-padding-top">
+        <ion-label class="title-primary">{{"PORTAL.GENERATE-CERTIFICATE-MODAL.titleCertificateTravel" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row *ngIf="certificateCode == '4'" class="ion-padding-top">
+        <ion-label>{{"PORTAL.GENERATE-CERTIFICATE-MODAL.subtitleCertificateTravel" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row *ngIf="certificateCode == '3'" class="ion-padding-top">
+        <ion-label class="title-primary">{{"PORTAL.GENERATE-CERTIFICATE-MODAL.titleCertificatePayments" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row *ngIf="certificateCode == '3'" class="ion-padding-top">
+        <ion-label>{{"PORTAL.GENERATE-CERTIFICATE-MODAL.subtitleCertificatePayments" | translate}}</ion-label>
+    </ion-row>
+
+    <div *ngIf="certificateCode == '5' || certificateCode == '4'">
+
+        <ion-row class="ion-padding-top">
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label position="floating">País</ion-label>
+                    <ion-select #CountrySelects="ngModel" name="CountrySelect" [(ngModel)]="CountrySelect" required (ionChange)="onChangeCountryRedSiem()" mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                        <ion-select-option *ngFor="let country of CountryListRedSiem" [value]="country.Code">{{country.Name}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <div *ngIf="CountrySelects.invalid">
+                    <ion-label class="ion-validator" *ngIf="CountrySelects.errors!.required && CountrySelects.touched">
+                        {{"PORTAL.EDIT-APPOINTMENT.RequiredField" | translate}}
+                    </ion-label>
+                </div>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label position="floating">Ciudad</ion-label>
+                    <ion-select [multiple]="true" (ionCancel)="OnItemDeSelect($event)" required #SelectItem="ngModel" [(ngModel)]="selectedItems" (ionChange)="onItemSelect($event)" mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                        <ion-select-option *ngFor="let city of CitysListRedSiem" [value]="city.$value"></ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <form [formGroup]="form">
+
+            <ion-row class="ion-padding-top">
+                <ion-col>
+                    <ion-item button="true" id="open-date-input-from">
+                        <ion-label>Fecha desde</ion-label>
+                        <ion-label class="date-indicator">{{obtainDate(form.controls.from.value)}}</ion-label>
+                        <ion-popover trigger="open-date-input-from" show-backdrop="false">
+                            <ng-template>
+                                <ion-datetime #tmpStartDate presentation="date" (ionChange)="setDateFrom(tmpStartDate.value); tmpStartDate.confirm(true);">
+                                </ion-datetime>
+                            </ng-template>
+                        </ion-popover>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-padding-top">
+                <ion-col>
+                    <ion-item button="true" id="open-date-input-until">
+                        <ion-label>Fecha hasta</ion-label>
+                        <ion-label class="date-indicator">{{obtainDate(form.controls.until.value)}}</ion-label>
+                        <ion-popover trigger="open-date-input-until" show-backdrop="false">
+                            <ng-template>
+                                <ion-datetime #tmpEndDate presentation="date" (ionChange)="setDateUntil(tmpEndDate.value); tmpEndDate.confirm(true);">
+                                </ion-datetime>
+                            </ng-template>
+                        </ion-popover>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+        </form>
+
+        <ion-row class="ion-padding-top" *ngIf="downloadInProgress || sendEmailInProgress">
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label *ngIf="downloadInProgress === true" class="alert alert-info" role="alert">
+                        Descargando certificado...
+                    </ion-label>
+                    <br/>
+                    <ion-label *ngIf="completeDownloadSuccess === true && downloadInProgress === false && removeMessageDownload === false" class="alert alert-success" role="alert">
+                        La descarga finalizó exitosamente.
+                    </ion-label>
+                    <br/>
+                    <ion-label *ngIf="completeDownloadSuccess === false && downloadInProgress === false && removeMessageDownload === false" class="alert alert-danger" role="alert">
+                        Error al descargar el certificado.
+                    </ion-label>
+                    <br/>
+                    <ion-label *ngIf="sendEmailInProgress === true" class="alert alert-info" role="alert">
+                        Enviando email...
+                    </ion-label>
+                    <br/>
+                    <ion-label *ngIf="completeSendEmailSuccess === true && sendEmailInProgress === false && removeMessageSendEmail === false" class="alert alert-success" role="alert">
+                        Hemos enviado al correo electrónico: <strong>{{emailTitular}}</strong> el certificado seleccionado.
+                    </ion-label>
+                    <br/>
+                    <ion-label *ngIf="completeSendEmailSuccess === false && sendEmailInProgress === false && removeMessageSendEmail === false" class="alert alert-danger" role="alert">
+                        Error al enviar el email.
+                    </ion-label>
+                    <br/>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="certificateCode == '4'">
+            <ion-col>
+                <app-button [disabled]="!requiredModalFields" [configuration]="downloadButtonConfig" (click)="eventDownloadPdf(4)"></app-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="certificateCode == '5'">
+            <ion-col>
+                <app-button [disabled]="!requiredModalFields" [configuration]="downloadButtonConfig" (click)="eventDownloadPdf(5)"></app-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="certificateCode == '4'">
+            <ion-col>
+                <app-button [disabled]="!requiredModalFields" [configuration]="emailButtonConfig" (click)="eventSendEmail(4)"></app-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="certificateCode == '5'">
+            <ion-col>
+                <app-button [disabled]="!requiredModalFields" [configuration]="emailButtonConfig" (click)="eventSendEmail(5)"></app-button>
+            </ion-col>
+        </ion-row>
+
+    </div>
+
+    <div *ngIf="certificateCode == '3'">
+
+        <ion-row class="ion-padding-top">
+            <ion-select id="selectedPastYears" name="selectedPastYear" [(ngModel)]="selectedPastYears" required (selectionChange)="onSelectedPastYear()" mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                <ion-select-option value="null" selected>(*) Selecciona una opción</ion-select-option>
+                <ion-select-option [value]="lastYear">{{lastYear}}</ion-select-option>
+                <ion-select-option [value]="ancestorYear">{{ancestorYear}}</ion-select-option>
+            </ion-select>
+            <ion-label *ngIf="requiredModalFieldsTwo === false" class="ion-validator">
+                {{"PORTAL.EDIT-APPOINTMENT.RequiredField" | translate}}
+            </ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+
+            <ion-col size="12">
+
+                <ion-item>
+                    <ion-label *ngIf="downloadInProgress === true" class="alert alert-info" role="alert">
+                        Descargando certificado...
+                    </ion-label>
+                    <br/>
+                    <ion-label *ngIf="completeDownloadSuccess === true && downloadInProgress === false && removeMessageDownload === false" class="alert alert-success" role="alert">
+                        La descarga finalizó exitosamente.
+                    </ion-label>
+                    <br/>
+                    <ion-label *ngIf="completeDownloadSuccess === false  && downloadInProgress === false  && removeMessageDownload === false" class="alert alert-danger" role="alert">
+                        Error al descargar el certificado.
+                    </ion-label>
+                    <br/>
+                    <ion-label *ngIf="sendEmailInProgress === true" class="alert alert-info" role="alert">
+                        Enviando email...
+                    </ion-label>
+                    <br/>
+                    <ion-label *ngIf="completeSendEmailSuccess === true && sendEmailInProgress === false && removeMessageSendEmail === false" class="alert alert-success" role="alert">
+                        Hemos enviado al correo electrónico: <strong>{{emailTitular}}</strong> el certificado seleccionado.
+                    </ion-label>
+                    <br/>
+                    <ion-label *ngIf="completeSendEmailSuccess === false  && sendEmailInProgress === false  && removeMessageSendEmail === false" class="alert alert-danger" role="alert">
+                        Error al enviar el email.
+                    </ion-label>
+                    <br/>
+                </ion-item>
+
+            </ion-col>
+
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-col>
+                <app-button [disabled]="!requiredModalFieldsTwo" [configuration]="downloadButtonConfig" (click)="eventDownloadPdf(3)"></app-button>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding-top">
+            <ion-col>
+                <app-button [disabled]="!requiredModalFieldsTwo" [configuration]="emailButtonConfig" (click)="eventSendEmail(3)">
+                </app-button>
+            </ion-col>
+        </ion-row>
+
+    </div>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+</ion-content>

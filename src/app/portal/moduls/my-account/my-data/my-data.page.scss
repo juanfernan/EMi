@@ -1,0 +1,77 @@
+@import "./../../../../../styles-variables.scss";
+:root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+    ion-select {
+        font-size: medium;
+    }
+    ion-select-option {
+        font-size: medium;
+    }
+}
+
+.sc-ion-alert-ios-h {
+    --max-width: 85% !important;
+    --width: 85% !important;
+    font-size: medium !important;
+}
+
+.title-percentage {
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    color: #000000;
+}
+
+.subtitle-percentage {
+    font-style: normal;
+    font-weight: 800;
+    line-height: 20px;
+    color: #000000;
+}
+
+ion-content {
+    align-self: center;
+    height: 90%;
+    width: 85%;
+    font-family: 'Mark OT', sans-serif;
+}
+
+ion-item {
+    border: none !important;
+}
+
+ion-row {
+    margin-bottom: 5px !important;
+}
+
+a {
+    color: $primary-color;
+    font-weight: bold;
+}
+
+ion-label {
+    pointer-events: all !important;
+}
+
+.title-secondary {
+    font-size: small;
+}
+
+#tabPersonal,
+#tabContacto {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid gainsboro;
+}
+
+.tabPorcentaje {
+    display: flex;
+    justify-content: center;
+}
+
+.tabLeyendaPorcentaje {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid gainsboro;
+}

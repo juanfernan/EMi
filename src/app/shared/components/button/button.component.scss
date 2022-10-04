@@ -1,0 +1,60 @@
+@import "../../../../styles-variables.scss";
+.button-personalizado {
+    --border-width: 1px;
+    text-transform: none;
+    font-style: normal;
+    --color: #4C4C4B;
+}
+
+.color-button-primary {
+    --background: var(--ion-color-primary);
+    --color: #fff;
+}
+
+.color-button-primary:not(.not-hover):hover {
+    --border: 1px solid !important;
+    --border-color: var(--ion-color-primary);
+    --background: $ternary-color;
+    --color: var(--ion-color-primary);
+}
+
+.color-button-secondary {
+    --background: var(--ion-color-secondary);
+    --color: #fff;
+}
+
+.color-button-secondary:not(.not-hover):hover {
+    --border: 1px solid !important;
+    --border-color: var(--ion-color-primary);
+    --background: #fff;
+    --color: var(--ion-color-primary);
+}
+
+.color-button-ternary {
+    --border: 1px solid !important;
+    --border-color: var(--ion-color-secondary);
+    --background: #fff;
+}
+
+.color-button-ternary:not(.not-hover):hover {
+    --background: var(--ion-color-secondary);
+    --color: var(--ion-color-tertiary);
+}
+
+button:disabled {
+    opacity: 0.4;
+}
+
+.icon-btn {
+    flex: 1;
+    text-align: center;
+    align-items: center;
+    padding: 0 0 0 5px;
+    margin: 0 10px 0 0;
+    align-self: center;
+}
+
+.text-btn {
+    margin: 0 auto;
+    font-weight: bold;
+}

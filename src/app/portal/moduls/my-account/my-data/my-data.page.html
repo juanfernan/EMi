@@ -1,0 +1,565 @@
+<ion-header>
+    <ion-header>
+        <ion-toolbar>
+            <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+            <ion-title>Mis datos</ion-title>
+        </ion-toolbar>
+    </ion-header>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+
+    <ion-row>
+        <ion-col size="6" id="tabPersonal">
+            <ion-label class="title-secondary" (click)="changeTab();">Datos personales</ion-label>
+        </ion-col>
+        <ion-col size="6" id="tabContacto">
+            <ion-label class="title-secondary" (click)="changeTab();">Datos de contacto</ion-label>
+        </ion-col>
+    </ion-row>
+
+    <!-- <ion-row>
+        <ion-item>
+            <app-progress-bar [progressBarModel]="progressBarModel" *ngIf="progressBarModel"></app-progress-bar>
+        </ion-item>
+    </ion-row> -->
+
+    <ion-row>
+        <ion-col size="6" class="tabPorcentaje">
+            <span class="subtitle-percentage">{{dataCoveragePercentage}}% completado</span>
+        </ion-col>
+        <ion-col size="6" class="tabPorcentaje">
+            <ion-label class="title-secondary" (click)="enabledFields();">Actualizar</ion-label>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col size="12" class="tabLeyendaPorcentaje">
+            <ion-label class="subtitle-percentage">Completa tus datos hasta llegar al 100%</ion-label>
+        </ion-col>
+    </ion-row>
+
+    <div *ngIf="showPersonalData">
+
+        <form [formGroup]="formPersonalData">
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.firstName' | translate}}</ion-label>
+                    <ion-input type="text" id="firstName" formControlName="firstName"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formPersonalData.controls.firstName.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                    <span class="ion-validator" *ngIf="this.formPersonalData.controls.firstName.hasError('pattern')">
+                        {{'PUBLIC.SHARED.noSpecialCharacter' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.secondName' | translate}}</ion-label>
+                    <ion-input type="text" id="secondName" formControlName="secondName"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formPersonalData.controls.secondName.hasError('pattern')">
+                        {{'PUBLIC.SHARED.noSpecialCharacter' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.firstLastName' | translate}}</ion-label>
+                    <ion-input type="text" id="firstLastName" formControlName="firstLastName"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formPersonalData.controls.firstLastName.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                    <span class="ion-validator" *ngIf="this.formPersonalData.controls.firstLastName.hasError('pattern')">
+                        {{'PUBLIC.SHARED.noSpecialCharacter' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.secondLastName' | translate}}</ion-label>
+                    <ion-input type="text" id="secondLastName" formControlName="secondLastName"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formPersonalData.controls.secondLastName.hasError('pattern')">
+                        {{'PUBLIC.SHARED.noSpecialCharacter' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.documentType' | translate}}</ion-label>
+                    <ion-select id="documentType" formControlName="documentType" (ionChange)="enabledInputDocument()" ok-text="Aceptar" cancel-text="Cancelar" mode="ios">
+                        <ion-select-option value="{{item.Code}}" *ngFor="let item of docType">
+                            {{item.Name}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formPersonalData.controls.documentType.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.documentNumber' | translate}}</ion-label>
+                    <ion-input type="number" id="document" formControlName="document" (ionBlur)="validateDocument()"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formPersonalData.controls.document.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.gender' | translate}}</ion-label>
+                    <ion-select id="gender" formControlName="gender" ok-text="Aceptar" cancel-text="Cancelar" mode="ios">
+                        <ion-select-option value="{{item.Code}}" *ngFor="let item of gender">
+                            {{item.Name}}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formPersonalData.controls.gender.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.birthday' | translate}}</ion-label>
+                    <ion-input type="text" id="date" formControlName="date"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formPersonalData.controls.date.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.civilStatus' | translate}}</ion-label>
+                    <ion-select id="civilStatus" formControlName="civilStatus" ok-text="Aceptar" cancel-text="Cancelar" mode="ios">
+                        <ion-select-option value="{{item.Code}}" *ngFor="let item of civilStatusEntity">
+                            {{item.Name}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.occupation' | translate}}</ion-label>
+                    <ion-select id="occupation" formControlName="occupation" ok-text="Aceptar" cancel-text="Cancelar" mode="ios">
+                        <ion-select-option value="{{item.Code}}" *ngFor="let item of occupationEntity">
+                            {{item.Name}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.medicalCoverage' | translate}}</ion-label>
+                    <ion-select id="medicalCoverage" formControlName="medicalCoverage" ok-text="Aceptar" cancel-text="Cancelar" mode="ios">
+                        <ion-select-option value="{{item.Code}}" *ngFor="let item of medicalCoverageEntity">
+                            {{item.Name}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-row>
+
+            <ion-row *ngIf="_environment.country == 'co'">
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.stratum' | translate}}</ion-label>
+                    <ion-input type="number" id="stratum" formControlName="stratum"></ion-input>
+                </ion-item>
+            </ion-row>
+
+            <ion-row>
+                <ion-col size="6">
+                    <app-button [configuration]="configurationButtonCancel" (click)="cancel()"></app-button>
+                </ion-col>
+                <ion-col size="6">
+                    <app-button [configuration]="configurationButtonSave" [disabled]="formPersonalData.invalid || formPersonalData.status == 'DISABLED'" (click)="update()"></app-button>
+                </ion-col>
+            </ion-row>
+
+        </form>
+
+    </div>
+
+    <!-- Uruguay -->
+
+    <div *ngIf="!showPersonalData && _environment.country=='uy'">
+
+        <form [formGroup]="formContactData">
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.country' | translate}}</ion-label>
+                    <ion-input type="text" id="country" formControlName="country"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.country.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PUBLIC.REGISTRATION.departament' | translate}}</ion-label>
+                    <ion-select id="departament" formControlName="departament" (ionChange)="onChangeDepartment()" ok-text="Aceptar" cancel-text="Cancelar" mode="ios">
+                        <ion-select-option value="{{item.Code}}" *ngFor="let item of departament">
+                            {{item.Name}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.departament.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.locality' | translate}}</ion-label>
+                    <ion-select id="city" formControlName="city" (ionChange)="onChangeCity()" ok-text="Aceptar" cancel-text="Cancelar" mode="ios">
+                        <ion-select-option value="{{item.Code}}" *ngFor="let item of cities">
+                            {{item.Name}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.city.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.neighborhood' | translate}}</ion-label>
+                    <ion-select id="neighborhood" formControlName="neighborhood" ok-text="Aceptar" cancel-text="Cancelar" mode="ios">
+                        <ion-select-option value="{{item.Code}}" *ngFor="let item of neighborhoods">
+                            {{item.Name}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.neighborhood.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.street' | translate}}</ion-label>
+                    <ion-input type="text" id="street" formControlName="street"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.street.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.doorNumber' | translate}}</ion-label>
+                    <ion-input type="text" id="doorNumber" formControlName="doorNumber"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.doorNumber.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.bis' | translate}}</ion-label>
+                    <ion-input type="text" id="doorBis" formControlName="doorBis"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.doorBis.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.apartamentNumber' | translate}}</ion-label>
+                    <ion-input type="text" id="apartamentNumber" formControlName="apartamentNumber"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.apartamentNumber.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.addressDetails' | translate}}</ion-label>
+                    <ion-input type="text" id="addressDetails" formControlName="addressDetails"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.apartamentNumber.hasError('required')">
+                    {{'PUBLIC.SHARED.obligatotyField' | translate}}</span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.homePhoneNumber' | translate}}</ion-label>
+                    <ion-input type="number" id="homePhoneNumber" formControlName="homePhoneNumber" [maxlength]="_environment.lengthPhone"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.homePhoneNumber.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.officePhoneNumber' | translate}}</ion-label>
+                    <ion-input type="number" id="officePhoneNumber" formControlName="officePhoneNumber"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.officePhoneNumber.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PUBLIC.REGISTRATION.cellPhone' | translate}}</ion-label>
+                    <ion-input type="number" id="cellPhoneNumber" formControlName="cellPhoneNumber" [maxlength]="_environment.lengthCell"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.cellPhoneNumber.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="!this.formContactData.controls.cellPhoneNumber.hasError('required') && this.formContactData.controls.cellPhoneNumber.hasError('invalidNumber')">
+                        {{'PUBLIC.SHARED.startNumber' | translate}} {{_environment.startNumberCell}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.email' | translate}}</ion-label>
+                    <ion-input type="email" id="email" formControlName="email"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.email.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col size="6">
+                    <app-button [configuration]="configurationButtonCancel" (click)="cancel()"></app-button>
+                </ion-col>
+                <ion-col size="6">
+                    <app-button [configuration]="configurationButtonSave" [disabled]="formContactData.invalid  || formContactData.status == 'DISABLED'" (click)="update()">
+                    </app-button>
+                </ion-col>
+            </ion-row>
+
+        </form>
+
+    </div>
+
+    <!-- Colombia -->
+
+    <div *ngIf="!showPersonalData && _environment.country=='co'">
+
+        <form [formGroup]="formContactData">
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.country' | translate}}</ion-label>
+                    <ion-input type="text" id="country" formControlName="country"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.country.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PUBLIC.REGISTRATION.departament' | translate}}</ion-label>
+                    <ion-select id="departament" formControlName="departament" (ionChange)="onChangeDepartment()" ok-text="Aceptar" cancel-text="Cancelar" mode="ios">
+                        <ion-select-option value="{{item.Name}}" *ngFor="let item of departament">
+                            {{item.Name}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.departament.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.localidad' | translate}}</ion-label>
+                    <ion-select id="city" formControlName="city" (ionChange)="onChangeCity()" ok-text="Aceptar" cancel-text="Cancelar" mode="ios">
+                        <ion-select-option value="{{item.Name}}" *ngFor="let item of cities">
+                            {{item.Name}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.city.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.neighborhood' | translate}}</ion-label>
+                    <ion-select id="neighborhood" formControlName="neighborhood" ok-text="Aceptar" cancel-text="Cancelar" mode="ios">
+                        <ion-select-option value="{{item.Name}}" *ngFor="let item of neighborhoods">
+                            {{item.Name}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.neighborhood.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.address' | translate}}</ion-label>
+                    <ion-input type="text" id="address" formControlName="address"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.street.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.apartamentNumber' | translate}}</ion-label>
+                    <ion-input type="number" id="apartamentNumber" formControlName="apartamentNumber"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.apartamentNumber.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.addressDetails' | translate}}</ion-label>
+                    <ion-input type="text" id="addressDetails" formControlName="addressDetails"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.addressDetails.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.homePhoneNumber' | translate}}</ion-label>
+                    <ion-input type="number" id="homePhoneNumber" formControlName="homePhoneNumber" [maxlength]="_environment.lengthPhone"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.homePhoneNumber.hasError('required')">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                    </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.officePhoneNumber' | translate}}</ion-label>
+                    <ion-input type="number" id="officePhoneNumber" formControlName="officePhoneNumber"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.officePhoneNumber.hasError('required')">
+                    {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PUBLIC.REGISTRATION.cellPhone' | translate}}</ion-label>
+                    <ion-input type="number" id="cellPhoneNumber" formControlName="cellPhoneNumber" [maxlength]="_environment.lengthCell"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.cellPhoneNumber.hasError('required')">
+                    {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                </span>
+                </ion-col>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="!this.formContactData.controls.cellPhoneNumber.hasError('required') && this.formContactData.controls.cellPhoneNumber.hasError('invalidNumber')">
+                    {{'PUBLIC.SHARED.startNumber' | translate}} {{_environment.startNumberCell}}
+                </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PORTAL.MYDATA.email' | translate}}</ion-label>
+                    <ion-input type="email" id="email" formControlName="email"></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.formContactData.controls.email.hasError('required')">
+                    {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                </span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-padding-top">
+                <ion-col>
+                    <app-button [configuration]="configurationButtonCancel" (click)="cancel()"></app-button>
+                </ion-col>
+            </ion-row>
+            <ion-row class="ion-padding-top">
+                <ion-col>
+                    <app-button [configuration]="configurationButtonSave" [disabled]="formContactData.invalid  || formContactData.status == 'DISABLED'" (click)="update()"></app-button>
+                </ion-col>
+            </ion-row>
+
+        </form>
+
+    </div>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+</ion-content>

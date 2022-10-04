@@ -1,0 +1,83 @@
+<ion-header>
+    <ion-grid>
+        <ion-row class="ion-align-items-center">
+            <ion-col size="12">
+                <img class="logo-chico" src="{{imgRoute}}LogoFalck.svg">
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+
+    <ion-row class="ion-padding-top">
+        <ion-col size="12">
+            <span class="title-primary">{{'PUBLIC.LOGIN.welcomeAgain' | translate}}</span>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-col size="12">
+            <span class="subtitle-opacity">{{'PUBLIC.LOGIN.welcomeAgainSubtitle' | translate}}</span>
+        </ion-col>
+    </ion-row>
+
+    <form [formGroup]="loginForm">
+
+        <ion-row>
+            <ion-col size="12">
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating"> {{'PUBLIC.SHARED.correo' | translate}}</ion-label>
+                    <ion-input formControlName="email" id="email" type="email"></ion-input>
+                </ion-item>
+            </ion-col>
+
+            <ion-col size="12">
+                <span class="ion-validator" *ngIf="this.loginForm.controls.email.hasError('required') && this.loginForm.controls.email.touched">{{'PUBLIC.SHARED.obligatotyField' | translate}}</span>
+            </ion-col>
+
+            <ion-col size="12">
+                <span class="ion-validator" *ngIf="!this.loginForm.controls.email.hasError('required') && this.loginForm.controls.email.hasError('email')">{{'PUBLIC.SHARED.validCorreo' | translate}}</span>
+            </ion-col>
+
+            <ion-col size="12">
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating"> {{'PUBLIC.SHARED.password' | translate}}</ion-label>
+                    <ion-input formControlName="password" id="password" type="password"></ion-input>
+                </ion-item>
+                <span class="ion-validator" *ngIf="this.loginForm.controls.password.hasError('required') && this.loginForm.controls.password.touched">{{'PUBLIC.SHARED.obligatotyField' | translate}}</span>
+            </ion-col>
+
+            <ion-col size="12">
+                <span class="ion-validator" *ngIf="this.loginForm.controls.password.hasError('required') && this.loginForm.controls.password.touched">{{'PUBLIC.SHARED.obligatotyField' | translate}}</span>
+            </ion-col>
+
+        </ion-row>
+
+        <ion-row class="ion-no-padding">
+            <ion-col size="12">
+                <a routerLink='/onboarding/recover-password-mail-phone' routerLinkActive="active">
+                    {{'PUBLIC.PASSWORD.rememberPasswordTitle' | translate}}
+                </a>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-col size="12" class="d-flex ion-justify-content-center">
+                <app-button [configuration]="ingresarButton" (click)="clickLogin()" [disabled]="this.loginForm.invalid" id="ingresarButton"></app-button>
+            </ion-col>
+        </ion-row>
+
+    </form>
+
+    <ion-row class="ion-no-padding">
+        <ion-col size="12" class="ion-justify-content-center">
+            {{'PUBLIC.WELCOME.youDontHaveAccount' | translate}}
+            <a routerLink='/onboarding/account-create' routerLinkActive="active">
+                {{'PUBLIC.WELCOME.signUp' | translate}}
+            </a>
+        </ion-col>
+    </ion-row>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+</ion-content>

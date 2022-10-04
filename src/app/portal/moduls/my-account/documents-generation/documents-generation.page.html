@@ -1,0 +1,204 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Generar Certificados</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="title-primary">{{"PORTAL.GENERATE-CERTIFICATE.titleOfTheSelection" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="title-subtitle">{{"PORTAL.GENERATE-CERTIFICATE.descriptionOfTheSelection" | translate}}</ion-label>
+    </ion-row>
+
+    <div *ngIf="!showCertificates">
+
+        <div *ngIf="affiliateType == '1'">
+
+            <div *ngFor="let beneficiary of beneficiaries" (click)="onChangeBeneficiary(beneficiary.Document)">
+
+                <ion-card>
+                    <ion-row>
+                        <ion-col size="2" style="text-align:center; align-self:center;">
+                            <ion-icon name="person-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col size="10">
+                            <ion-card-header>
+                                <ion-card-title>{{beneficiary.FullNames}}</ion-card-title>
+                            </ion-card-header>
+                            <ion-card-content>
+                                <ion-label>{{beneficiary.DocumentType == 1 ? 'CI' : ''}}:{{beneficiary.Document}}</ion-label>
+                            </ion-card-content>
+                        </ion-col>
+                    </ion-row>
+                </ion-card>
+
+            </div>
+
+            <div *ngIf="titularUser">
+
+                <div *ngFor="let groups of familyGroups" (click)="onChangeGroups(groups.groupCode)">
+
+                    <ion-card>
+                        <ion-row>
+                            <ion-col size="2" style="text-align:center; align-self:center;">
+                                <ion-icon name="person-outline"></ion-icon>
+                            </ion-col>
+                            <ion-col size="10">
+                                <ion-card-header>
+                                    <ion-card-title>{{groups.groupName}}</ion-card-title>
+                                </ion-card-header>
+                                <ion-card-content>
+                                    <ion-label>{{groups.groupName}}</ion-label>
+                                </ion-card-content>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div *ngIf="affiliateType=='2'">
+
+            <ion-card (click)="onChangeMyUser(userLogin.document)">
+                <ion-row>
+                    <ion-col size="2" style="text-align:center; align-self:center;">
+                        <ion-icon name="person-outline"></ion-icon>
+                    </ion-col>
+                    <ion-col size="10">
+                        <ion-card-header>
+                            <ion-card-title>{{userLogin.nameUser}}</ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <ion-label>{{userLogin.DocumentType}}: {{userLogin.Document}}</ion-label>
+                        </ion-card-content>
+                    </ion-col>
+                </ion-row>
+            </ion-card>
+
+        </div>
+
+    </div>
+
+    <div *ngIf="showCertificates">
+
+        <ion-row class="ion-padding-top" display="flex" flex-direction="row" justifiy-content="flex-end">
+            <ion-label (click)="goBack();">
+                {{ "PORTAL.NEARBY-CLINICS-DETAIL.BackToList" | translate}}</ion-label>
+        </ion-row>
+
+        <hr/>
+
+        <div *ngIf="certificates?.length !=0 && certificates">
+
+            <ion-row class="ion-padding-top">
+                <ion-col>
+                    <ion-label class="title-subtitle">{{beneficiarySelect}}</ion-label>
+                </ion-col>
+            </ion-row>
+
+            <div *ngFor="let certificate of certificates">
+
+                <ion-row class="ion-padding-top">
+                    <ion-col size="12">
+                        <ion-label style="font-weight: 500;">{{certificate.CertificateName}}</ion-label>
+                    </ion-col>
+                </ion-row>
+
+                <div *ngIf="certificate.CertificateCode === 2">
+                    <ion-row class="ion-padding-top">
+                        <ion-col size="2">
+                            <ion-icon size="small" name="cloud-download-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col size="10">
+                            <a *ngIf="peaceAndSave == true" (click)="eventDownloadPdf(2)">
+                                {{"PORTAL.GENERATE-CERTIFICATE.downloadButton" | translate}}
+                            </a>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="ion-padding-top">
+                        <ion-col size="2">
+                            <ion-icon size="small" name="cloud-download-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col size="10">
+                            <a *ngIf="peaceAndSave == false" (click)="ModalPayNone()">
+                                {{"PORTAL.GENERATE-CERTIFICATE.downloadButton" | translate}}
+                            </a>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="ion-padding-top">
+                        <ion-col size="2">
+                            <ion-icon size="small" name="mail-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col size="10">
+                            <a *ngIf="peaceAndSave == true" (click)="eventSendEmail(2)">
+                                {{"PORTAL.GENERATE-CERTIFICATE.emailButton" | translate}}
+                            </a>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="ion-padding-top">
+                        <ion-col size="2">
+                            <ion-icon size="small" name="cloud-download-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col size="10">
+                            <a *ngIf="peaceAndSave == false" (click)="ModalPayNone()">
+                                {{"PORTAL.GENERATE-CERTIFICATE.emailButton" | translate}}
+                            </a>
+                        </ion-col>
+                    </ion-row>
+                </div>
+
+                <div *ngIf="certificate.CertificateCode === 1">
+                    <ion-row class="ion-padding-top">
+                        <ion-col size="2">
+                            <ion-icon size="small" name="cloud-download-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col size="10">
+                            <a (click)="eventDownloadPdf(1)">
+                                {{"PORTAL.GENERATE-CERTIFICATE.downloadButton" | translate}}
+                            </a>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="ion-padding-top">
+                        <ion-col size="2">
+                            <ion-icon size="small" name="mail-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col size="10">
+                            <a (click)="eventSendEmail(1)">
+                                {{"PORTAL.GENERATE-CERTIFICATE.emailButton" | translate}}
+                            </a>
+                        </ion-col>
+                    </ion-row>
+                </div>
+
+                <div *ngIf="certificate.CertificateCode === 3 || certificate.CertificateCode === 4 || certificate.CertificateCode === 5">
+                    <ion-row class="ion-padding-top">
+                        <ion-col size="2">
+                            <ion-icon size="small" name="settings-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col size="10">
+                            <a (click)="openModalGenerateCertificate(certificate.CertificateCode)">
+                                    {{"PORTAL.GENERATE-CERTIFICATE.generateCertificate" | translate}}
+                                </a>
+                        </ion-col>
+                    </ion-row>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+</ion-content>

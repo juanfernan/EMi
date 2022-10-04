@@ -1,0 +1,300 @@
+<div class="container">
+
+    <div [hidden]="hiddenStepOne">
+
+        <ion-row class="ion-padding-top">
+            <ion-label class="title-primary">{{"PORTAL.NEW-COORDINATION.Title" | translate}}</ion-label>
+        </ion-row>
+
+        <form #coordinationForm="ngForm" (ngSubmit)="preConfirmCoordination()">
+
+            <ion-row class="ion-padding-top">
+                <ion-label class="title-secondary">{{"PORTAL.NEW-COORDINATION.ForWhomItIs" | translate}}</ion-label>
+            </ion-row>
+
+            <ion-row class="ion-padding-top">
+                <ion-item class="ion-item-form-input">
+                    <ion-label class="ion-label-subtitle" position="floating">{{"PORTAL.EXPIRED-MEDICAL-SERVICES.LabelPatient" | translate}}</ion-label>
+                    <ion-select mode="ios" [(ngModel)]="coordination.Number" name="IdDocument" [disabled]="whoDisabled" id="IdDocument" #Number="ngModel" required (ionChange)="onChangeSelectPerson($event)" ok-text="Aceptar" cancel-text="Cancelar">
+                        <ion-select-option [selected]="coordination.Number === o.Document ? true : null" *ngFor="let o of persons" [value]="o.Document">{{o.FullNames}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label class="ion-label-subtitle" position="floating">{{"PORTAL.NEW-COORDINATION.ServicesType" | translate}}</ion-label>
+                    <ion-select mode="ios" [(ngModel)]="coordination.ServicesType" #ServicesType="ngModel" name="ServicesType" [required]="servicesTypesRequired" (ionChange)="onChangeServicesTypes($event)" ok-text="Aceptar" cancel-text="Cancelar">
+                        <ion-select-option *ngFor="let o of servicesTypes" [value]="o.Code">{{o.Name}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-col size="12">
+                    <div *ngIf="ServicesType.invalid && (ServicesType.dirty || ServicesType.touched)" class="new-coordinations__form__error">
+                        <ion-label *ngIf="ServicesType.errors?.required">
+                            {{"PORTAL.NEW-COORDINATION.ServicesTypeRequired" | translate}}
+                        </ion-label>
+                    </div>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-item class="ion-item-form-input">
+                    <ion-label class="ion-label-subtitle" position="floating">{{"PORTAL.NEW-COORDINATION.Speciality" | translate}}</ion-label>
+                    <ion-select mode="ios" [(ngModel)]="coordination.SpecialityCode" #SpecialityCode="ngModel" name="SpecialityCode" required id="SpecialityCode" (ionChange)="onChangeSpeciality($event)" ok-text="Aceptar" cancel-text="Cancelar">
+                        <ion-select-option *ngFor="let o of specialties" [value]="o.Code">{{o.Description}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-col size="12">
+                    <div *ngIf="SpecialityCode.invalid && (SpecialityCode.dirty || SpecialityCode.touched)" class="new-coordinations__form__error">
+                        <ion-label *ngIf="SpecialityCode.errors?.required">
+                            {{"PORTAL.NEW-COORDINATION.SpecialityRequired" | translate}}
+                        </ion-label>
+                    </div>
+                </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="specialtytTypeThreeDenied !== '3' && disableMedicalCenter === false">
+                <ion-item class="ion-item-form-input">
+                    <ion-label class="ion-label-subtitle" position="floating">{{"PORTAL.NEW-COORDINATION.MedicalCenter" | translate}}</ion-label>
+                    <ion-select mode="ios" [(ngModel)]="coordination.ClinicCode" #ClinicCode="ngModel" name="ClinicCode" required id="ClinicCode" (ionChange)="selectedSchedule($event)" ok-text="Aceptar" cancel-text="Cancelar">
+                        <ion-select-option *ngFor="let o of medicalCenterSchedules" [value]="o.ClinicCode">{{o.ClinicName}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-col size="12">
+                    <div *ngIf="ClinicCode.invalid && (ClinicCode.dirty || ClinicCode.touched)" class="new-coordinations__form__error">
+                        <ion-label *ngIf="ClinicCode?.errors?.required">
+                            {{"PORTAL.NEW-COORDINATION.MedicalCenterRequired" | translate}}
+                        </ion-label>
+                    </div>
+                </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="specialtytTypeThreeDenied === '3' && disableMedicalCenter === false">
+                <ion-item class="ion-item-form-input">
+                    <ion-label class="ion-label-subtitle" position="floating">{{"PORTAL.NEW-COORDINATION.MedicalCenter" | translate}}</ion-label>
+                    <ion-select mode="ios" disabled ok-text="Aceptar" cancel-text="Cancelar">
+                        <ion-select-option>{{"PORTAL.NEW-COORDINATION.StatusDenietService" | translate}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-row>
+
+            <ion-row *ngIf="disableMedicalCenter === true">
+                <ion-item class="ion-item-form-input">
+                    <ion-label class="ion-label-subtitle" position="floating">{{"PORTAL.NEW-COORDINATION.MedicalCenter" | translate}}</ion-label>
+                    <ion-select mode="ios" disabled ok-text="Aceptar" cancel-text="Cancelar">
+                        <ion-select-option>{{"PORTAL.NEW-COORDINATION.StatusDenietService" | translate}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-row>
+
+            <ion-row [hidden]="hiddenLabelSchedule" class="ion-padding-top">
+                <ion-label>{{"PORTAL.NEW-COORDINATION.TitleSelectTime" | translate}}</ion-label>
+            </ion-row>
+
+            <div class="container-time d-flex ion-justify-content-center">
+
+                <ion-list>
+                    <ion-radio-group id="grupo1">
+                        <div *ngFor="let o of schedules1">
+                            <ion-item>
+                                <ion-label class="text-subtitle"> {{o.Date}} </ion-label>
+                                <ion-radio slot="start" [value]="o.date" (click)="selectSchedule(o.YearMonthDay,o.Time,o.Date)"></ion-radio>
+                            </ion-item>
+                        </div>
+                        <div *ngFor="let o of schedules2">
+                            <ion-item>
+                                <ion-label class="text-subtitle"> {{o.Date}} </ion-label>
+                                <ion-radio slot="start" [value]="o.date" (click)="selectSchedule(o.YearMonthDay,o.Time,o.Date)"></ion-radio>
+                            </ion-item>
+                        </div>
+                        <div *ngFor="let o of schedules3">
+                            <ion-item>
+                                <ion-label class="text-subtitle"> {{o.Date}} </ion-label>
+                                <ion-radio slot="start" [value]="o.date" (click)="selectSchedule(o.YearMonthDay,o.Time,o.Date)"></ion-radio>
+                            </ion-item>
+                        </div>
+                    </ion-radio-group>
+                </ion-list>
+
+                <ion-row class="ion-padding-top d-flex ion-justify-content-center">
+                    <ion-col>
+                        <app-button class="new__coordination__continue-button" [configuration]="continueButtonConfig" (click)="preConfirmCoordination()" [disabled]="!coordinationForm.form.valid || disabledButton"></app-button>
+                    </ion-col>
+                </ion-row>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    <!--Detalle-->
+    <div [hidden]="hiddenStepTwo">
+
+        <ion-row class="ion-padding-top">
+            <ion-label class="ion-label-subtitle" (click)="returnNewCoordination()">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+                {{"PORTAL.DETAILS-NEW-COORDINATION.Return" | translate}}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label class="title-primary">{{"PORTAL.NEW-COORDINATION.Title" | translate}}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label class="title-subtitle">{{"PORTAL.DETAILS-NEW-COORDINATION.Title" | translate}}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label class="ion-label-title">- {{coordination?.FullNames}}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label>- {{coordination?.SpecialityName}}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label>- {{coordination?.ServicesTypeName}}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label class="ion-label-title">- {{coordination?.ClinicName}}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label>- {{coordination.ClinicAddress}}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label>- {{coordination?.Date}}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label>- {{coordination?.Price}}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <div [hidden]="hiddenButtons">
+                <div [hidden]="hiddenPayment">
+                    <app-button [configuration]="payCoordinationButtonConfig" (click)="VisibleThree()" [disabled]="disabledButton"></app-button>
+                </div>
+                <div [hidden]="!hiddenPayment">
+                    <ion-button (click)="confirmCoordination()">
+                        {{"PORTAL.NEW-COORDINATION.TitleButtonConfirmCoordination" | translate}}
+                    </ion-button>
+                </div>
+            </div>
+        </ion-row>
+
+        <div [hidden]="hiddenRecommendations">
+            <ion-row class="ion-padding-top">
+                <ion-label>{{"PORTAL.DETAILS-NEW-COORDINATION.Recommendations" | translate}}</ion-label>
+            </ion-row>
+
+            <ion-row class="ion-padding-top">
+                <ion-label>{{coordination?.Recommendations}}</ion-label>
+            </ion-row>
+
+            <ion-row class="ion-padding-top">
+                <ion-col size="6">
+                    <button (click)="call()">
+                    {{"PORTAL.DETAILS-NEW-COORDINATION.TitleButtonCall" | translate}}
+                </button>
+                </ion-col>
+                <ion-col size="6">
+                    <button (click)="cancelCoordination()">
+                    {{"PORTAL.DETAILS-NEW-COORDINATION.TitleButtonCancelCoordination" | translate}}
+                </button>
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-padding-top">
+                <ion-label>{{"PORTAL.DETAILS-NEW-COORDINATION.Recommendation" | translate}}</ion-label>
+            </ion-row>
+        </div>
+
+        <ion-row class="ion-padding-top">
+            <agm-map [latitude]="latitude" [longitude]="longitude">
+                <agm-marker [latitude]="latitude" [longitude]="longitude" [iconUrl]="'./assets/uy/images/icon-emi5.png'">
+                </agm-marker>
+            </agm-map>
+        </ion-row>
+
+    </div>
+    <!--Termina Detalle-->
+
+    <!--Pago-->
+    <div [hidden]="hiddenStepThree">
+
+        <ion-row class="ion-padding-top">
+            <ion-label class="title-primary">{{"PORTAL.NEW-COORDINATION.TitleSelectPayment" | translate}}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label class="title-subtitle">{{"PORTAL.NEW-COORDINATION.DescriptionSelectPayment" | translate}}</ion-label>
+        </ion-row>
+
+        <form id="formCoordinationId" class="emi-formservicio">
+
+            <ion-input type="hidden" name="PWToken" id="PWToken"></ion-input>
+
+            <ion-row class="ion-padding-top">
+                <ion-label>Pago en línea</ion-label>
+            </ion-row>
+
+            <ion-row class="ion-padding-top">
+                <div *ngFor="let slide of franchisesPayment; let i = index">
+                    <ion-item>
+                        <ion-thumbnail>
+                            <img [src]="getCardImage(slide.IconWeb)" />
+                        </ion-thumbnail>
+                    </ion-item>
+                </div>
+            </ion-row>
+
+            <hr/>
+
+            <ion-row class="ion-padding-top">
+                <ion-col>
+                    <app-button [configuration]="payButtonConfig" (click)="goToPayCoordination()" id="buttonPayCoordinationId" [disabled]="disabledButton"></app-button>
+                </ion-col>
+            </ion-row>
+
+            <div class="ion-padding-top" *ngFor="let obj of coordinationPaymentMethods">
+
+                <i class="{{obj.IconWeb}}"></i>
+
+                <ion-row class="ion-padding-top">
+                    <ion-label>{{obj.PaymentMethodName}}</ion-label>
+                </ion-row>
+
+                <ion-row class="ion-padding-top">
+                    <ion-label>{{obj.PaymentMethodDescription}}</ion-label>
+                </ion-row>
+
+                <ion-row class="ion-padding-top">
+                    <ion-item *ngIf="obj.PaymentMethodCode === paymentMethodDebitInvoiceCode">
+                        <ion-label>{{"PORTAL.NEW-COORDINATION.NumberOfInstallments" | translate}}</ion-label>
+                        <ion-select mode="ios" [(ngModel)]="coordination.Installments" name="Installments" ok-text="Aceptar" cancel-text="Cancelar">
+                            <ion-select-option *ngFor="let o of obj.Installments" [value]="o">
+                                {{o}}
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-row>
+
+                <ion-row class="ion-padding-top d-flex ion-justify-content-center">
+                    <ion-button (click)="payCoordination(obj)">
+                        {{"PORTAL.NEW-COORDINATION.TitleButtonpay" | translate}}
+                    </ion-button>
+                </ion-row>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+</div>

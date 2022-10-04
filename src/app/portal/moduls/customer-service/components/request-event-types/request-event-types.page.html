@@ -1,0 +1,124 @@
+<section *ngIf="continueFormProcess === false">
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="title-primary">{{'PORTAL.CUSTOMER-SERVICE.GRATITUDE.Title' | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="title-subtitle" [innerHTML]="subtitle"></ion-label>
+    </ion-row>
+
+    <form [formGroup]="formRequest">
+        <ion-row class="ion-padding-top">
+            <ion-item class="ion-item-form-input">
+                <ion-label position="floating">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE.LabelEventType" | translate}}</ion-label>
+                <ion-select formControlName="eventType" [(ngModel)]="eventTypesClass.EventType" mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                    <ion-select-option *ngFor="let eventType of eventTypesList" [value]="eventType.IdTipo">
+                        {{eventType.Nombre}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-col size="12">
+                <ion-label class="ion-validator" *ngIf="this.formRequest.controls.eventType.hasError('required')">
+                    {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE.EventTypeRequired" | translate}}
+                </ion-label>
+            </ion-col>
+        </ion-row>
+    </form>
+
+    <div *ngIf="eventTypesClass.EventType">
+
+        <form [formGroup]="formRequest">
+            <ion-row class="ion-padding-top">
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE.EventQuestion" | translate}}</ion-label>
+                    <ion-select formControlName="subjectOfTheEvent" [(ngModel)]="eventTypesClass.SubjectOfTheEvent" (selectionChange)="onChangeSubjectOfTheEvent(eventTypesClass.SubjectOfTheEvent)" mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                        <ion-select-option value="01">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE.ItHappenedToMe" | translate}}</ion-select-option>
+                        <ion-select-option value="02">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE.HappenedToAThird" | translate}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-col size="12">
+                    <ion-label class="ion-validator" *ngIf="this.formRequest.controls.subjectOfTheEvent.hasError('required')">
+                        {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE.SujectRequired" | translate}}
+                    </ion-label>
+                </ion-col>
+            </ion-row>
+        </form>
+
+    </div>
+
+    <div *ngIf="eventTypesClass.EventType">
+
+        <form class="form-inline emi1-form" #searchForm="ngForm" novalidate>
+
+            <div *ngIf="enterDataOfTheThird === true" class="row">
+
+                <ion-row class="ion-padding-top">
+                    <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE.EnterDataOfThird" | translate}}</ion-label>
+                </ion-row>
+
+                <form [formGroup]="formRequest">
+
+                    <ion-row class="ion-padding-top">
+                        <ion-item class="ion-item-form-input">
+                            <ion-label position="floating">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE.DocumentType" | translate}}</ion-label>
+                            <ion-select formControlName="thirdDocumentType" [(ngModel)]="eventTypesClass.ThirdDocumentType" mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                                <ion-select-option *ngFor="let type of documentTypes" [value]="type.Code">
+                                    {{type.Name}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-col size="12">
+                            <ion-label class="ion-validator" *ngIf="this.formRequest.controls.thirdDocumentType.hasError('required')">
+                                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE.DocumentTypeRequired" | translate}}
+                            </ion-label>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row class="ion-padding-top">
+                        <ion-item class="ion-item-form-input">
+                            <ion-label position="floating">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE.Document" | translate}}</ion-label>
+                            <ion-input formControlName="thirdDocument" [(ngModel)]="eventTypesClass.ThirdDocument"></ion-input>
+                        </ion-item>
+                        <ion-col size="12">
+                            <ion-label class="ion-validator" *ngIf="this.formRequest.controls.thirdDocument.hasError('required')">
+                                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE.DocumentRequired" | translate}}
+                            </ion-label>
+                            <ion-label class="ion-validator" *ngIf="this.formRequest.controls.thirdDocument.hasError('pattern')">
+                                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE.DocumentNumberNumeric" | translate}}
+                            </ion-label>
+                        </ion-col>
+                    </ion-row>
+
+                </form>
+
+                <ion-row class="ion-padding-top">
+                    <ion-col>
+                        <app-button [configuration]="configurationButtonSearch" [disabled]="formRequest.invalid  || formRequest.status == 'DISABLED'" (click)="searchThirdPartyStatus()"></app-button>
+                    </ion-col>
+                </ion-row>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+<section *ngIf="continueFormProcess === true">
+
+    <ion-row class="ion-padding-top">
+        <ion-col>
+            <button type="button" class="btn btn-primary" (click)="backSearchSectionConfirm()"><em
+            class="fa fa-angle-down"></em></button>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <app-event-types-form [stepOneInformation]="stepOneInformation" (continueFormProcess)="continueFormProcessInfo($event)"></app-event-types-form>
+    </ion-row>
+
+</section>
+
+<app-loader *ngIf="isLoading"></app-loader>

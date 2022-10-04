@@ -1,0 +1,54 @@
+<ion-menu mode="md" side="start" menuId="menuPrincipal" contentId="menuFloat" type="overlay">
+
+    <ion-header>
+        <ion-toolbar>
+            <ion-row class="d-flex ion-justify-content-cemter">
+                <ion-col>
+                    <img src="../../../../assets/uy/images/LogoFalck.png" class="logo" />
+                </ion-col>
+            </ion-row>
+            <ion-row class="ion-padding-top">
+                <ion-title style="font-size: 12px;">{{dataUser.Email}}</ion-title>
+            </ion-row>
+            <ion-row>
+                <ion-title style="font-size: 12px;">{{dataUser.FullName}}</ion-title>
+            </ion-row>
+            <ion-row>
+                <ion-title></ion-title>
+            </ion-row>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+
+        <ion-list *ngFor="let item of items" class="ion-no-padding ion-no-margin">
+
+            <ion-menu-toggle *ngIf="item.MenuUrl" auto-hide="false" (click)="navigate(item.MenuUrl)">
+                <ion-item routerDirection="root" routerLinkActive="active">
+                    <ion-icon name="caret-forward-outline" slot="start"></ion-icon>
+                    <ion-label class="menu-item">{{item.MenuName}}</ion-label>
+                </ion-item>
+            </ion-menu-toggle>
+
+            <ion-item button *ngIf="item.MenuChilds?.length > 0" (click)="item.Open = !item.Open" [class.active-parent]="item.Open" detail="false">
+                <ion-icon slot="start" name="caret-forward-outline" *ngIf="!item.Open"></ion-icon>
+                <ion-icon slot="start" name="caret-down-outline" *ngIf="item.Open"></ion-icon>
+                <ion-label class="menu-item">{{item.MenuName}}</ion-label>
+            </ion-item>
+
+            <ion-menu-toggle auto-hide="false">
+                <ion-list *ngIf="item.Open">
+                    <ion-item *ngFor="let sub of item.MenuChilds" class="menu-sub-item" routerdirection="root" (click)="navigate(sub.MenuUrl)" routerLinkActive="active">
+                        <ion-icon name="chevron-forward-outline" slot="start"></ion-icon>
+                        <ion-label class="menu-item">{{sub.MenuName}}</ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-menu-toggle>
+
+        </ion-list>
+
+    </ion-content>
+
+</ion-menu>
+
+<ion-router-outlet id="menuFloat"></ion-router-outlet>

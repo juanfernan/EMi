@@ -1,0 +1,133 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Preguntas frecuentes</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <!-- Detail -->
+    <div id="conten2" class="wrap2 col-md-12" [hidden]="!showdetail">
+        <div class="row back">
+
+            <button (click)="backList()" type="button" class="btn btn-default btn-lg personaliti icon-text">
+                {{'PORTAL.CUSTOMER-SERVICE.FAQS.ButtonBack' | translate}}
+            </button>
+
+            <div class="col-md-12 colmfaqs">
+                <div class="col-md-12">
+                    <div class="emi-titulo">
+                        <h5 class="faqsCategory">
+                            {{category}}
+                        </h5>
+                        <h3 class="faqsSubCategory">{{subcategory}} </h3>
+                    </div>
+                    <div *ngFor="let faq of faqs">
+                        <div class="emi-resultadopreguntas">
+                            <h4 class="fqaQuestion">{{faq.Question}}</h4>
+                            <div class="faqsAnswer">
+                                <div [innerHTML]="faq.Answer"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Principal -->
+
+    <section class="emi-preguntasconten" [hidden]="showdetail">
+
+        <article class="divsearch">
+
+            <h4 class="titlesearch">{{'PORTAL.CUSTOMER-SERVICE.FAQS.TitleSearch' | translate}}</h4>
+            <div id="custom-search-input" class="inpsearch">
+                <form role="form" #Form="ngForm">
+                    <div class="input-group col-md-12">
+                        <span class="input-group-btn">
+
+                            <button class="btn btn-info btn-lg emi-btn-faqsearlup" type="button">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+
+                        </span>
+                        <input required (input)="inputSearchFaqs()" (focus)="GetSearchFaqs()" [(ngModel)]="search" id="search" name="search" type="text" class="form-control input-lg emi-faq-input" placeholder="Escribe aquí tu búsqueda" />
+
+                        <span class="input-group-btn btn-faqsear">
+
+                            <button (click)="HideSearchFaqs()" *ngIf="viewSearch"
+                                class="btn btn-info btn-lg emi-btn-faqsearcls" type="button">
+
+                                <mat-icon class="icon-text">delete</mat-icon>
+                            </button>
+                            <button (focus)="GetSearchFaqs()" class="btn btn-info btn-lg emi-btn-faqsear" type="button">
+                                {{'PORTAL.CUSTOMER-SERVICE.FAQS.ButtonSearch' | translate}}
+                            </button>
+
+                        </span>
+                    </div>
+                </form>
+            </div>
+
+            <div class="divsearchfloat" *ngIf="viewSearch">
+                <div class="emi-ayudacont" *ngFor="let search of searchFaqs | filter : search">
+                    <div class="emi-ayuda faqssearch" (click)="faq(search.FaqsId)">
+                        <div class="">
+                            <label class="searchcategory">{{search.CategoryName}}</label>
+                            <h3 class="searchsubcategory">{{search.SubCategoryName}}</h3>
+                            <label class="searchquestion">{{search.Question}}</label>
+                            <label class="searchquestion">{{search.AnswerText | slice:0:300}}...</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="(searchFaqs  | filter: search ).length === 0" class="itemorientacion faqssearch">
+                    <div class="col-md-12">
+                        <div class="row cardfqa">
+                            <label class="searchcategory">{{'PORTAL.CUSTOMER-SERVICE.FAQS.NoResult' | translate}}</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </article>
+    </section>
+
+    <div class="container" [hidden]="showdetail">
+
+        <article class="paddingCardsSearchdesc">
+            <h4 class="descsearch">
+                {{'PORTAL.CUSTOMER-SERVICE.FAQS.DescSearch' | translate}}
+            </h4>
+        </article>
+
+        <div class="emi-cardsfaq row">
+
+            <div *ngFor="let category of categoriesFaqs" class="col-lg-4 col-md-4 col-xs-1 cardfqas">
+
+                <div class="itemorientacion">
+                    <h4>{{category.Name}}</h4>
+                    <p>{{category.Description}}</p>
+                    <div class="itemssub">
+                        <div>
+                            <ul class="ulsubfaqs">
+                                <li *ngFor="let sub of category.SubcategoriesFaqs" (click)="subcategoryId(sub.SubcategoriesFaqsId)" class="itemsubcategory">
+                                    <a class="asub">{{sub.Name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</ion-content>

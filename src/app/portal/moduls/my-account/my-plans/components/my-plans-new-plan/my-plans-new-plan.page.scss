@@ -1,0 +1,35 @@
+@import './../../../../../../../styles-variables.scss';
+.new-plan-card-container {
+    width: 90%;
+    margin: auto;
+    margin-top: 22px;
+}
+
+.new-plan-card {
+    width: 300px;
+    border-radius: 2px;
+    border-color: gray;
+    border-width: 0.3px;
+    padding: 18px;
+}
+
+.new-plan-card-icon {
+    fill: $primary-color;
+}
+
+.new-plan-card-label {
+    font-size: medium;
+    font-weight: 500;
+    color: $secondary-color;
+    opacity: 90%;
+}
+
+ion-card-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: $primary-color;
+}
+
+ion-icon {
+    color: $primary-color;
+}

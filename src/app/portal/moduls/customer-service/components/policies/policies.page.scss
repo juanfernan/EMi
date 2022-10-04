@@ -1,0 +1,29 @@
+:root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+}
+
+ion-content {
+    font-family: 'Mark OT', sans-serif;
+    align-self: center;
+    height: 90%;
+    width: 85%;
+}
+
+ion-item {
+    border: none !important;
+}
+
+.body-content-term {
+    padding: 60px 115px 60px 115px;
+    background-color: #f0f0f0;
+}
+
+@media only screen and (max-width: 768px) {
+    .body-content-term {
+        padding: 20px 10px 20px 10px;
+    }
+    .breadcrumb>.active {
+        padding-top: 10px;
+    }
+}

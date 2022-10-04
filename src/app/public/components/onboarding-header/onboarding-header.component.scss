@@ -1,0 +1,20 @@
+@import '../../../../styles-variables.scss';
+ion-content {
+    height: 15%;
+}
+
+img {
+    height: 50px;
+    color: $primary-color;
+}
+
+.ion-omitir {
+    text-decoration-line: underline;
+    font-size: 16px;
+    font-weight: bold;
+    color: $primary-color;
+}
+
+.logo-chico {
+    height: 70px;
+}

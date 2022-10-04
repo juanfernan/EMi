@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Mis Afiliados</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+
+    <ion-row>
+        <ion-col size="12">
+            <app-afiliate-card *ngFor="let person of afiliates" [afiliate]="person"></app-afiliate-card>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col size="12">
+            <app-new-afiliate-card (click)="newAfiliate()"></app-new-afiliate-card>
+        </ion-col>
+    </ion-row>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+</ion-content>

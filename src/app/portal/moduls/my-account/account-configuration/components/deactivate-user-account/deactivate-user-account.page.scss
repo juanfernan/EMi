@@ -1,0 +1,28 @@
+@import './../../../../../../../styles-variables.scss';
+ion-label {
+    pointer-events: all !important;
+}
+
+section {
+    align-self: center;
+    height: 90%;
+    width: 85%;
+}
+
+.title-secondary {
+    font-size: small;
+}
+
+.deactivate-account_title-container {
+    color: #4d4d4d;
+    font-weight: bold;
+}
+
+.deactivate-account__subtitle-container {
+    color: #4d4d4d;
+}
+
+.deactivate-account__button-container {
+    display: flex;
+    justify-content: flex-end;
+}

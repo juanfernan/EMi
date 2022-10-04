@@ -1,0 +1,124 @@
+<ion-header>
+    <ion-grid>
+        <ion-row class="ion-align-items-center">
+            <ion-col size="12">
+                <img src="{{imgRoute}}logo-emi-1.svg">
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+
+    <ion-row class="ion-padding-top">
+        <ion-col size="12">
+            <ion-label class="title-primary">{{'PUBLIC.REGISTRATION.accountCreateTitle' | translate}}</ion-label>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-col size="12">
+            <ion-label class="subtitle-opacity">{{'PUBLIC.REGISTRATION.accountCreateSubtitle' | translate}}</ion-label>
+        </ion-col>
+    </ion-row>
+
+    <form [formGroup]="createForm">
+
+        <ion-row>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label position="floating">{{'PUBLIC.REGISTRATION.type' | translate}}</ion-label>
+                    <ion-select position="floating" formControlName="documentType" (ionChange)="enabledInputDocument()" mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                        <ion-select-option value="{{item.Code}}" *ngFor="let item of docType">{{item.Name}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+
+            <ion-col size="6">
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">{{'PUBLIC.REGISTRATION.number' | translate}}</ion-label>
+                    <ion-input formControlName="document" type="number" (ionBlur)="validateDocument();" [maxlength]=10></ion-input>
+                </ion-item>
+                <ion-col size="12">
+                    <span class="ion-validator" *ngIf="this.createForm.controls.document.hasError('required') && this.createForm.controls.document.touched">
+                        {{'PUBLIC.SHARED.obligatotyField' | translate}}</span>
+                </ion-col>
+            </ion-col>
+
+        </ion-row>
+
+        <!-- <ion-row>
+            <ion-item class="ion-item-form-input">
+                <ion-label position="floating">{{'PUBLIC.REGISTRATION.number' | translate}}</ion-label>
+                <ion-input formControlName="document" type="number" (ionBlur)="validateDocument();" [maxlength]=10></ion-input>
+            </ion-item>
+            <ion-col size="12">
+                <span class="ion-validator" *ngIf="this.createForm.controls.document.hasError('required') && this.createForm.controls.document.touched">
+                    {{'PUBLIC.SHARED.obligatotyField' | translate}}</span>
+            </ion-col>
+        </ion-row> -->
+
+        <ion-row>
+            <ion-item class="ion-item-form-input">
+                <ion-label position="floating">{{'PUBLIC.REGISTRATION.cellPhone' | translate}}</ion-label>
+                <ion-input formControlName="phone" [maxlength]="environment.lengthCell" type="number"></ion-input>
+            </ion-item>
+            <ion-col size="12">
+                <span class="ion-validator" *ngIf="this.createForm.controls.phone.hasError('required')">
+                    {{'PUBLIC.SHARED.obligatotyField' | translate}}
+                </span>
+                <span class="ion-validator" *ngIf="!this.createForm.controls.phone.hasError('required') && this.createForm.controls.phone.hasError('invalidNumber')">
+                    {{'PUBLIC.SHARED.startNumber' | translate}} {{environment.startNumberCell}}
+                </span>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-item class="ion-item-form-input">
+                <ion-label position="floating">{{'PUBLIC.SHARED.correo' | translate}}</ion-label>
+                <ion-input formControlName="email" id="email" type="email"></ion-input>
+            </ion-item>
+            <ion-col size="12">
+                <span class="ion-validator" *ngIf="this.createForm.controls.email.hasError('required')">
+                    {{'PUBLIC.SHARED.obligatotyField' | translate}}</span>
+                <span class="ion-validator" *ngIf="!this.createForm.controls.email.hasError('required') && this.createForm.controls.email.hasError('email')">
+                    {{'PUBLIC.SHARED.validCorreo' | translate}}</span>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-item class="ion-item-form-input">
+                <ion-label position="floating">{{'PUBLIC.SHARED.repeatCorreo' | translate}}</ion-label>
+                <ion-input formControlName="emailRepeat" id="emailRepeat" type="email"></ion-input>
+            </ion-item>
+            <ion-col size="12">
+                <span class="ion-validator" *ngIf="this.createForm.controls.emailRepeat.hasError('required')">
+                    {{'PUBLIC.SHARED.obligatotyField' | translate}}</span>
+                <span class="ion-validator" *ngIf="!this.createForm.controls.emailRepeat.hasError('required') && this.createForm.controls.emailRepeat.hasError('email')">
+                    {{'PUBLIC.SHARED.validCorreo' | translate}}</span>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-col size="1">
+                <ion-checkbox formControlName="terms" id="chkTermsPolicies"> </ion-checkbox>
+            </ion-col>
+            <ion-col size="11">
+                <span class="label-terms">Acepto los </span>
+                <a class="label-terms link cursor-pointer" (click)="clickTerms('terms');"> términos de uso </a>
+                <span class="label-terms"> y </span>
+                <a class="label-terms link cursor-pointer" (click)="clickTerms('policies');">políticas de tratamiento de datos personales.</a>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-padding-top d-flex ion-justify-content-center">
+            <ion-col>
+                <app-button [configuration]="configurationButton" (click)="complete()" [disabled]="createForm.invalid"></app-button>
+            </ion-col>
+        </ion-row>
+
+        <app-loader *ngIf="isLoading"></app-loader>
+
+    </form>
+
+</ion-content>

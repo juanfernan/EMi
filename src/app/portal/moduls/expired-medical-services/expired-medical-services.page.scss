@@ -1,0 +1,53 @@
+@import './../../../../styles-variables.scss';
+:root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+    ion-select {
+        font-size: smaller;
+    }
+    ion-select-option {
+        font-size: smaller;
+    }
+}
+
+.sc-ion-alert-ios-h {
+    --max-width: 85% !important;
+    --width: 85% !important;
+    font-size: 13px !important;
+}
+
+ion-content {
+    font-family: 'Mark OT', sans-serif;
+    align-self: center;
+    height: 90%;
+    width: 85%;
+}
+
+ion-item {
+    border: none !important;
+}
+
+ion-card-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: $primary-color;
+}
+
+.ion-card-subtitle {
+    font-size: 12px;
+}
+
+.text-title {
+    font-size: 12px;
+    color: #00466c;
+}
+
+.text-subtitle {
+    font-size: 12px;
+}
+
+.img-location {
+    align-self: center;
+    width: 25px;
+    height: 30px;
+}

@@ -1,0 +1,27 @@
+
+<ion-grid>
+
+
+    <ion-row class="ion-padding-top ion-justify-content-center">
+        <ion-label class="title-subtitle">Estos son tus familiares en: {{groupName}}</ion-label>
+        
+
+
+
+    <ion-row class="ion-padding-top">
+        <ion-col size="12">
+            <div *ngFor="let member of valueUsers[0]?.User" class="row">
+                <div class="family-group__member-container col-12">
+                    {{member}}
+                </div>
+            </div>
+        </ion-col>
+    </ion-row>
+    
+    <div class="icon-close cursor-pointer" (click)="closeModal()">
+        <app-button [configuration]="configurationButton" ></app-button>
+    </div>
+
+</ion-row>
+
+</ion-grid>

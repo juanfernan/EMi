@@ -1,0 +1,30 @@
+@import './../../../../styles-variables.scss';
+ion-content {
+    font-family: 'Mark OT', sans-serif;
+    font-size: medium;
+    font-weight: 400;
+}
+
+.menu-item {
+    font-family: 'Mark OT', sans-serif;
+    font-size: 14px;
+}
+
+.menu-sub-item {
+    padding-left: 15px;
+}
+
+ion-item {
+    border: none !important;
+    margin-bottom: 5px !important;
+}
+
+.logo {
+    padding-left: 15px;
+    padding-top: 5px;
+    height: 70px;
+}
+
+ion-icon {
+    color: $primary-color;
+}

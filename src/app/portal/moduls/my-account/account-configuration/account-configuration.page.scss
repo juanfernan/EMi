@@ -1,0 +1,35 @@
+@import './../../../../../styles-variables.scss';
+:root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+}
+
+ion-content {
+    align-self: center;
+    height: 90%;
+    width: 85%;
+}
+
+ion-label {
+    pointer-events: all !important;
+}
+
+.title-secondary {
+    font-size: small;
+}
+
+.selector-item {
+    display: flex;
+    font-size: medium;
+    text-align: center;
+    border-bottom: 2px solid $primary-color;
+    color: $primary-color;
+    cursor: pointer;
+    justify-content: center;
+    padding: 2px;
+}
+
+.selected {
+    font-weight: bold;
+    border-bottom: 4px solid $primary-color;
+}

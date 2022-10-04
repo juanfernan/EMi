@@ -1,0 +1,31 @@
+<section>
+
+    <ion-row class="row deactivate-account_title-container ion-padding-top">
+        <ion-label class="title-primary">{{"PORTAL.DEACTIVATE-USER-ACCOUNT.HederTitle" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row class="row deactivate-account__subtitle-container ion-padding-top">
+        <ion-label>{{"PORTAL.DEACTIVATE-USER-ACCOUNT.QuestionInfo" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row class="row deactivate-account__subtitle-container ion-padding-top">
+        <ion-label>{{"PORTAL.DEACTIVATE-USER-ACCOUNT.TextInfo" | translate}}</ion-label>
+    </ion-row>
+
+    <hr />
+
+    <ion-grid>
+        <ion-row>
+            <ion-col size="6">
+                <app-button [configuration]="cancelButtonConfig" [routerLink]="['/portal/home']"></app-button>
+            </ion-col>
+            <ion-col size="6">
+                <app-button [configuration]="acceptButtonConfig" (click)="acceptUserDeactivateModal()"></app-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+</section>

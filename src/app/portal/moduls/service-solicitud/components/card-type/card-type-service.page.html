@@ -1,0 +1,23 @@
+<ion-row class="ion-padding-top">
+    <div class="col-md-12 col-6">
+        <div class="card" (click)="loadService()" style="cursor: pointer;">
+            <div class="col-img">
+                <img src="{{imgRoute}}{{service.IconApp}}" alt="Servicio" />
+            </div>
+            <div class="col-text-name ion-padding-top d-flex ion-justify-content-center">
+                <span>{{service.Name}}</span>
+            </div>
+            <!-- <div class="col-line" *ngIf="service.Code != 02">
+                <div class="vertical-line"></div>
+            </div> -->
+            <div class="col-line">
+                <div class="vertical-line"></div>
+            </div>
+            <div class="col-info">
+                <span class="col-info-text-header">{{service.Title}}</span>
+                <span [ngClass]="service.Color.ColorClassPortalWeb" *ngIf="service.Title !== 'Espera:'">{{service.Waiting}}</span>
+                <span [ngClass]="service.Color.ColorClassPortalWeb" *ngIf="service.Title == 'Espera:'">{{service.Waiting}} min</span>
+            </div>
+        </div>
+    </div>
+</ion-row>

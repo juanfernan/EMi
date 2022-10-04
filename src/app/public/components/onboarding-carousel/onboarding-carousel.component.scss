@@ -1,0 +1,72 @@
+@import './../../../../styles-variables.scss';
+ion-content {
+    width: 95%;
+    height: 85%;
+}
+
+ion-slides {
+    height: 95%;
+}
+
+ion-icon {
+    color: $primary-color;
+}
+
+.img-arrow {
+    color: $primary-color;
+}
+
+.ion-image {
+    height: 300px;
+    margin-bottom: 40px;
+    color: $primary-color;
+}
+
+.ion-icon-img {
+    margin-right: 15px;
+}
+
+.ion-title {
+    color: $primary-color;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 28px;
+    display: flex;
+    align-items: flex-start;
+    text-align: flex-start;
+}
+
+.ion-img-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.ion-description {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 150%;
+    color: $principal-gray;
+}
+
+.swiper-slide {
+    align-items: start;
+}
+
+.ion-last-next {
+    color: $secondary-color;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    text-decoration-line: underline;
+}
+
+.ion-last-next-dir {
+    color: $secondary-color;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    text-decoration-line: underline;
+}

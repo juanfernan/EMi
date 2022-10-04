@@ -1,0 +1,45 @@
+@import './../../../../../../../styles-variables.scss';
+.button-alig {
+    padding: 15px;
+    padding-left: 25px
+}
+
+.modal-red-siem__title {
+    color: $primary-color !important;
+    font-size: 24px !important;
+    font-weight: 800 !important;
+    margin-bottom: 30px !important;
+}
+
+.modal-header {
+    display: block !important;
+    padding-bottom: -16px !important;
+}
+
+.modal-sub-header {
+    background-color: rgb(85, 85, 85);
+}
+
+.sub-header {
+    display: block !important;
+    padding: 15px 5px 5px 5px !important;
+    margin-left: 15px !important;
+    font-size: 20px !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    font-weight: 400 !important;
+    color: rgb(255, 255, 255);
+}
+
+i {
+    padding: 5px;
+}
+
+.card-subtitle {
+    font-weight: 800;
+    margin-top: 7px;
+}
+
+.card-text {
+    margin-left: 30px;
+}

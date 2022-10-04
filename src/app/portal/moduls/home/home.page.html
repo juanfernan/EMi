@@ -1,0 +1,100 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-img class="img-logo" src="{{imgRoute}}LogoFalck.png"></ion-img>
+        </ion-title>
+        <ion-buttons slot="end" id="click-trigger">
+            <ion-row>
+                <ion-col size="4">
+                    <ion-img class="img-tool" src="{{imgRoute}}IconNewChat.png"></ion-img>
+                </ion-col>
+                <ion-col size="4">
+                    <ion-img class="img-tool" src="{{imgRoute}}phone.png"></ion-img>
+                </ion-col>
+            </ion-row>
+        </ion-buttons>
+        <app-call-modal></app-call-modal>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-grid>
+        <div class="slide">
+            <!-- <div class="position-absolute top-0 start-50 translate-middle-x">
+                <ion-row class="ion-padding-top">
+                    <ion-col>
+                        <ion-label class="title-user">Hola {{dataUser.middleName}}, bienvenido</ion-label>
+                    </ion-col>
+                </ion-row>
+            </div> -->
+
+            <ion-row class="d-flex ion-justify-content-center background-solid-color">
+                <ion-col size="10" class="texts">
+                    <ion-label class="title-user">Hola {{dataUser.middleName}}, bienvenido</ion-label>
+                    <p></p>
+                    <!-- <p class="subtitle"> {{"PORTAL.HOME.subtitle" | translate}} </p> -->
+                    <p class="title"> {{"PORTAL.HOME.title" | translate}} </p>
+                    <p class="paragraph"> {{"PORTAL.HOME.info" | translate}}</p>
+                </ion-col>
+            </ion-row>
+
+            <ion-row size="12" class="picture-row">
+                <ion-col size="9">
+                    <ion-img src="{{imgRoute}}home-picture.svg"></ion-img>
+                </ion-col>
+            </ion-row>
+        </div>
+    </ion-grid>
+
+    <ion-footer>
+        <ion-row class="ion-justify-content-center cards">
+            <ion-col size="5" class="col-top-left">
+                <ion-card (click)="clickMyHealth($event);">
+                    <ion-card-header>
+                        <ion-row class="card-row">
+                            <ion-icon class="card-icon" src="{{imgRoute}}clock.svg"></ion-icon>
+                        </ion-row>
+                        <ion-card-title>{{"PORTAL.HOME.HOME-CARD1.Title" | translate}}</ion-card-title>
+                    </ion-card-header>
+                </ion-card>
+            </ion-col>
+            <ion-col size="5" class="col-top-right">
+                <ion-card (click)="clickCoordinations($event);">
+                    <ion-card-header>
+                        <ion-row class="card-row">
+                            <ion-icon class="card-icon" src="{{imgRoute}}cordinaciones-medicas.svg"></ion-icon>
+                        </ion-row>
+                        <ion-card-title>{{"PORTAL.HOME.HOME-CARD2.Title" | translate}}</ion-card-title>
+                    </ion-card-header>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center cards">
+            <ion-col size="5" class="col-bottom-left">
+                <ion-card (click)="clickClinics($event);">
+                    <ion-card-header>
+                        <ion-row class="card-row">
+                            <ion-icon class="card-icon" src="{{imgRoute}}centros-medicos.svg"></ion-icon>
+                        </ion-row>
+                        <ion-card-title>{{"PORTAL.HOME.HOME-CARD3.Title" | translate}}</ion-card-title>
+                    </ion-card-header>
+                </ion-card>
+            </ion-col>
+            <ion-col size="5" class="col-bottom-right">
+                <ion-card (click)="clicMyData($event);">
+                    <ion-card-header>
+                        <ion-row class="card-row">
+                            <ion-icon class="card-icon" src="{{imgRoute}}mi-cuenta.svg"></ion-icon>
+                        </ion-row>
+                        <ion-card-title>{{"PORTAL.HOME.HOME-CARD4.Title" | translate}}</ion-card-title>
+                    </ion-card-header>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-footer>
+
+</ion-content>

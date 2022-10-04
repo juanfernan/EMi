@@ -1,0 +1,95 @@
+<section>
+
+    <ng-container *ngIf="screenShow == 0">
+
+        <ion-row class="ion-padding-top">
+            <ion-label class="text-radio-title">{{"PORTAL.SPECIALIST.AGENDA.STEP_FIVE.textSpecialty" | translate }}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label>{{getSpecialtyName()}}</ion-label>
+        </ion-row>
+
+        <hr/>
+
+        <ion-row class="ion-padding-top">
+            <ion-label class="text-radio-title">{{"PORTAL.SPECIALIST.AGENDA.STEP_FIVE.textSpecialist" | translate }}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label>{{getSpecialistName()}}</ion-label>
+        </ion-row>
+
+        <hr/>
+
+        <ion-row class="ion-padding-top">
+            <ion-label class="text-radio-title">{{"PORTAL.SPECIALIST.AGENDA.STEP_FIVE.textDatetime" | translate }}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label>{{ getAvailableDay() }} | {{ getShortTime() }}</ion-label>
+        </ion-row>
+
+        <hr/>
+
+        <ion-row class="ion-padding-top">
+            <ion-label class="text-radio-title">{{"PORTAL.SPECIALIST.AGENDA.STEP_FIVE.textLocation" | translate }}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label>{{getClinicalName()}} ({{getClinicalAddres()}}, {{getClinicalCity()}})</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <agm-map [zoom]="17" [latitude]="clinicLocation.Latitud" [longitude]="clinicLocation.Longitud">
+                <agm-marker [latitude]="clinicLocation.Latitud" [longitude]="clinicLocation.Longitud" [iconUrl]=" imagesRoute + 'icon-emi5.png'">
+                    <agm-info-window>
+                        <strong> {{getClinicalName()}} </strong>
+                    </agm-info-window>
+                </agm-marker>
+                <agm-marker *ngIf="validationCoordsPatient == false" [latitude]="patientDirectionLatitude" [longitude]="patientDirectionLongitude" [iconUrl]="'./assets/images-uy/icon-ubication-patient.png'">
+                    <agm-info-window>
+                        <strong>{{"PORTAL.NEARBY-CLINICS.SelectPatientLocation" | translate}}</strong>
+                    </agm-info-window>
+                </agm-marker>
+            </agm-map>
+        </ion-row>
+
+    </ng-container>
+
+    <!-- Screen finalized -->
+    <ng-container *ngIf="screenShow == 1">
+
+        <ion-row class="ion-padding-top">
+
+            <div class="content-image">
+                <img class="image1" src="{{imagesRoute}}icons/check-esp.png" alt="icon-header" width="128px" />
+                <img class="image2" src="{{imagesRoute}}icons/bgcheck-esp.png" alt="icon-header" width="128px" />
+            </div>
+
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <span class="titleok text-radio-title">¡Turno confirmado!</span>
+        </ion-row>
+
+        <hr/>
+
+        <ion-row class="ion-padding-top">
+
+            <div class="text-content-margin">
+                <span class="text-content">Has creado el turno con el especialista </span>
+                <span class="text-content-color">{{getSpecialistName()}} </span>
+                <span class="text-content">para el día </span>
+                <span class="text-content-color">{{ getAvailableDayDescription() }} </span>
+                <span class="text-content">a las </span>
+                <span class="text-content-color">{{ getShortTime() }} </span>
+                <span class="text-content">en </span>
+                <span class="text-content-color">{{getClinicalName()}} ({{getClinicalAddres()}}, {{getClinicalCity()}}).</span>
+            </div>
+
+        </ion-row>
+
+    </ng-container>
+
+</section>

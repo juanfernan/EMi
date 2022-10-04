@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-grid>
+        <ion-row class="ion-align-items-center">
+            <ion-col size="12">
+                <img src="{{imgRoute}}logo-emi-1.svg">
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-header>
+
+<ion-content>
+
+    <ion-row class="ion-padding-top">
+        <ion-label>{{securityQuestion.Question}}</ion-label>
+    </ion-row>
+
+    <ion-row>
+
+        <div *ngFor="let item of securityQuestion.FalseAnswers">
+            <ion-item>
+                <ion-checkbox name="flexRadioDefault" [value]="item.Answer" [(ngModel)]="securityQuestion.SelectedAnswer" (change)="onClickAnswer()"></ion-checkbox>
+                <ion-label>{{item.Answer}}</ion-label>
+            </ion-item>
+        </div>
+
+    </ion-row>
+
+</ion-content>

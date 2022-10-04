@@ -1,0 +1,35 @@
+@import './../../../../styles-variables.scss';
+ion-content {
+    font-family: 'Mark OT', sans-serif;
+    align-self: center;
+    height: 90%;
+    width: 85%;
+}
+
+ion-icon {
+    font-size: 16px;
+    color: $primary-color;
+    cursor: pointer;
+}
+
+ion-item {
+    border: none !important;
+}
+
+.text-link {
+    font-size: 11px;
+}
+
+.atras-img {
+    cursor: pointer;
+}
+
+.atras-label {
+    font-style: normal;
+    font-size: 14px;
+    font-weight: bold;
+    color: $primary-color;
+    margin-left: 1vw;
+    vertical-align: top;
+    cursor: pointer;
+}

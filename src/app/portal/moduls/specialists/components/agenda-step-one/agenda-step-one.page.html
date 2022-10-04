@@ -1,0 +1,96 @@
+<section>
+
+    <div *ngIf="actualStep==1">
+
+        <ion-row class="ion-padding-top">
+            <ion-label>{{ "PORTAL.SPECIALIST.AGENDA.Subtitle" | translate }}</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label>{{ "PORTAL.SPECIALIST.AGENDA.STEP_ONE.whoIsTheService" | translate }}</ion-label>
+        </ion-row>
+
+        <div *ngFor="let beneficiary of lists.beneficiaries">
+
+            <ion-card (click)="clickChangeBeneficiary(beneficiary)" style="cursor: pointer;">
+                <ion-row>
+                    <ion-col size="2" style="text-align:center; align-self:center;">
+                        <ion-icon name="person-outline"></ion-icon>
+                    </ion-col>
+                    <ion-col size="10">
+                        <ion-card-header>
+                            <ion-card-title>{{ getFullNameFromBeneficiary(beneficiary) }}</ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <ion-row>
+                                <ion-label>{{ "PORTAL.SPECIALIST.AGENDA.STEP_ONE.textAgeOfBeneficiary" | translate }} {{ getAgeFromBeneficiary(beneficiary) }} {{ "PORTAL.SPECIALIST.AGENDA.STEP_ONE.textYearsofBeneficiary" | translate }}</ion-label>
+                            </ion-row>
+                            <ion-row>
+                                <ion-label>{{ "PORTAL.SPECIALIST.AGENDA.STEP_ONE.textPartnerNumberBeneficiary" | translate }} {{ beneficiary.life }}</ion-label>
+                            </ion-row>
+                        </ion-card-content>
+                    </ion-col>
+                </ion-row>
+            </ion-card>
+
+        </div>
+
+    </div>
+
+    <div *ngIf="actualStep==2">
+
+        <ion-row class="ion-padding-top" display="flex" flex-direction="row" justifiy-content="flex-end">
+            <ion-label (click)="goBack();">
+                {{ "PORTAL.NEARBY-CLINICS-DETAIL.BackToList" | translate}}</ion-label>
+        </ion-row>
+
+        <hr/>
+
+        <ng-container *ngIf="beneficiaryDefault">
+
+            <form [formGroup]="beneficiaryConfig.form">
+
+                <ion-row class="ion-padding-top">
+                    <ion-label>{{ getFullNameFromBeneficiary(beneficiaryConfig.form.get('beneficiary')?.value) }}</ion-label>
+                </ion-row>
+
+                <ion-row class="ion-padding-top">
+                    <ion-label>
+                        {{"PORTAL.SPECIALIST.AGENDA.STEP_ONE.messageConfirmationNumberContactPrimary" | translate}}
+                    </ion-label>
+                </ion-row>
+
+                <ion-row class="ion-padding-top">
+                    <ion-input type="number" formControlName="numberContactPrimary"></ion-input>
+                </ion-row>
+
+                <ion-row class="ion-padding-top">
+                    <ion-label>{{"PORTAL.SPECIALIST.AGENDA.STEP_ONE.messageCheckConfirmationNumberContact" | translate}}</ion-label>
+                </ion-row>
+
+                <ion-row class="ion-padding-top">
+                    <ion-label>No</ion-label>
+                    <ion-label class="switch">
+                        <ion-toggle formControlName="checkConfirmNumberContact" class="p-0" [checked]="dontShowPatientNumber" (ionChange)="changeCheckConfirmNumberContact()"></ion-toggle>
+                    </ion-label>
+                    <ion-label>Si</ion-label>
+                </ion-row>
+
+                <ion-row class="ion-padding-top">
+                    <ion-label>{{"PORTAL.SPECIALIST.AGENDA.STEP_ONE.inputNumberContactSecondary" | translate}}</ion-label>
+                </ion-row>
+
+                <ion-row class="ion-padding-top">
+                    <ion-item *ngIf="!this.beneficiaryConfig.form.get('checkConfirmNumberContact')?.value">
+                        <ion-input type="number" formControlName="numberContactSecondary" (ngModelChange)="changeNumberContact()" (keypress)="numberOnly($event)" id="inputfocus"></ion-input>
+                        <ion-label id="ion-validator">{{"PORTAL.SELECT-PATIENT.invalidCellPhone" | translate}}</ion-label>
+                    </ion-item>
+                </ion-row>
+
+            </form>
+
+        </ng-container>
+
+    </div>
+
+</section>

@@ -1,0 +1,33 @@
+<div class="modal-body">
+
+    <ion-grid class="text-center mt-4" fixed>
+        <ion-row>
+            <ion-col size="12">
+                <img class="img-fluid mr-4" src="{{imgRoute}}icons/location.png" alt="location">
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-row class="ion-content-center text-cen">
+        <ion-col size="12">
+            <ion-label class="text-center text-city color-primary">{{ 'PUBLIC.USEFUL-PHONES.inputCity' | translate}}</ion-label>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col size="12">
+            <form [formGroup]="form">
+                <ion-select formControlName="city" appearance="fill" mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                    <ion-select-option value="{{item.CityCode}}" *ngFor="let item of listPhones?.UPhoneses; let i = index"> {{item.CityName}}</ion-select-option>
+                </ion-select>
+            </form>
+        </ion-col>
+
+        <ion-col class="ion-content-center spacing-buttons" size="12">
+            <span (click)="closeModalAndOpen(false)" class="btn mr-4 cancel-button">{{ 'PUBLIC.SHARED.cancel' | translate}}</span>
+            <app-button [configuration]="inputLocationButton" (click)="closeModalAndOpen(true)"></app-button>
+        </ion-col>
+    </ion-row>
+
+</div>

@@ -1,0 +1,23 @@
+<div *ngIf="configuration">
+    <ng-container *ngTemplateOutlet="configuration.imageName ?  withImage : withoutImage">
+    </ng-container>
+
+    <ng-template #withImage>
+        <ion-button [disabled]="disabled" class="button-personalizado" [ngStyle]="style" [ngClass]="colorClassName" shape="round" fill="outline">
+            <div>
+                <img class="icon-btn" src="{{urlImage}}" alt="icon-user" />
+            </div>
+            <div class="text-btn">
+                {{configuration.text}}
+            </div>
+        </ion-button>
+    </ng-template>
+
+    <ng-template #withoutImage>
+        <ion-button [disabled]="disabled" class="button-personalizado" [ngStyle]="style" [ngClass]="colorClassName" shape="round" fill="outline">
+            <div class="text-btn">
+                {{configuration.text}}
+            </div>
+        </ion-button>
+    </ng-template>
+</div>

@@ -1,0 +1,179 @@
+<div class="modal-dialog-facture modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-color">
+        <div class="modal-content col-md-12 content-modal-facture">
+            <div class="modal-format">
+                <div class="col-md-12 bg-gray">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="flex-end">
+                                <a class="emi-cursor" (click)="cancel()">
+                                    <i class="fa fa-remove fa-stack-2x"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-header">
+                        <div class="row">
+                            <div class="emi-item">
+                                <div class="col-md-12 bg-gray">
+                                    <h3 class="text-center card-text card-title">{{"PORTAL.MY-FACTURE.FactureText" |
+                                        translate}}
+                                        <span class="font-facture-internal-number">{{serialFacture}}</span> -
+                                        {{factureNumber}}
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-header header-border">
+                        <div class="row">
+                            <div class="emi-datosserv">
+                             <!--    <div class="col-md-12"> -->
+                                    <div class="col-md-6 bg-gray">
+                                        <div class="emi-item">
+                                            <p class="card-subtitle"><i class="fa fa-calendar padding-small-icon-data"
+                                                    aria-hidden="true"></i>
+                                                <span>{{"PORTAL.MY-FACTURE.StartDate" | translate}}</span>
+                                            </p>
+                                            <p class="card-text"><i aria-hidden="true"> </i> {{starDate}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 bg-gray">
+                                        <div class="emi-item">
+                                            <p class="card-subtitle"><i class="fa fa-calendar padding-small-icon-data"
+                                                    aria-hidden="true"></i>
+                                                <span>{{"PORTAL.MY-FACTURE.EndDate" | translate}}</span>
+                                            </p>
+                                            <p class="card-text"><i aria-hidden="true"> </i> {{endDate}}</p>
+                                        </div>
+                                    </div>
+                                <!-- </div> -->
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-content  col-md-12 bg-sub-header">
+                    <div class="modal-sub-header">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="emi-item">
+                                        <p *ngIf="statusPay == 'Impaga'" class="card-text">{{"PORTAL.MY-FACTURE.TitleValue" |
+                                            translate}}</p>
+                                        <p *ngIf="statusPay == 'Paga'" class="card-text">{{"PORTAL.MY-FACTURE.TitleValuePay" |
+                                            translate}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="emi-item">
+                                        <p *ngIf="statusPay == 'Paga'" class="card-text position-value-pay"><i
+                                                aria-hidden="true"> </i>
+                                            ${{valuePay}}</p>
+                                        <p *ngIf="statusPay == 'Impaga'" class="card-text position-value-pay"><i
+                                                aria-hidden="true"> </i>
+                                            ${{balanceFacture}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-content modal-check col-md-12 modal-body">
+                    <div class="card-body">
+                        <div class="spacing-card">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="emi-datosserv">
+                                        <div class="emi-item">
+                                            <p class="card-subtitle"><i class="fa fa-user" aria-hidden="true"></i>
+                                                {{"PORTAL.MY-FACTURE-DETAIL.beneficiaries"
+                                                | translate}}</p>
+                                            <p class="card-text" *ngFor="let beneficiario of beneficiaries"><i
+                                                    aria-hidden="true"> </i>
+                                                   {{beneficiario.LineName}} <br> {{beneficiario.ProductLine}}</p>
+                                        
+                                        </div>
+                                        <div class="emi-item">
+                                            <p class="card-subtitle"><i class="fa fa-check" aria-hidden="true"></i>
+                                                {{"PORTAL.MY-FACTURE.TitleStatus"
+                                                | translate}}</p>
+                                            <p class="card-text"><i aria-hidden="true"> </i>{{statusPay}}</p>
+                                        </div>
+
+                                        <div *ngIf="paymentMode == 'Debito'" class="emi-item">
+                                            <p class="card-subtitle"><i class="fa fa-credit-card"
+                                                    aria-hidden="true"></i> {{"PORTAL.MY-FACTURE-DETAIL.paymentMode"
+                                                | translate}}</p>
+                                            <p *ngIf="paymentMode == 'Debito'" class="card-text"><i aria-hidden="true">
+                                                </i>Débito</p>
+                                            <p *ngIf="paymentMode != 'Debito'" class="card-text"><i aria-hidden="true">
+                                                </i>{{paymentMode}}
+                                            </p>
+                                        </div>
+                                        <div *ngIf="paymentMode == 'Convenio'" class="emi-item">
+                                            <p class="card-subtitle"><i class="fa fa-users" aria-hidden="true"></i>
+                                                {{"PORTAL.MY-FACTURE-DETAIL.paymentMode"
+                                                | translate}}</p>
+                                            <!--   <p *ngIf="paymentMode == 'Debito'" class="card-text"><i aria-hidden="true">
+                                                </i>Débito</p> -->
+                                            <!--  <p *ngIf="paymentMode != 'Debito'" class="card-text"><i aria-hidden="true">
+                                                </i>{{paymentMode}}
+                                            </p> -->
+                                            <p class="card-text"><i aria-hidden="true">
+                                                </i>{{paymentMode}}
+                                            </p>
+
+                                        </div>
+                                        <div *ngIf="paymentMode == 'Domicilio'" class="emi-item">
+                                            <p class="card-subtitle"><i class="fa fa-building" aria-hidden="true"></i>
+                                                {{"PORTAL.MY-FACTURE-DETAIL.paymentMode"
+                                                | translate}}</p>
+                                        <!--     <p *ngIf="paymentMode == 'Debito'" class="card-text"><i aria-hidden="true">
+                                                </i>Débito</p>
+                                            <p *ngIf="paymentMode != 'Debito'" class="card-text"><i aria-hidden="true">
+                                                </i>{{paymentMode}}
+                                            </p> -->
+                                            <p class="card-text"><i aria-hidden="true">
+                                            </i>{{paymentMode}}
+                                        </p>
+                                        </div>
+
+                                        <div *ngIf="paymentMode == 'Debito'" class="emi-item">
+                                            <p><i class="fa fa-university" aria-hidden="true"></i><span
+                                                    class="padding-small-icon">{{bankCard}}</span></p>
+                                        </div>
+                                        <div *ngIf="paymentMode == 'Domicilio'" class="emi-item">
+                                            <p class="card-subtitle"><i class="fa fa-location-arrow"
+                                                    aria-hidden="true"></i> {{"PORTAL.MY-FACTURE-DETAIL.collectionAddress"
+                                                | translate}}</p>
+                                            <p class="card-text">{{collectionAddress}}
+                                            </p>
+                                        </div>
+                                        <div *ngIf="paymentMode == 'Convenio' && country === 'uy'" class="emi-item">
+                                            <p class="card-subtitle"><i class="fa fa-location-arrow"
+                                                    aria-hidden="true"></i> {{"PORTAL.MY-FACTURE-DETAIL.company"
+                                                | translate}}</p>
+                                            <p class="card-text">{{company}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 cero-pad">
+                                            <button *ngIf="statusPay == 'Impaga'" type="button" (click)="confirm()"
+                                                class="btn btn-info btn-lg btn btn-lg btn-orange btn-block">
+                                                <span class="text-btn"></span>{{buttonConfirmText}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

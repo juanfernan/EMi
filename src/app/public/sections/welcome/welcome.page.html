@@ -1,0 +1,34 @@
+<ion-grid class="padding-header container-welcome">
+
+    <ion-row class="d-flex ion-justify-content-center">
+        <img class="imgProperties" src="{{imgRoute}}LogoFalck.svg">
+    </ion-row>
+
+    <ion-row class="title-container">
+        <ion-col class="ion-content-center welcome" size="12">
+            <span style="margin-bottom: 42px;" class="title-welcome">{{'PUBLIC.WELCOME.welcome' | translate}}</span>
+            <app-button [configuration]="loginButton" (click)="clickLogin()"></app-button>
+            <hr>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-no-padding">
+        <ion-col size="12" class="d-flex ion-justify-content-center">
+            <ion-label>{{'PUBLIC.WELCOME.youDontHaveAccount' | translate}}</ion-label>
+            <span><a routerLink='/onboarding/account-create' routerLinkActive="active"> {{'PUBLIC.WELCOME.signUp' | translate}}</a></span>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col class="ion-content-center" size="12">
+            <app-button [configuration]="usefulPhonesButton" (click)="clickUsefulPhones()"></app-button>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-content-center ion-footer-welcome">
+        <ion-col size="12">
+            <p class="ion-text-footer">{{'PUBLIC.WELCOME.termsAccept' | translate}}</p>
+        </ion-col>
+    </ion-row>
+
+</ion-grid>

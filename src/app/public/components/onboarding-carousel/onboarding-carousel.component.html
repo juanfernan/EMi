@@ -1,0 +1,43 @@
+<ion-content>
+    <ion-slides pager="true" [options]="slideOpts" #slide>
+        <ion-slide *ngFor="let item of slides">
+            <div class="container">
+                <img class="ion-image" src="{{item.image}}">
+                <div class="ion-img-container">
+                    <img class="icon-img" src="{{item.icon}}">
+                    <span class="ion-title">{{item.title}}</span>
+                </div>
+                <span class="ion-description">{{item.description}}</span>
+            </div>
+        </ion-slide>
+    </ion-slides>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col class="ion-align-items-center ion-flex">
+                <div *ngIf="indexSlide!=0">
+                    <ion-row>
+                        <ion-col>
+                            <ion-icon name="arrow-back-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col>
+                            <span class="ion-last-next-dir" (click)="moveSlide(-1)">{{'PUBLIC.WELCOME.last' | translate}}</span>
+                        </ion-col>
+                    </ion-row>
+                </div>
+            </ion-col>
+            <ion-col class="ion-align-items-center ion-justify-content-end ion-flex">
+                <ion-row>
+                    <ion-col>
+                        <span class="ion-last-next-dir" (click)="moveSlide(1)" *ngIf="indexSlide != slides.length -1">{{'PUBLIC.WELCOME.next' | translate}}</span>
+                        <span class="ion-last-next-dir" (click)="navigate()" *ngIf="indexSlide == slides.length -1">{{'PUBLIC.WELCOME.finish' | translate}}</span>
+                    </ion-col>
+                    <ion-col>
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

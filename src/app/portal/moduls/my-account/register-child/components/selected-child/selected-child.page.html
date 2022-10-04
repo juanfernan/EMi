@@ -1,0 +1,32 @@
+<div>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="title-primary">{{"PORTAL.REGISTER-CHILD.Title" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="title-secondary-black" [innerHTML]="legendChild"></ion-label>
+    </ion-row>
+
+    <!-- <ion-row class="ion-padding-top">
+        <ion-label>{{"PORTAL.REGISTER-CHILD.RequiredYounger" | translate}}</ion-label>
+    </ion-row> -->
+
+    <ion-row class="ion-padding-top">
+        <ion-item class="ion-item-form-input">
+            <ion-label position="floating">{{"PORTAL.REGISTER-CHILD.RequiredYounger" | translate}}</ion-label>
+            <ion-select mode="ios" [(ngModel)]="idDocument" #idDocumentM="ngModel" class="" name="idDocument" id="idDocument" (ngModelChange)="onChildChange($event)" ok-text="Aceptar" cancel-text="Cancelar" required>
+                <ion-select-option *ngFor="let children of myChildren" [value]="children.Document">{{children.FullNames}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+    </ion-row>
+
+    <ion-row class="ion-padding-top d-flex ion-justify-content-center">
+        <ion-col>
+            <app-button [configuration]="addAfiliateButtonConfig" [routerLink]="['/portal/my-account/my-afiliates/new-afiliate']"></app-button>
+        </ion-col>
+    </ion-row>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+</div>

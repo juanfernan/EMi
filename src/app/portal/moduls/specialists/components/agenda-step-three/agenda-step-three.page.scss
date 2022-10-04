@@ -1,0 +1,45 @@
+@import './../../../../../../styles-variables.scss';
+.locationlink {
+    color: $link-color;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.locationlink:hover {
+    color: $primary-color;
+}
+
+.table {
+    border: 1px solid $primary-color;
+    border-radius: 5px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+th {
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 20px !important;
+    letter-spacing: 0.25px !important;
+    text-align: left !important;
+    color: $primary-color !important;
+}
+
+td {
+    margin-right: 5px !important;
+}
+
+:host ::ng-deep .mat-checkbox {
+    margin-right: 5px !important;
+}
+
+:host ::ng-deep .mat-checkbox-frame {
+    border: 1px solid $primary-color;
+    border-radius: 3px;
+}

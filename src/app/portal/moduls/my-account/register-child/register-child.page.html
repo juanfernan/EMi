@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Registrar Menor</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-row class="ion-padding-top">
+        <app-selected-child (childChange)='getChild($event)'></app-selected-child>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label>{{"PORTAL.REGISTER-CHILD.labelDocument" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <div (click)="fileDocument.click()" id="divFileDocument">
+            <input class="form-control" type="text" placeholder="{{'PORTAL.REGISTER-CHILD.placeHolderfile' | translate}}" [(ngModel)]="fileDocumentC" [disabled]="true" id="fileDocument" name="fileDocument" required />
+        </div>
+        <input id="documentC" style="display: none" [accept]="acceptExt" type="file" (ionChange)="onFileChangedDocument($event)" #fileDocument required>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label>{{"PORTAL.REGISTER-CHILD.labelRegister" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <div (click)="fileRegister.click()" id="divFileRegister">
+            <input class="form-control" type="text" placeholder="{{'PORTAL.REGISTER-CHILD.placeHolderfile' | translate}}" [(ngModel)]="fileRegisterC" id="fileRegister" name="fileRegister" required />
+        </div>
+        <input id="registerC" style="display: none" [accept]="acceptExt" type="file" (change)="onFileChangedRegister($event)" #fileRegister required>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="ion-label-inner" [innerHTML]="legendChild"></ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top d-flex ion-justify-content-center">
+        <ion-col>
+            <app-button [configuration]="sendButtonConfig" (click)="send()" [disabled]="!fileDocumentC || !fileRegisterC || !dataChild">></app-button>
+            <!-- <ion-button (click)="send()" [disabled]="true">BTN IONIC</ion-button> -->
+        </ion-col>
+    </ion-row>
+
+    <app-loader *ngIf="loading"></app-loader>
+
+</ion-content>

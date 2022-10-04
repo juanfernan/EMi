@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Configuración de cuenta</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-grid>
+        <ion-row class="ion-padding-top">
+            <ion-col size="4">
+                <div class="selector-item" [class.selected]="currentSection == 'change-password'" (click)="setSection('change-password')">
+                    <ion-label class="title-secondary">Editar Contraseña</ion-label>
+                </div>
+            </ion-col>
+            <ion-col size="4">
+                <div class="selector-item" [class.selected]="currentSection == 'change-email'" (click)="setSection('change-email')">
+                    <ion-label class="title-secondary">Editar correo electrónico</ion-label>
+                </div>
+            </ion-col>
+            <ion-col size="4">
+                <div class="selector-item" [class.selected]="currentSection == 'deactivate-account'" (click)="setSection('deactivate-account')">
+                    <ion-label class="title-secondary">Desactivar cuenta</ion-label>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-row>
+
+        <app-change-password *ngIf="currentSection == 'change-password'"></app-change-password>
+        <app-edit-user-email *ngIf="currentSection == 'change-email'"></app-edit-user-email>
+        <app-deactivate-user-account *ngIf="currentSection == 'deactivate-account'"></app-deactivate-user-account>
+
+    </ion-row>
+
+</ion-content>

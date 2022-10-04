@@ -1,0 +1,45 @@
+<div>
+    <!-- class="modal-dialog modal-md modal-center-align" -->
+
+    <div class="col-md-12">
+
+        <div class="contenedor">
+
+            <div class="icon-close cursor-pointer">
+                <a class="cancel" (click)="closeModal()">
+                    <img src="{{imagesRoute}}/icons/cancel.svg" alt="Imagen">
+                </a>
+            </div>
+
+            <div class="subTitle">
+                <span>{{subTitle}}</span>
+            </div>
+
+            <div class="description row" *ngIf="description != ''">
+                <span class="col-md-12">{{description}}</span>
+            </div>
+
+            <div class="row">
+
+                <agm-map [zoom]="17" [latitude]="latitud" [longitude]="longitud">
+                    <agm-marker [latitude]="latitud" [longitude]="longitud" [iconUrl]=" imagesRoute + 'icon-emi5.png'">
+                        <agm-info-window>
+                            <strong> {{textMark}}</strong>
+                        </agm-info-window>
+                    </agm-marker>
+                </agm-map>
+
+            </div>
+
+            <div class="buttons">
+                <div class="only-button">
+                    <app-button id="focusBtn" [configuration]="configurationButton" (onClick)="confirm()">
+                    </app-button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

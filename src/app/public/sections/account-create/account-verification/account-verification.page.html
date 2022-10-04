@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-grid>
+        <ion-row class="ion-align-items-center">
+            <ion-col size="12">
+                <img src="{{imgRoute}}logo-emi-1.svg">
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-header>
+
+<ion-content>
+
+    <div *ngIf="securityQuestions">
+
+        <ion-row>
+
+            <ion-item class="d-flex align-items-center">
+                <ion-img src="{{imgRoute}}icon-atras.svg" (click)="goToPreviousQuestion()" [hidden]="currentElement == 0"></ion-img>
+                <ion-label (click)="goToPreviousQuestion()" [hidden]="currentElement == 0">{{'PUBLIC.SHARED.back' | translate}}</ion-label>
+            </ion-item>
+
+            <ion-item>
+                <div *ngFor="let item of securityQuestions, let i= index; let last= last">
+                    <app-step [index]="i + 1" [isLast]="i + 1  == securityQuestions.length" [hasFocus]="currentElement == i ? true : false"></app-step>
+                </div>
+            </ion-item>
+
+        </ion-row>
+
+        <ion-row>
+            <ion-label class="title-primary">{{'PUBLIC.REGISTRATION.accountVerificationTitle' | translate}}</ion-label>
+        </ion-row>
+
+        <ion-item>
+            <div *ngFor="let item of securityQuestions, let i= index; let last= last">
+                <app-security-question [securityQuestion]="item" (click)="answerSelected($event)" *ngIf="i === currentElement"></app-security-question>
+            </div>
+        </ion-item>
+
+        <ion-row>
+            <app-button [configuration]="configurationButton" [disabled]="waitingAnswer" (onClick)="complete()">
+            </app-button>
+        </ion-row>
+
+    </div>
+
+</ion-content>

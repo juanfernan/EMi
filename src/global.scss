@@ -1,0 +1,189 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+
+/* Core CSS required for Ionic components to work properly */
+
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+@import "./styles-variables.scss";
+:root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 20px;
+}
+
+@font-face {
+    font-family: 'Mark OT';
+    src: url("./assets/fonts/Mark\ OT-\ Regular.ttf"), url("./assets/fonts/MarkOT-Heavy.ttf"), url("./assets/fonts/MarkOT-Medium.ttf");
+}
+
+* {
+    font-size: 14px;
+    font-family: 'Mark OT', sans-serif;
+}
+
+ion-title {
+    font-size: 18px;
+}
+
+ion-item {
+    border: none !important;
+}
+
+.ion-ml-5 {
+    margin-left: 5px;
+}
+
+.ion-mr-5 {
+    margin-right: 5px;
+}
+
+.ion-flex {
+    display: flex !important;
+}
+
+.ion-item-form-input {
+    border: 1px solid #F3F3F3 !important;
+    --background: #F3F3F3 !important;
+    width: 100% !important;
+}
+
+.ion-content-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-primary {
+    color: $primary-color;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Mark OT', sans-serif;
+}
+
+.title-secondary {
+    color: $secondary-color;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Mark OT', sans-serif;
+}
+
+.title-sub-primary {
+    color: $primary-color;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Mark OT', sans-serif;
+}
+
+.title-secondary-black {
+    color: $principal-gray;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Mark OT', sans-serif;
+}
+
+ion-card-title {
+    font-size: 15px;
+    font-weight: bold;
+    color: $primary-color;
+    font-family: 'Mark OT', sans-serif;
+}
+
+.ion-card-subtitle {
+    font-size: 13px;
+    font-family: 'Mark OT', sans-serif;
+}
+
+.text-normal {
+    font-family: 'Mark OT', sans-serif;
+    font-size: 13px;
+    color: $principal-gray;
+}
+
+.subtitle-opacity {
+    line-height: 25px;
+}
+
+.modal-rounded {
+    .modal-content {
+        border-radius: 20px !important;
+        //width: auto;
+        height: 400px;
+        border: none !important;
+        margin: 0 20px;
+        justify-content: center;
+    }
+}
+
+.modal-rounded-term {
+    .modal-content {
+        border-radius: 20px !important;
+        //width: auto;
+        height: 500px;
+        border: none !important;
+        margin: 0 20px;
+        justify-content: center;
+    }
+}
+
+.modal-heigh {
+    .modal-content {
+        border-radius: 9px !important;
+        border: none !important;
+        margin: 0 20px;
+    }
+}
+
+.ion-validator {
+    font-size: 10px;
+    color: red;
+}
+
+.ngx-pagination {
+    li,
+    li:hover {
+        border: 1px solid gray !important;
+        margin: 3px !important;
+        border-radius: 17px !important;
+        text-decoration: none !important;
+    }
+    .pagination-previous,
+    .pagination-next,
+    .pagination-previous:hover,
+    .pagination-next:hover {
+        border: none !important;
+    }
+    a,
+    a:hover,
+    button,
+    button:hover {
+        border-radius: 17px !important;
+        text-decoration: none !important;
+    }
+    .current {
+        background-color: $primary-color !important;
+        color: white !important;
+    }
+}

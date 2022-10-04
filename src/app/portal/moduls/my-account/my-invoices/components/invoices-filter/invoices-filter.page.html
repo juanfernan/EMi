@@ -1,0 +1,67 @@
+<section>
+
+    <form [formGroup]="form">
+
+        <ion-row class="ion-padding-top">
+            <ion-col size="12">
+                <ion-item button="true" id="open-date-input-from">
+                    <ion-label>{{'PORTAL.MYFACTURES.From' | translate}}</ion-label>
+                    <ion-label class="invoices-date-picker-indicator">{{obtainDate(form.controls.from.value)}}</ion-label>
+                    <ion-popover trigger="open-date-input-from" show-backdrop="false">
+                        <ng-template>
+                            <ion-datetime #popoverDatetimeFrom presentation="date" (ionChange)="setDateFrom(popoverDatetimeFrom.value); popoverDatetimeFrom.confirm(true);">
+                            </ion-datetime>
+                        </ng-template>
+                    </ion-popover>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-col size="12">
+                <ion-item button="true" id="open-date-input-until">
+                    <ion-label>{{'PORTAL.MYFACTURES.Until' | translate}}</ion-label>
+                    <ion-label class="invoices-date-picker-indicator">{{obtainDate(form.controls.until.value)}}</ion-label>
+                    <ion-popover trigger="open-date-input-until" show-backdrop="false">
+                        <ng-template>
+                            <ion-datetime #popoverDatetimeUntil presentation="date" (ionChange)="setDateUntil(popoverDatetimeUntil.value); popoverDatetimeUntil.confirm(true);">
+                            </ion-datetime>
+                        </ng-template>
+                    </ion-popover>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-col size="12">
+                <ion-item>
+                    <label id="cy-status">{{'PORTAL.MYFACTURES.Status' | translate}}</label>
+                    <ion-select formControlName="status" id="cy-select-status" class="invoices-status-select" mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                        <ion-select-option value="{{item.Code}}" *ngFor="let item of listStatus.DataList">{{item.Name}}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-padding-top d-flex ion-justify-content-center">
+            <ion-col>
+                <app-button [configuration]="configurationButton" (click)="onSubmit()"></app-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-padding-top d-flex ion-justify-content-center">
+            <div *ngIf="(parse(unpaid) >= 1)">
+                <ion-label class="span-card-factures">Tienes {{unpaid}} facturas sin pagar</ion-label>
+            </div>
+        </ion-row>
+
+        <!-- <ion-row class="ion-padding-top d-flex justify-content-center align-items-center">
+            <ion-label>Tienes {{unpaid}} facturas sin pagar</ion-label>
+        </ion-row> -->
+
+    </form>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+</section>

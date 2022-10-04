@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Coordinaciones</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+
+    <div class="main-coordinations__container">
+        <div class="main-coordinations__section-selector">
+            <span [class.main-coordinations__selected-section]="showNewCoordinations" (click)="ShowNewCoordinations()" id="newCoordinationsTab">{{"PORTAL.COORDINATION-MAIN.TitleTabNewCoordination" |
+            translate}}</span>
+            <span (click)="returnPendingCoordinations({ showlist: false, showdetail: true })" [class.main-coordinations__selected-section]="!showNewCoordinations" id="pendingCoordinationsTab">{{"PORTAL.COORDINATION-MAIN.TitleTabConfirmedCoordinations" | translate}}</span>
+        </div>
+        <div class="pending-coordinations-container" *ngIf="!showNewCoordinations">
+            <app-pending-coordinations (sendCoordinationDetail)="showPendingCoordinationDetail($event)" [hidden]="showPendingCoordinationsList"></app-pending-coordinations>
+            <app-details-pending-coordinations (returnToList)="returnPendingCoordinations($event)" [objDetail]="detailCoordination" [hidden]="showDetailPendingCoordination"></app-details-pending-coordinations>
+        </div>
+        <app-new-coordination *ngIf="showNewCoordinations" (returnToList)="returnList()"></app-new-coordination>
+    </div>
+
+</ion-content>

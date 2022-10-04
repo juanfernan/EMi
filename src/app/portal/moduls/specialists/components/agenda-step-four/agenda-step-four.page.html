@@ -1,0 +1,60 @@
+<section>
+
+    <ion-row class="ion-padding-top">
+        <ion-label>{{ "PORTAL.SPECIALIST.AGENDA.STEP_FOUR.textSearchedDate" | translate }}</ion-label>
+    </ion-row>
+
+    <form [formGroup]="fechaForm">
+
+        <ion-row class="ion-padding-top">
+            <ion-col size="12">
+                <ion-item class="ion-item-form-input">
+                    <ion-label position="floating">Dias disponibles</ion-label>
+                    <ion-select formControlName="selectFecha" mode="ios" ok-text="Aceptar" cancel-text="Cancelar" (ngModelChange)="selectDateCalendar()">
+                        <ion-select-option *ngFor="let lista of lists.availableDays" [value]="lista.code">
+                            {{ lista.name }}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+    </form>
+
+    <ion-row class="ion-padding-top">
+        <ion-label>{{ "PORTAL.SPECIALIST.AGENDA.STEP_FOUR.textSearchedTime" | translate }}</ion-label>
+    </ion-row>
+
+    <ion-grid>
+        <ion-radio-group [(ngModel)]="calendar.scheduleSelected" (click)="scheduleSelect()">
+
+            <ion-col>
+                <div *ngIf="lists.schedulesAvailableMorning.length > 0">
+                    <ion-label class="text-radio-title">Turnos disponibles de mañana</ion-label>
+                    <div *ngFor="let schedule of lists.schedulesAvailableMorning">
+                        <ion-item>
+                            <ion-label class="text-radio">{{ schedule.startShortTime }}</ion-label>
+                            <ion-radio [value]="schedule.specialistAgendaId" slot="start"></ion-radio>
+                        </ion-item>
+                    </div>
+                </div>
+            </ion-col>
+
+            <ion-col>
+                <div *ngIf="lists.schedulesAvailableAfternoon.length > 0">
+                    <ion-label class="text-radio-title">Turnos disponibles de tarde</ion-label>
+                    <div *ngFor="let schedule of lists.schedulesAvailableAfternoon">
+                        <ion-item>
+                            <ion-label class="text-radio">{{ schedule.startShortTime }}</ion-label>
+                            <ion-radio [value]="schedule.specialistAgendaId" slot="start"></ion-radio>
+                        </ion-item>
+                    </div>
+                </div>
+            </ion-col>
+
+        </ion-radio-group>
+    </ion-grid>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+</section>

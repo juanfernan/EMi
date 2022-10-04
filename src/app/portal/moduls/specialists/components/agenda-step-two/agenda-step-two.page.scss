@@ -1,0 +1,98 @@
+@import './../../../../../../styles-variables.scss';
+.border-selected-test {
+    border: 3px solid blue !important;
+}
+
+.border-selected {
+    border: 3px solid $primary-color!important;
+}
+
+.switch {
+    margin: 8px;
+    position: relative;
+    display: inline-block;
+    width: 49px;
+    height: 20px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.card-data {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    overflow-y: auto;
+    justify-content: center;
+}
+
+.title-fullname {
+    font-style: normal;
+    color: $primary-color;
+    font-size: 14px;
+}
+
+.title-birthdate {
+    font-style: normal;
+    color: black;
+    font-size: 12px;
+}
+
+.title-life {
+    font-style: normal;
+    color: black;
+    font-size: 10px;
+    opacity: 0.4;
+}
+
+.new-main-title2-blue {
+    font-style: normal;
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: bold;
+    color: $primary-color;
+}
+
+.new-subtitle-opacity {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+    opacity: 0.4;
+}
+
+.new-sub-title-blue {
+    font-style: normal;
+    font-size: 16px;
+    line-height: 28px;
+    color: $primary-color;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.card {
+    font-style: normal;
+    width: 150px;
+    height: 135px;
+    margin: 15px;
+    background-color: white;
+    text-align: center;
+    border-radius: 20px;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 8px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 991px) {}

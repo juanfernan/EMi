@@ -1,0 +1,117 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Servicios con vencimiento</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="title-primary">{{"PORTAL.EXPIRED-MEDICAL-SERVICES.TitleFilterSection" | translate}}</ion-label>
+    </ion-row>
+
+    <form #registerForm="ngForm">
+
+        <ion-row class="ion-padding-top">
+            <ion-item class="ion-item-form-input">
+                <ion-label position="floating">{{"PORTAL.EXPIRED-MEDICAL-SERVICES.LabelPatient" | translate}}</ion-label>
+                <ion-select (ionChange)="filterBy('patient', $event)" [(ngModel)]="patient" #Patient="ngModel" name="Patient" id="Patient" required mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                    <ion-select-option *ngFor="let beneficiaries of resultBeneficiaries" [value]="beneficiaries.Document">
+                        {{beneficiaries.FullNames}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-item class="ion-item-form-input">
+                <ion-label position="floating">{{"PORTAL.EXPIRED-MEDICAL-SERVICES.LabelStatus" | translate}}</ion-label>
+                <ion-select (ionChange)="filterBy('state', $event)" [(ngModel)]="status" #Status="ngModel" name="Status" id="Status" [disabled]="toShowFilterPatient && disabledStateFilter" mode="ios" disabled ok-text="Aceptar" cancel-text="Cancelar">
+                    <ion-select-option value="3">{{"PORTAL.EXPIRED-MEDICAL-SERVICES.CurrentStatuOption" | translate}}</ion-select-option>
+                    <ion-select-option value="2">{{"PORTAL.EXPIRED-MEDICAL-SERVICES.ExpiredStatusOption" | translate}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-row>
+
+        <ion-row class="ion-padding-top d-flex ion-justify-content-center">
+            <ion-col>
+                <app-button [configuration]="restoreButtonConfig" [disabled]="!patient && !status" (click)="restoreData()"></app-button>
+            </ion-col>
+        </ion-row>
+
+    </form>
+
+    <div [hidden]="hiddenResult">
+        <ion-row>
+            <p>
+                <i class="fa fa-info-circle" aria-hidden="true"></i> {{"PORTAL.EXPIRED-MEDICAL-SERVICES.FailedResult" | translate}}
+                <span><a (click)="restoreData()">{{"PORTAL.EXPIRED-MEDICAL-SERVICES.CloseButton" | translate}}</a></span>
+            </p>
+        </ion-row>
+    </div>
+
+    <div *ngFor="let product of expiredProductsFilter" class="ion-padding-top">
+
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>{{product.DescProduct}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+
+                <ion-row>
+                    <ion-label class="text-title">{{"PORTAL.EXPIRED-MEDICAL-SERVICES.DescriptionCard" | translate}}</ion-label>
+                </ion-row>
+
+                <ion-row>
+                    <ion-label>{{product.FullName}}<br><span>{{product.DescDocument}}</span>{{product.Document}}</ion-label>
+                </ion-row>
+
+                <ion-row>
+                    <ion-label class="text-title"><i class="fa fa-calendar" aria-hidden="true"></i> {{"PORTAL.EXPIRED-MEDICAL-SERVICES.StartDateCard" | translate}}</ion-label>
+                </ion-row>
+
+                <ion-row>
+                    <ion-label class="text-subtitle">{{product.DateAccomplished}}</ion-label>
+                </ion-row>
+
+                <ion-row>
+                    <ion-label class="text-title"><i class="fa fa-calendar" aria-hidden="true"></i> {{"PORTAL.EXPIRED-MEDICAL-SERVICES.EndDateCard" | translate}}</ion-label>
+                </ion-row>
+
+                <ion-row>
+                    <ion-label class="text-subtitle"><i aria-hidden="true"> </i>{{product.DateAccomplished}}</ion-label>
+                </ion-row>
+
+                <ion-row>
+                    <ion-label class="text-title"><i class="fa fa-check" aria-hidden="true"></i> {{"PORTAL.EXPIRED-MEDICAL-SERVICES.StateCard" | translate}}</ion-label>
+                </ion-row>
+
+                <ion-row>
+                    <ion-label [ngStyle]="{'color': product.DescStatus === 'Vencido' ? 'red' : '','font-weight': product.DescStatus === 'Vencido' ? 'bold' : '' }" class="card-text">
+                        <i aria-hidden="true"></i>{{product.DescStatus}}
+                    </ion-label>
+                </ion-row>
+
+                <ion-row class="ion-padding-top d-flex ion-justify-content-center">
+                    <div>
+                        <a class="btn btn-primary" (click)="coordinateEvent(product.Coordinate, product.Document, product.CellPhone, product.Email)">
+                            {{"PORTAL.EXPIRED-MEDICAL-SERVICES.CoordinateButton" | translate}}
+                        </a>
+                    </div>
+                    <form id="formFacturasUy">
+                        <input type="hidden" name="PWToken" id="PWToken" />
+                    </form>
+                </ion-row>
+
+            </ion-card-content>
+
+        </ion-card>
+
+    </div>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+</ion-content>

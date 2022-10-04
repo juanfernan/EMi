@@ -1,0 +1,39 @@
+<div class="modal-body">
+
+    <ion-row class="d-flex justify-content-between mb-4">
+        <ion-col size="8">
+            <img class="img-fluid mr-4" src="{{imgRoute}}icons/location.png" alt="location">
+            <span class="mx-2 mb-4 fs-6 color-primary">Estas en: {{ list.CityName }} , {{ 'PUBLIC.SHARED.country' | translate}} </span>
+            <div class="d-inline-block ml-2">
+                <span (click)="closeModal(); volver()" class="cambiar m-0 cursor-pointer"> {{ 'PUBLIC.SHARED.change' | translate }} </span>
+            </div>
+        </ion-col>
+        <ion-col size="2">
+            <button type="button" (click)="closeModal()" class="btn-close mb-4 close justify-content-end" aria-label="Close">
+              <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </ion-col>
+    </ion-row>
+
+    <ion-grid class="d-md-flex justify-content-around center">
+        <ion-row>
+            <ion-col size="12">
+                <div *ngFor="let item of descriptionPhones; let i=index" class=" text-center pb-4">
+                    <div class="img text-center">
+                        <img [src]="item.img" alt="service-client" style="width: 35px;">
+                    </div>
+                    <div class="phoneNumber">
+                        <ion-label class="color-primary text-description ">
+                            {{item.title}}
+                        </ion-label>
+                        <div *ngFor="let tel of item.numbers" class="mb-2">
+                            <a [href]="'tel:' + tel.Tel" class="number-tel">{{tel.Tel}}</a>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</div>

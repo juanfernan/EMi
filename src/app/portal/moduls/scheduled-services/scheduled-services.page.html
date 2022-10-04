@@ -1,0 +1,96 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Servicios coordinados</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="title-primary">{{"PORTAL.SCHEDULED-SERVICES.Title" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="title-subtitle">{{"PORTAL.SCHEDULED-SERVICES.Description" | translate}}</ion-label>
+    </ion-row>
+
+    <div *ngFor="let obj of scheduledServices" class="ion-padding-top">
+
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>{{obj.ServiceTypeDescription}}</ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+
+                <ion-row>
+                    <ion-label *ngIf="obj.UserName">{{obj.UserName}}</ion-label>
+                </ion-row>
+
+                <ion-row *ngIf="obj.UserName == null || obj.UserName.length === 0">
+                    <ion-label>{{userLogin.nameUser}}</ion-label>
+                </ion-row>
+
+                <ion-row *ngIf="obj.ServiceType == 9">
+                    <ion-label>{{obj.DescriptionState}}</ion-label>
+                </ion-row>
+
+                <ion-row>
+                    <ion-label>{{obj.UserDocumentTypeStr}} {{obj.userDocument}}</ion-label>
+                </ion-row>
+
+                <ion-row *ngIf="obj.userDocument == null || obj.userDocument.length === 0">
+                    <ion-label>{{userLogin.document}}</ion-label>
+                </ion-row>
+
+                <hr/>
+
+                <ion-row *ngIf="obj.ServiceTypeDescription">
+                    <ion-label>{{obj.ServiceTypeDescription}}</ion-label>
+                </ion-row>
+
+                <ion-row *ngIf="obj.ServiceType == 9" [hidden]="obj.ServiceNumber === '0' || obj.ServiceNumber === ''">
+                    <ion-label>No. {{obj.ServiceNumber}}</ion-label>
+                </ion-row>
+
+                <ion-row *ngIf="obj.ServiceType != 9">
+                    <ion-label>{{obj.SpecialityName}}</ion-label>
+                </ion-row>
+
+                <ion-row *ngIf="obj.DoctorName">
+                    <ion-label>{{obj.DoctorName}}</ion-label>
+                </ion-row>
+
+                <ion-row *ngIf="obj.Date">
+                    <ion-label>{{obj.Date}}</ion-label>
+                </ion-row>
+
+                <ion-row *ngIf="obj.ServiceType != 9">
+                    <ion-label *ngIf="obj.Address">{{obj.Address}}</ion-label>
+                </ion-row>
+
+                <ion-row *ngIf="obj.CityName">
+                    <ion-label>{{obj.CityName}}</ion-label>
+                </ion-row>
+
+            </ion-card-content>
+
+        </ion-card>
+
+        <ion-row>
+            <ion-col>
+                <app-button [configuration]="cancelButtonConfig" *ngIf="obj.ServiceType != 9" (click)="cancelService(obj)"></app-button>
+            </ion-col>
+            <ion-col>
+                <app-button [configuration]="cancelButtonConfig" *ngIf="obj.Canceled == false && obj.ServiceType == 9 && obj.CodeState != 3" (click)="cancelMedicalHomeService(obj)"></app-button>
+            </ion-col>
+        </ion-row>
+
+    </div>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+</ion-content>

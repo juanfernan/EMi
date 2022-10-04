@@ -1,0 +1,211 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Solicitar Servicio</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="title-primary">{{'PORTAL.SERVICE-SOLICITUDE.titleServiceSolicitude' | translate}}</ion-label>
+    </ion-row>
+
+    <div *ngIf="actualStep==1">
+
+        <ion-row class="ion-padding-top">
+            <ion-label>Te guiaremos en el proceso de seleccionar un servicio para vos o un familiar</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label class="title-subtitle">¿Para quién desea solicitar el servicio?</ion-label>
+        </ion-row>
+
+        <ion-row class="d-flex ion-justify-content-center">
+
+            <ion-col sizeLg>
+
+                <div *ngFor="let person of persons">
+
+                    <ion-card (click)="selectionPerson(person);" style="cursor: pointer;">
+                        <ion-card-header>
+                            <ion-card-title>{{person.FullNames}}</ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <ion-row>
+                                <ion-label>Edad : {{ person.BirthDate | birthday }} años</ion-label>
+                            </ion-row>
+                            <ion-row>
+                                <ion-label>{{person.DocumentTypeShort}} : {{person.Document}}</ion-label>
+                            </ion-row>
+                            <ion-row>
+                                <ion-label *ngIf="person.CellPhone">Celular : {{person.CellPhone}}</ion-label>
+                            </ion-row>
+                            <ion-row>
+                                <ion-label *ngIf="person.Email">Correo : {{person.Email}}</ion-label>
+                            </ion-row>
+                        </ion-card-content>
+                    </ion-card>
+
+                </div>
+
+            </ion-col>
+
+        </ion-row>
+
+    </div>
+
+    <div *ngIf="actualStep==2">
+
+        <ion-row class="ion-padding-top" display="flex" flex-direction="row" justifiy-content="flex-end">
+            <ion-label (click)="setLastStep();">
+                {{ "PORTAL.NEARBY-CLINICS-DETAIL.BackToList" | translate}}</ion-label>
+        </ion-row>
+
+        <hr/>
+
+        <div *ngIf="patient.IsTitular">
+            <ion-row class="ion-padding-top">
+                <ion-label class="new-main-title2-blue">{{patient.FullNameTitular}}</ion-label>
+            </ion-row>
+        </div>
+
+        <div *ngIf="!patient.IsTitular">
+            <ion-row class="ion-padding-top">
+                <ion-label class="new-sub-title-blue">Titular : {{patient.FullNameTitular}}</ion-label>
+            </ion-row>
+            <ion-row class="ion-padding-top">
+                <ion-label class="new-main-title2-blue">Paciente : {{patient.FullNames}}</ion-label>
+            </ion-row>
+        </div>
+
+        <ion-row class="ion-padding-top">
+            <ion-label>¿Tu número de contacto es correcto?</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-item class="ion-item-form-input">
+                <form [formGroup]="form">
+                    <ion-label position="floating">Celular</ion-label>
+                    <ion-input type="text" formControlName="cellPhone" (ngModelChange)="validateCellNumber()" (keypress)="numberOnly($event)" [maxlength]="maxLength">
+                    </ion-input>
+                </form>
+            </ion-item>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-col size="12">
+                <ion-label class="ion-validator" *ngIf="this.form.controls.cellPhone.hasError('invalidNumber')">{{"PORTAL.SELECT-PATIENT.invalidCellPhone" | translate}}</ion-label>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label>¿Es el mismo número para contactar al paciente?</ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label>No</ion-label>
+            <ion-label class="switch">
+                <ion-toggle class="p-0" [checked]="dontShowPatientNumber" (ionChange)="changeSwich()"></ion-toggle>
+            </ion-label>
+            <ion-label>Si</ion-label>
+        </ion-row>
+
+        <div *ngIf="!dontShowPatientNumber" class="ion-padding-top">
+            <form [formGroup]="form">
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-item class="ion-item-form-input">
+                            <ion-label position="floating">Teléfono paciente</ion-label>
+                            <ion-input type="text" formControlName="cellPhonePatient" (ngModelChange)="validateCellNumber()" (keypress)="numberOnly($event)" [maxlength]="maxLength"></ion-input>
+                            <ion-col size="12">
+                                <ion-label class="ion-validator" *ngIf="this.form.controls.cellPhonePatient.hasError('invalidNumber') && this.form.controls.cellPhonePatient.dirty">{{"PORTAL.SELECT-PATIENT.invalidCellPhone" | translate}}</ion-label>
+                            </ion-col>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </form>
+        </div>
+
+    </div>
+
+    <div *ngIf="actualStep==3">
+
+        <ion-row class="ion-padding-top" display="flex" flex-direction="row" justifiy-content="flex-end">
+            <ion-label (click)="setLastStep();">
+                {{ "PORTAL.NEARBY-CLINICS-DETAIL.BackToList" | translate}}</ion-label>
+        </ion-row>
+
+        <hr/>
+
+        <div *ngIf="planServices">
+
+            <ion-row class="ion-padding-top">
+                <ion-col size="12">
+                    <ion-label>¿Cómo desea ser atendido?</ion-label>
+                </ion-col>
+            </ion-row>
+
+            <div class="row" *ngIf="planServices" (click)="checkConsentimiento();">
+                <div class="row" [ngClass]="{'div-disabled': !checkConsentimientos}">
+                    <div class="">
+                        <div *ngFor="let item of planServices">
+                            <div class="">
+                                <app-card-type [acceptConsent]="checkConsentimientos" [service]="item"></app-card-type>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <ion-row class="ion-padding-top" (click)="checkConsentimiento();">
+                <ion-col size="12">
+                    <div *ngFor="let item of planServices">
+                        <div class="service-card-container">
+                            <app-card-type [service]="item" [disabled]="!(checkConsentimientos && checkTerminos)">
+                            </app-card-type>
+                        </div>
+                    </div>
+                </ion-col>
+            </ion-row> -->
+
+            <ion-row class="ion-padding-top"></ion-row>
+
+            <ion-row class="ion-padding-top">
+                <ion-col size="2">
+                    <ion-checkbox [(ngModel)]="checkTerminos"></ion-checkbox>
+                </ion-col>
+                <ion-col size="10">
+                    <ion-label class="title-terms" (click)="openTerminos()">{{"PORTAL.SERVICE-SOLICITUDE.CheckTerminos" | translate}}</ion-label>
+                </ion-col>
+            </ion-row>
+
+            <!-- <ion-row class="ion-padding-top">
+                <ion-col size="2">
+                    <ion-checkbox [(ngModel)]="checkConsentimientos"></ion-checkbox>
+                </ion-col>
+                <ion-col size="10">
+                    <ion-label class="title-terms" (click)="openConsentimientos()">{{"PORTAL.SERVICE-SOLICITUDE.CheckConsentimientos" | translate}}</ion-label>
+                </ion-col>
+            </ion-row> -->
+
+        </div>
+
+    </div>
+
+    <ion-row *ngIf="actualStep==2" class="ion-paddingt-top">
+        <ion-col class="ion-padding-top">
+            <app-button [configuration]="continuarButton" (click)="setNextStep()" [disabled]="buttonContinuarDisabled"></app-button>
+        </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="actualStep==1" class="ion-padding-top">
+        <hr/>
+        <ion-label class="information">Para solicitar atención médica domiciliaria, el paciente debe estar afiliado, para mayor información sobre nuestros planes haz clic aquí.</ion-label>
+    </ion-row>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+</ion-content>

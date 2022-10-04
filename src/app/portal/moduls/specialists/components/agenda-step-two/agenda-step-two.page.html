@@ -1,0 +1,29 @@
+<section>
+
+    <ion-row class="ion-padding-top">
+        <ion-label>{{ "PORTAL.SPECIALIST.AGENDA.STEP_TWO.whatAttentionTypeWant" | translate }}</ion-label>
+    </ion-row>
+
+    <div class="card-data">
+
+        <div *ngFor="let consultationType of lists.consultationTypes" (click)="clickConsultationTypeModel(consultationType)">
+
+            <div class="card" [ngClass]="isConsultationTypeModelSelected(consultationType) ? 'border-selected' : ''">
+
+                <!-- image virtual attention -->
+                <img *ngIf="consultationType.consultationTypeId==1" src="{{imagesRoute}}icons/initial-appointment.svg" />
+                <img *ngIf="consultationType.consultationTypeId==2" src="{{imagesRoute}}icons/revision-appointment.svg" />
+                <img *ngIf="consultationType.consultationTypeId!=1 && consultationType.consultationTypeId!=2" [src]="avatarIcon" alt="" style="width: 41px; height: 41px">
+
+                <!-- text virtual attention -->
+                <ion-row class="ion-padding-top">
+                    <ion-label class="title-fullname">{{ consultationType.name }}</ion-label>
+                </ion-row>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

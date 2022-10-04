@@ -1,0 +1,97 @@
+.card {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 77px;
+    width: 300px !important;
+    border-radius: 16px;
+    border: 1px solid #e2e1e1;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+    background: #f8f7f7;
+}
+
+.col-img {
+    margin-top: 3px;
+    margin-left: 20px;
+}
+
+.col-text-name {
+    width: 150px;
+    margin-left: 20px;
+}
+
+.col-text-name span {
+    font-family: "Mark OT", sans-serif;
+    font-size: 15px;
+    line-height: 21px;
+}
+
+img {
+    height: 30px !important;
+    width: 30px !important;
+}
+
+.col-line {
+    margin-left: 25px;
+}
+
+.vertical-line {
+    width: 1px;
+    height: 65px;
+    background: #d2d1d1;
+}
+
+.col-info {
+    display: inline-grid;
+    justify-items: center;
+    align-self: self-start;
+    margin-left: 10px;
+    margin-top: 5px;
+    font-family: "Mark OT", sans-serif;
+}
+
+.col-info-text-header {
+    font-size: 14px;
+    line-height: 12px;
+    color: #757471;
+}
+
+.col-info-text-body-green {
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 16px;
+    color: #12b829;
+}
+
+.col-info-text-body-yellow {
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 16px;
+    color: #F68002;
+}
+
+.col-info-text-body-red {
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 16px;
+    color: #FF3F33;
+}
+
+@media only screen and (max-width: 360px) {
+    .card {
+        width: auto;
+    }
+    .col-line {
+        margin-left: 10px;
+    }
+    .col-text-name {
+        margin-left: 0px;
+    }
+    .col-info-text-header {
+        font-size: 8px;
+    }
+}

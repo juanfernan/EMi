@@ -1,0 +1,26 @@
+<ion-row class="row pending-coordinations__title">
+    <ion-label class="title-primary">{{"PORTAL.PENDING-COORDINATIONS.Title" | translate}}</ion-label>
+</ion-row>
+
+<ion-row *ngFor="let coordination of coordinationsPending" (click)="sendDetail($event, coordination)">
+
+    <ion-card>
+        <ion-row>
+            <ion-col size="2" style="text-align:center; align-self:center;">
+                <img class="img-location" src="{{imgRoute}}user_patient.png" alt="Ubicación del centro médico">
+            </ion-col>
+            <ion-col size="10">
+                <ion-card-header>
+                    <ion-card-title>{{coordination.Names}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-label class="ion-card-subtitle ion-padding-top">{{coordination.SpecialityName}}</ion-label>
+                    <ion-label class="ion-card-subtitle ion-padding-top">{{coordination.MedicalCenter.ClinicName}}</ion-label>
+                    <ion-label class="ion-card-subtitle ion-padding-top">{{coordination.MedicalCenter.Address}}</ion-label>
+                    <ion-label class="ion-card-subtitle ion-padding-top">{{coordination.Date}}</ion-label>
+                </ion-card-content>
+            </ion-col>
+        </ion-row>
+    </ion-card>
+
+</ion-row>

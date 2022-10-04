@@ -1,0 +1,74 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Red Emi Especialistas</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="title-primary">{{ "PORTAL.SPECIALIST.AGENDA.Title" | translate }}</ion-label>
+    </ion-row>
+
+    <div *ngIf="showButtonPrevius(sections.steps.actual)">
+        <ion-row (click)="clickButtonPrevius(sections.steps.actual)">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+            <ion-label class="atras-label" (click)="clickButtonPrevius(sections.steps.actual)">
+                {{ "PORTAL.SPECIALIST.AGENDA.buttonTextPrevius" | translate }}
+            </ion-label>
+        </ion-row>
+    </div>
+
+    <hr/>
+
+    <div>
+        <!-- Step one -->
+        <app-agenda-step-one *ngIf="sections.steps.actual == 1" (response)="valueResponse($event)" [documentType]="this.selections.documentType" [document]="this.selections.document" [default]="selections.optionSelectedInStepOne" (optionsSelected)="changeOptionSelectedInStepOne($event)">
+        </app-agenda-step-one>
+
+        <!-- Step two -->
+        <app-agenda-step-two *ngIf="sections.steps.actual == 2" (response)="valueResponse($event)" [consultationTypeSelected]="selections.optionSelectedInStepTwo ? selections.optionSelectedInStepTwo.consultationType : null" (optionsSelected)="changeOptionSelectedInStepTwo($event)">
+        </app-agenda-step-two>
+
+        <!-- Step three -->
+        <app-agenda-step-three *ngIf="sections.steps.actual == 3" (response)="valueResponse($event)" [specialtySelected]="selections.optionsSelectedInStepThree ? selections.optionsSelectedInStepThree.specialty : null" [specialistSelected]="selections.optionsSelectedInStepThree ? selections.optionsSelectedInStepThree.specialist : null"
+            [consultantCitySelected]="selections.optionsSelectedInStepThree ? selections.optionsSelectedInStepThree.consultantCity : null" [specialistTableSelected]="selections.optionsSelectedInStepThree ? selections.optionsSelectedInStepThree.specialistTableSelected : null"
+            (OptionsSelectedInStepThree)="changeOptionSelectedInStepThree($event)">
+        </app-agenda-step-three>
+
+        <!-- step four -->
+        <app-agenda-step-four *ngIf="sections.steps.actual == 4" (response)="valueResponse($event)" [availableDaySelected]="selections.optionsSelectedInStepFour ? selections.optionsSelectedInStepFour.availableDay : null" [scheduleSelected]="selections.optionsSelectedInStepFour ? selections.optionsSelectedInStepFour.schedule : null"
+            [specialist]="selections.optionsSelectedInStepThree!.specialist" (optionsSelectedInStepFour)="changeOptionSelectedInStepFour($event)"></app-agenda-step-four>
+
+        <!-- Step five -->
+        <app-agenda-step-five *ngIf="sections.steps.actual == 5" (response)="valueResponse($event)" [screenShow]="sections.stepFive.screenShow" [optionSelectedInStepOne]="selections.optionSelectedInStepOne" [optionSelectedInStepTwo]="selections.optionSelectedInStepTwo"
+            [optionsSelectedInStepThree]="selections.optionsSelectedInStepThree" [optionsSelectedInStepFour]="selections.optionsSelectedInStepFour"></app-agenda-step-five>
+    </div>
+
+    <!-- Buttons -->
+    <ion-row class="ion-padding-top">
+        <ion-col size="12">
+            <!-- Button next -->
+            <app-button *ngIf="showButtonNext(sections.steps.actual)" class="pull-right" [configuration]="configurationButtonNext" (click)="clickButtonNext(sections.steps.actual)" [disabled]="buttonContinuarDisabled"></app-button>
+            <!-- Button confirm -->
+            <app-button *ngIf="showButtonConfirm(sections.steps.actual)" class="pull-right" [configuration]="configurationButtonConfirmAppointment" (click)="clickConfirmAppointment()"></app-button>
+            <!-- Button finalized -->
+            <app-button *ngIf="this.sections.stepFive.screenShow==1 && showButtonFinalize(sections.steps.actual)" class="pull-right" [configuration]="configurationFinalizedAppointment" (click)="clickFinalizedAppointment()"></app-button>
+        </ion-col>
+    </ion-row>
+
+    <div *ngIf="sections.steps.actual == 1">
+        <ion-row class="ion-padding-top">
+            <hr/>
+            <ion-label class="text-link">{{ "PORTAL.SPECIALIST.AGENDA.MessageInFooter" | translate }}
+                <a class="text-link" href="#">{{"PORTAL.SPECIALIST.AGENDA.MessageInFooterLink" | translate }}</a>
+            </ion-label>
+        </ion-row>
+    </div>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+</ion-content>

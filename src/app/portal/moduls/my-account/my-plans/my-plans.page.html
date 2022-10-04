@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Mis Planes</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <div *ngFor="let plans of userPlans">
+        <app-my-plans-main-info [responsable]="getNames(plans)" [lastFeeDate]="plans['Facturacion']['DescripcionFactura']">
+        </app-my-plans-main-info>
+        <app-my-plans-card [planList]="plans['Beneficiarios']" [facturacion]="plans['TipoFacturacion']" [matriculaFamilia]="plans['MatriculaFamilia']" [onShowConsumptions]="showConsumptionsModal"></app-my-plans-card>
+    </div>
+
+    <app-my-plans-new-plan [user]="user" [lstResponsabilities]="lstResponsabilities" [lstResponsabilitiesNotMine]="lstResponsabilitiesNotMine" [obtenerVida]="obtenerVida" [abrirEnNuevaPesatana]="abrirEnNuevaPesatana" [generateNewPlan]="generateNewPlan" [getPlanPayload]="getPlanPayload"
+        [plansService]="plansService" [isLoading]="isLoading" bsModalRef="bsModalRef" [generateComposeInformativeModal]="generateComposeInformativeModal" [modalService]="modalService" [router]="router">
+    </app-my-plans-new-plan>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+</ion-content>

@@ -1,0 +1,804 @@
+<section>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="title-primary">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.EventInformationTitle" | translate}}:</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="title-subtitle" *ngIf="stepOneInformation.eventType === '1'">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.TitleTwo" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="subtitle" *ngIf="stepOneInformation.eventType === '2'">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.TitleThree" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="subtitle" *ngIf="stepOneInformation.eventType === '4'">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.TitleOne" | translate}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="emi1-txtfamiliar">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.FormInfo" | translate}}</ion-label>
+    </ion-row>
+
+    <!-- Fomrulario -->
+    <!-- <form class="form-inline" #searchForm="ngForm" novalidate> -->
+
+    <form [formGroup]="formEventType">
+
+        <ion-row class="ion-padding-top">
+            <ion-item class="ion-item-form-input">
+                <ion-label position="floating">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelEventRelatedArea" | translate}}</ion-label>
+                <ion-select formControlName="relatedAreas" mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                    <ion-select-option *ngFor="let area of areasRelatedToTheEvent" [value]="area.IdArea">{{area.Nombre}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-col size="12">
+                <ion-label class="ion-validator" *ngIf="this.formEventType.controls.relatedAreas.hasError('required')">
+                    {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.RequiredMedicalArea" | translate}}
+                </ion-label>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-item class="ion-item-form-input">
+                <ion-label position="floating">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelRelatedOfficial" | translate}}</ion-label>
+                <ion-input maxlength="40" formControlName="namesOfficials"></ion-input>
+            </ion-item>
+            <ion-col size="12">
+                <ion-label class="ion-validator" *ngIf="this.formEventType.controls.namesOfficials.hasError('pattern')">
+                    {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.RelatedOfficialFormateErr" | translate}}
+                </ion-label>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-item class="ion-item-form-input">
+                <ion-label position="floating">Fecha del evento</ion-label>
+                <ion-datetime></ion-datetime>
+                <!-- <ion-datepicker [startAt]="eventTypesClass.EventDate" #pickerfrom></ion-datepicker> -->
+            </ion-item>
+            <ion-col size="12">
+                <ion-label class="ion-validator" *ngIf="this.formEventType.controls.eventdate.hasError('required')">
+                    {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.DateEventRequired" | translate}}
+                </ion-label>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <button (click)="viewMessagesInformationEvent('eventDate')" color="primary" aria-label="date" class="iconInfo">Boton</button>
+        </ion-row>
+
+        <div *ngIf="viewMessagesInformation && viewMessageInformationId == 'eventDate'">
+            <ion-row class="ion-padding-top">
+                <ion-col>
+                    <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.DateEventInfo" | translate}}</ion-label>
+                </ion-col>
+            </ion-row>
+        </div>
+
+    </form>
+
+    <!-- Seccion solo colombia -->
+
+    <form class="form-inline" #searchForm="ngForm" novalidate>
+
+        <div *ngIf="country === 'co'">
+
+            <ion-row>
+
+                <ion-col size="6">
+                    <ion-item class="ion-item-form-input">
+                        <ion-label position="floating">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelEventDepartment" | translate}}</ion-label>
+                        <ion-select [(ngModel)]="eventTypesClass.EventCodeDepartment" name="eventDepartment" class="form-control emi1-input" ngControl="eventDepartments" #eventDepartments="ngModel" required id="eventDepartment" (change)="onChangeEventDepartment(eventTypesClass.EventCodeDepartment)"
+                            mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                            <ion-select-option *ngFor="let department of departments" [value]="department.Code">{{department.Name}}
+                            </ion-select-option>
+                        </ion-select>
+                        <ion-label class="ion-validator" *ngIf="eventDepartments.invalid && (eventDepartments.dirty || eventDepartments.touched  )" class="alert-email alert-danger-email">
+                            {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.EventDepartmentRequired" | translate}}
+                        </ion-label>
+                    </ion-item>
+                </ion-col>
+
+                <ion-col size="6">
+                    <ion-item class="ion-item-form-input">
+                        <ion-label position="floating">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelCity" | translate}}</ion-label>
+                        <ion-select [(ngModel)]="eventTypesClass.EventCodeCity" name="eventCodeCity" class="form-control emi1-input" ngControl="eventCodeCitys" #eventCodeCitys="ngModel" required id="eventCodeCity" (change)="onChangeEventCodeCity(eventTypesClass.EventCodeCity)"
+                            mode="ios" ok-text="Aceptar" cancel-text="Cancelar" [disabled]="!eventTypesClass.EventCodeDepartment">
+                            <ion-select-option *ngFor="let city of cities" [value]="city.Code">{{city.Name}}</ion-select-option>
+                        </ion-select>
+                        <ion-label class="ion-validator" *ngIf="eventCodeCitys.invalid && (eventCodeCitys.dirty || eventCodeCitys.touched  )" class="alert-email alert-danger-email">
+                            {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.CityRequired" | translate}}
+                        </ion-label>
+                    </ion-item>
+                </ion-col>
+
+            </ion-row>
+
+        </div>
+
+        <!-- Subida de archivos  -->
+        <!--SELECCIONÓ: Agradecimientos o Felicitaciones-->
+
+        <div *ngIf="stepOneInformation.eventType === '4' || stepOneInformation.eventType == 4">
+
+            <ion-row class="ion-padding-top">
+                <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelAdjuntDocuments" | translate}}</ion-label>
+            </ion-row>
+
+            <ion-row class="ion-padding-top">
+                <app-file-upload (fileUploaded)="inputFileEvent($event)" [visible]="true" [allowedExtensions]="allowedExtensionsFileUpload" [maxSizeMBAllowed]="fileSizeAllowMB" [pleaceholder]="'Adjunte Agradecimientos o felicitaciones'" [keyword]="'TANKS_AND_CONGRATULATIONS'"></app-file-upload>
+            </ion-row>
+
+            <ion-row class="ion-padding-top">
+                <button (click)="viewMessagesInformationEvent('TANKS_AND_CONGRATULATIONS')" color="primary" aria-label="date" class="iconInfo2"></button>
+            </ion-row>
+
+        </div>
+
+        <div *ngIf="!typeErrorFile && viewMessagesInformation && viewMessageInformationId == 'TANKS_AND_CONGRATULATIONS'">
+            <ion-row class="ion-padding-top">
+                <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.InfoDocument" | translate}}</ion-label>
+            </ion-row>
+        </div>
+
+        <!--SELECCIONÓ: Quejas - Reclamos-->
+
+        <div *ngIf="stepOneInformation.eventType === '1' || stepOneInformation.eventType == 1">
+
+            <ion-row class="ion-padding-top">
+                <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelAdjuntDocuments" | translate}}</ion-label>
+            </ion-row>
+
+            <ion-row class="ion-padding-top">
+                <app-file-upload (fileUploaded)="inputFileEvent($event)" [visible]="true" [allowedExtensions]="allowedExtensionsFileUpload" [maxSizeMBAllowed]="fileSizeAllowMB" [pleaceholder]="'Adjunte quejas o reclamos'" [keyword]="'ACKNOWLEDGMENTS_AND_CLAIMS'" [disabled]="disabledInputFile"></app-file-upload>
+            </ion-row>
+
+            <ion-row class="ion-padding-top">
+                <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.DocumentDetails" | translate}}</ion-label>
+            </ion-row>
+
+            <ion-row class="ion-padding-top">
+                <button class="btn btn btn-light selected-files-btn" type="button" style="height: 50px;" (click)="previewFilesSelect()" [disabled]="multipleFiles == ''">{{buttonNameFile}}<span>{{multipleFiles.length}}/3</span></button>
+            </ion-row>
+
+            <ion-row class="ion-padding-top">
+                <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.InfoThreeDocument" | translate}}</ion-label>
+            </ion-row>
+
+            <ion-row class="ion-padding-top">
+                <div *ngIf="!typeErrorFile && multipleFiles != '' && viewSelectedFiles">
+                    <div *ngFor="let file of multipleFiles" class="alert alert-info alert-selected-files" role="alert">
+                        <ion-label class="files-selected">{{file.name}}</ion-label>
+                        <ion-label (click)="removeFileOfItemsSelected(file.name)"><em class="fa fa-trash-o clear-file"></em></ion-label>
+                    </div>
+                </div>
+            </ion-row>
+
+        </div>
+
+        <!--SELECCIONÓ: SOLICITUD DE REEMBOLSO-->
+
+        <div *ngIf="stepOneInformation.eventType === '2' || stepOneInformation.eventType == 2">
+
+            <form [formGroup]="formEventType">
+
+                <ion-row class="ion-padding-top">
+                    <ion-item class="ion-item-form-input">
+                        <ion-label position="floating">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.ReasonForRefund" | translate}}</ion-label>
+                        <ion-select formControlName="reasonsForReimbursement" id="selReasonsForReimbursement" [(ngModel)]="eventTypesClass.ReasonsForReimbursement" (change)="onChangeReasonsForReimbursement(eventTypesClass.ReasonsForReimbursement)" mode="ios" ok-text="Aceptar"
+                            cancel-text="Cancelar">
+                            <ion-select-option *ngFor="let reasons of reasonsForReimbursement" [value]="reasons.Code">{{reasons.Name}}
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-col sieze="12">
+                        <ion-label class="ion-validator" *ngIf="this.formEventType.controls.reasonsForReimbursement.hasError('required')">
+                            {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.RefundRequestRequired" | translate}}
+                        </ion-label>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row class="ion-padding-top">
+                    <ion-label (click)="viewMessagesInformationEvent('ReasonsForReimbursement')" class="input-group-addon information-file-icon">
+                        <em class="fa fa-info"></em>
+                    </ion-label>
+                </ion-row>
+
+                <div *ngIf="viewMessagesInformation && viewMessageInformationId == 'ReasonsForReimbursement'" class="col-md-12">
+                    <ion-row class="ion-padding-top">
+                        <ion-label>
+                            {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.RefundRequestInformation" | translate}}
+                        </ion-label>
+                    </ion-row>
+                </div>
+
+            </form>
+
+        </div>
+
+        <!--TIPOS DE REEMBOLSO-->
+        <!--Seleccionó: Reembolso por fallecimiento del beneficiario-->
+
+        <div>
+
+            <div class="row">
+
+                <!--Seleccionó: Reembolso por fallecimiento del beneficiario-->
+                <div *ngIf="eventTypesClass.ReasonsForReimbursement == '1'">
+
+                    <div *ngIf="!typeErrorFile && viewMessagesInformation && viewMessageInformationId == 'BENEFICIARYS_DEATH'">
+                        <ion-row>
+                            <ion-label>
+                                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.ResponsiblePaymentInfo" | translate}}
+                            </ion-label>
+                        </ion-row>
+                    </div>
+
+                    <ion-row>
+                        <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelBeneficiarysDeath" | translate}}</ion-label>
+                    </ion-row>
+
+                    <ion-row>
+                        <app-file-upload (fileUploaded)="inputFileEvent($event)" [visible]="true" [allowedExtensions]="allowedExtensionsFileUpload" [maxSizeMBAllowed]="fileSizeAllowMB" [pleaceholder]="'Adjunte acta de fallecimiento'" [keyword]="'BENEFICIARYS_DEATH'"></app-file-upload>
+                        <span (click)="viewMessagesInformationEvent('BENEFICIARYS_DEATH')" class="input-group-addon information-file-icon"><em class="fa fa-info"></em></span>
+                    </ion-row>
+
+                    <div *ngIf="eventTypesClass.SendBeneficiaryDeathCertificate == ''">
+                        <ion-row>
+                            <ion-input [(ngModel)]="eventTypesClass.SendBeneficiaryDeathCertificate" #validateFileBeneficiarysDeaths="ngModel" id="validateFileBeneficiarysDeath" name="validateFileBeneficiarysDeath" type="text" required hidden="true" ngControl="validateFileBeneficiarysDeaths"></ion-input>
+                        </ion-row>
+                    </div>
+
+                    <div *ngIf="eventTypesClass.SendBeneficiaryDeathCertificate == ''" class="alert-email alert-danger-email alert-file-required">
+                        <ion-row>
+                            <ion-label>
+                                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.AdjuntRequired" | translate}}
+                            </ion-label>
+                        </ion-row>
+                    </div>
+
+                    <!--Campo Cuenta: Cuenta bancaría y no bancaría-->
+                    <div *ngIf="eventTypesClass.BankAccountUser === true">
+                        <ion-row>
+                            <ion-label class="alert alert-info" role="alert">
+                                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.BankAccountInfo" | translate}}
+                            </ion-label>
+                        </ion-row>
+                    </div>
+
+                    <!--File cuenta NO bancaría-->
+                    <div *ngIf="eventTypesClass.BankAccountUser === false">
+
+                        <ion-row>
+                            <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelAdjuntBackAccount" | translate}}</ion-label>
+                        </ion-row>
+
+                        <ion-row>
+                            <app-file-upload (fileUploaded)=" inputFileEvent($event)" [visible]="true" [allowedExtensions]="allowedExtensionsFileUpload" [maxSizeMBAllowed]="fileSizeAllowMB" [pleaceholder]="'Adjunte cuenta bancaría'" [keyword]="'BANK_ACCOUNT'">
+                            </app-file-upload>
+                            <span (click)="viewMessagesInformationEvent('BANK_ACCOUNT')" class="input-group-addon information-file-icon"><em class="fa fa-info"></em></span>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-input class="form-control" [(ngModel)]="eventTypesClass.SendFileBankAccount" #validateFilesBankAccounts="ngModel" ngControl="validateFilesBankAccounts" id="validateFilesBankAccount" name="validateFilesBankAccount" type="hidden" required hidden="true"></ion-input>
+                        </ion-row>
+
+                        <div *ngIf="eventTypesClass.SendFileBankAccount == ''">
+                            <ion-row>
+                                <ion-label>
+                                    {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.AdjuntRequired" | translate}}
+                                </ion-label>
+                            </ion-row>
+                        </div>
+
+                    </div>
+
+                    <div *ngIf="eventTypesClass.BankAccountUser === false && viewMessagesInformation && viewMessageInformationId == 'BANK_ACCOUNT'" class="col-md-12">
+                        <!--Texto info cuenta no bancaría-->
+                        <ion-row>
+                            <ion-label class="alert alert-info" role="alert">
+                                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.NonBankAccountInfo" | translate}}
+                            </ion-label>
+                        </ion-row>
+                    </div>
+
+                </div>
+
+                <!--Seleccionó: Reembolso por fallecimiento del responsable de pago-->
+                <div *ngIf="eventTypesClass.ReasonsForReimbursement == '2'">
+
+                    <div *ngIf="!typeErrorFile && viewMessagesInformation && viewMessageInformationId == 'TITULAR_DEATH'">
+                        <ion-row>
+                            <ion-label class="alert alert-info" role="alert">
+                                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.ResponsiblePaymentDeathInfo" | translate}}
+                            </ion-label>
+                        </ion-row>
+                    </div>
+
+                    <ion-row>
+                        <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelTitularDeath" | translate}}</ion-label>
+                    </ion-row>
+
+                    <ion-row>
+                        <app-file-upload (fileUploaded)="inputFileEvent($event)" [visible]="true" [allowedExtensions]="allowedExtensionsFileUpload" [maxSizeMBAllowed]="fileSizeAllowMB" [pleaceholder]="'Adjunte acta de fallecimiento'" [keyword]="'TITULAR_DEATH'">
+                        </app-file-upload>
+                        <span (click)="viewMessagesInformationEvent('TITULAR_DEATH')" class="input-group-addon information-file-icon"><em class="fa fa-info"></em></span>
+                    </ion-row>
+
+                    <div *ngIf="eventTypesClass.SendFileTitularDeathCertificate == ''">
+                        <ion-row>
+                            <ion-input [(ngModel)]="eventTypesClass.SendFileTitularDeathCertificate" #validateFileTitularDeaths="ngModel" id="validateFileTitularDeath" name="validateFileTitularDeath" type="text" required hidden="true" ngControl="validateFileTitularDeaths"></ion-input>
+                        </ion-row>
+                    </div>
+
+                    <div>
+                        <ion-row>
+                            <ion-label *ngIf="eventTypesClass.SendFileTitularDeathCertificate == ''" class="alert-email alert-danger-email alert-file-required">
+                                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.AdjuntRequired" | translate}}
+                            </ion-label>
+                        </ion-row>
+                    </div>
+
+                    <!--Selecciona si es cónyugue o hijo-->
+                    <div *ngIf="country === 'co'">
+
+                        <ion-row>
+                            <ion-item>
+                                <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelApplicant" | translate}}
+                                </ion-label>
+                                <ion-select [(ngModel)]="applicant" name="applicant" class="form-control emi1-input" ngControl="applicants" #applicants="ngModel" required id="applicant" (change)="onChangeApplicant(applicant)" mode="ios" ok-text="Aceptar" cancel-text="Cancelar">
+                                    <ion-select-option value="01">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.ApplicantSpouse" | translate}}</ion-select-option>
+                                    <ion-select-option value="02">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.ApplicantSon" | translate}}</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                            <ion-col>
+                                <div *ngIf="applicants.invalid && (applicants.dirty || applicants.touched  )" class="alert-email alert-danger-email">
+                                    <!-- <div *ngIf="applicants.errors.required">  -->
+                                    {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.ApplicantRequired" | translate}}
+                                    <!--    </div> -->
+                                </div>
+                            </ion-col>
+                        </ion-row>
+
+                        <!--Seleccionó conyuge-->
+                        <div *ngIf="applicant == '01'">
+
+                            <ion-row>
+                                <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelApplicantAdjunt" | translate}}</ion-label>
+                            </ion-row>
+
+                            <ion-row>
+                                <app-file-upload (fileUploaded)="inputFileEvent($event)" [visible]="true" [allowedExtensions]="allowedExtensionsFileUpload" [maxSizeMBAllowed]="fileSizeAllowMB" [pleaceholder]="'Adjunte registro civil de matrimonio'" [keyword]="'CERTIFICATE_SPOUSE'">
+                                </app-file-upload>
+                                <span (click)="viewMessagesInformationEvent('CERTIFICATE_SPOUSE')" class="input-group-addon information-file-icon"><em class="fa fa-info"></em></span>
+                            </ion-row>
+
+                            <div *ngIf="eventTypesClass.SendFilesCivilRegistrationMarriage == ''">
+                                <ion-row>
+                                    <ion-input [(ngModel)]="eventTypesClass.SendFilesCivilRegistrationMarriage" #SendFilesCivilRegistrationMarriages="ngModel" id="SendFilesCivilRegistrationMarriage" name="SendFilesCivilRegistrationMarriage" type="text" required hidden="true" ngControl="SendFilesCivilRegistrationMarriages"></ion-input>
+                                </ion-row>
+                            </div>
+
+                            <div *ngIf="eventTypesClass.SendFilesCivilRegistrationMarriage == ''" class="alert-email alert-danger-email alert-file-required">
+                                <ion-row>
+                                    <ion-label>
+                                        {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.AdjuntRequired" | translate}}
+                                    </ion-label>
+                                </ion-row>
+                            </div>
+
+                            <div *ngIf="!typeErrorFile && viewMessagesInformation && viewMessageInformationId == 'CERTIFICATE_SPOUSE'">
+                                <ion-row>
+                                    <ion-label>
+                                        {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.InfoExpeditionDate" | translate}}
+                                    </ion-label>
+                                </ion-row>
+                            </div>
+
+                            <!--Campo Cuenta: Cuenta bancaría y no bancaría-->
+                            <div *ngIf="eventTypesClass.BankAccountUser === true">
+                                <ion-row>
+                                    <ion-label>
+                                        {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.BankAccountInfo" | translate}}
+                                    </ion-label>
+                                </ion-row>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!--File cuenta NO bancaría-->
+                    <div *ngIf="eventTypesClass.BankAccountUser === false" class="col-md-12">
+
+                        <ion-row>
+                            <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelBankAccountTwo" | translate}}</ionlabel>
+                        </ion-row>
+
+                        <ion-row>
+                            <app-file-upload (fileUploaded)=" inputFileEvent($event)" [visible]="true" [allowedExtensions]="allowedExtensionsFileUpload" [maxSizeMBAllowed]="fileSizeAllowMB" [pleaceholder]="'Adjunte cuenta bancaría'" [keyword]="'BANK_ACCOUNT_CERTIFICATE'"></app-file-upload>
+                            <span (click)="viewMessagesInformationEvent('BANK_ACCOUNT_CERTIFICATE')" class="input-group-addon information-file-icon"><em class="fa fa-info"></em></span>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-input class="form-control" [(ngModel)]="eventTypesClass.SendFileBankAccountCertificate" #validateFilesBankAccounts="ngModel" ngControl="validateFilesBankAccounts" id="validateFilesBankAccount" name="validateFilesBankAccount" type="hidden" required
+                                hidden="true"></ion-input>
+                        </ion-row>
+
+                        <div *ngIf="eventTypesClass.SendFileBankAccountCertificate == ''">
+                            <ion-row>
+                                <ion-label>
+                                    {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.AdjuntRequired" | translate}}
+                                </ion-label>
+                            </ion-row>
+                        </div>
+
+                    </div>
+
+                    <div *ngIf="!typeErrorFile && viewMessagesInformation && viewMessageInformationId == 'BANK_ACCOUNT_CERTIFICATE'">
+                        <ion-row>
+                            <ion-label class="alert alert-info" role="alert">
+                                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.InfoBankAccountTwo" | translate}}
+                            </ion-label>
+                        </ion-row>
+                    </div>
+
+                </div>
+
+                <!--Seleccionó Hijo-->
+                <div *ngIf="applicant == '02'">
+
+                    <ion-row>
+                        <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelBirthCertificateSon" | translate}}</ion-label>
+                    </ion-row>
+
+                    <ion-row>
+                        <app-file-upload (fileUploaded)="inputFileEvent($event)" [visible]="true" [allowedExtensions]="allowedExtensionsFileUpload" [maxSizeMBAllowed]="fileSizeAllowMB" [pleaceholder]="'Adjunte registro civil de nacimiento'" [keyword]="'CERTIFICATE_BIRTH_SON'"></app-file-upload>
+                        <span (click)="viewMessagesInformationEvent('CERTIFICATE_BIRTH_SON')" class="input-group-addon information-file-icon"><em class="fa fa-info"></em></span>
+                    </ion-row>
+
+                    <div *ngIf="eventTypesClass.SendFileBirthCertificateSon == ''">
+                        <ion-row>
+                            <ion-input [(ngModel)]="eventTypesClass.SendFileBirthCertificateSon" #SendFilesCivilRegistrationMarriages="ngModel" id="SendFilesCivilRegistrationMarriage" name="SendFilesCivilRegistrationMarriage" type="text" required hidden="true" ngControl="SendFilesCivilRegistrationMarriages"></ion-input>
+                        </ion-row>
+                    </div>>
+
+                    <div *ngIf="eventTypesClass.SendFileBirthCertificateSon == ''" class="alert-email alert-danger-email alert-file-required">
+                        <ion-row>
+                            <ion-label>
+                                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.AdjuntRequired" | translate}}
+                            </ion-label>
+                        </ion-row>
+                    </div>
+
+                    <div *ngIf="!typeErrorFile && viewMessagesInformation && viewMessageInformationId == 'CERTIFICATE_BIRTH_SON'">
+                        <ion-row>
+                            <ion-label class="alert alert-info" role="alert">
+                                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.InfoExpeditionDate" | translate}}
+                            </ion-label>
+                        </ion-row>
+                    </div>
+
+                    <ion-row>
+                        <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelSpouseDeath" | translate}}</ion-label>
+                    </ion-row>
+
+                    <ion-row>
+                        <app-file-upload (fileUploaded)="inputFileEvent($event)" [visible]="true" [allowedExtensions]="allowedExtensionsFileUpload" [maxSizeMBAllowed]="fileSizeAllowMB" [pleaceholder]="'Adjunte acta de fallecimiento'" [keyword]="'SPOUSE_DEATH'"></app-file-upload>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelExtraJudgmentStatement" | translate}}</ion-label>
+                    </ion-row>
+
+                    <ion-row>
+                        <app-file-upload (fileUploaded)="inputFileEvent($event)" [visible]="true" [allowedExtensions]="allowedExtensionsFileUpload" [maxSizeMBAllowed]="fileSizeAllowMB" [pleaceholder]="'Adjunte la declaración extra juicio'" [keyword]="'EXTRA_JUDGMENT_STATEMENT'"></app-file-upload>
+                    </ion-row>
+
+                    <ion-row>
+                        <span (click)="viewMessagesInformationEvent('EXTRA_JUDGMENT_STATEMENT')" class="input-group-addon information-file-icon"><em class="fa fa-info"></em></span>
+                    </ion-row>
+
+                    <div *ngIf="!typeErrorFile && viewMessagesInformation && viewMessageInformationId == 'EXTRA_JUDGMENT_STATEMENT'">
+                        <ion-row>
+                            <ion-label class="alert alert-info" role="alert">
+                                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.InfoExtraJudgmentStatement" | translate}}
+                            </ion-label>
+                        </ion-row>
+                    </div>
+
+                    <!--Campo Cuenta: Cuenta bancaría y no bancaría-->
+
+                    <div *ngIf="eventTypesClass.BankAccountUser === true">
+                        <ion-row>
+                            <ion-label class="alert alert-info" role="alert">
+                                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.BankAccountInfo" | translate}}
+                            </ion-label>
+                        </ion-row>
+                    </div>
+
+                    <!--File cuenta NO bancaría-->
+
+                    <div *ngIf="eventTypesClass.BankAccountUser === false" class="col-md-12">
+                        <!--File cuenta NO bancaría-->
+
+                        <ion-row>
+                            <ion-label>{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelBankAccountTwo" | translate}}</ion-label>
+                        </ion-row>
+
+                        <ion-row>
+                            <app-file-upload (fileUploaded)=" inputFileEvent($event)" [visible]="true" [allowedExtensions]="allowedExtensionsFileUpload" [maxSizeMBAllowed]="fileSizeAllowMB" [pleaceholder]="'Adjunte cuenta bancaría'" [keyword]="'BANK_ACCOUNT_CERTIFICATE'"></app-file-upload>
+                        </ion-row>
+
+                        <ion-row>
+                            <span (click)="viewMessagesInformationEvent('BANK_ACCOUNT_CERTIFICATE')" class="input-group-addon information-file-icon"><em class="fa fa-info"></em></span>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-input class="form-control" [(ngModel)]="eventTypesClass.SendFileBankAccountCertificate" #validateFilesBankAccounts="ngModel" ngControl="validateFilesBankAccounts" id="validateFilesBankAccount" name="validateFilesBankAccount" type="hidden" required
+                                hidden="true"></ion-input>
+                        </ion-row>
+
+                        <div *ngIf="eventTypesClass.SendFileBankAccountCertificate == ''" class="alert-email alert-danger-email alert-file-required">
+                            <ion-row>
+                                <ion-label>
+                                    {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.AdjuntRequired" | translate}}
+                                </ion-label>
+                            </ion-row>
+                        </div>
+
+                    </div>
+
+                    <div *ngIf="!typeErrorFile && viewMessagesInformation && viewMessageInformationId == 'BANK_ACCOUNT_CERTIFICATE'">
+                        <ion-row>
+                            <ion-label class="alert alert-info" role="alert">
+                                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.InfoBankAccountTwo" | translate}}
+                            </ion-label>
+                        </ion-row>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div *ngIf="country === 'uy'">
+
+                <ion-row>
+                    <ion-label class="emi1-exampleInputEmail1">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelApplicantAdjunt" | translate}}</ion-label>
+                </ion-row>
+
+                <ion-row>
+                    <app-file-upload (fileUploaded)="inputFileEvent($event)" [visible]="true" [allowedExtensions]="allowedExtensionsFileUpload" [maxSizeMBAllowed]="fileSizeAllowMB" [pleaceholder]="'Adjunte acta de fallecimiento'" [keyword]="'CERTIFICATE_SPOUSE'">
+                    </app-file-upload>
+                </ion-row>
+
+                <div *ngIf="eventTypesClass.SendFilesCivilRegistrationMarriage == ''">
+                    <ion-row>
+                        <ion-input [(ngModel)]="eventTypesClass.SendFilesCivilRegistrationMarriage" #SendFilesCivilRegistrationMarriages="ngModel" id="SendFilesCivilRegistrationMarriage" name="SendFilesCivilRegistrationMarriage" type="text" required hidden="true" ngControl="SendFilesCivilRegistrationMarriages"></ion-input>
+                    </ion-row>
+                </div>
+
+                <div *ngIf="eventTypesClass.SendFilesCivilRegistrationMarriage == ''" class="alert-email alert-danger-email alert-file-required">
+                    <ion-row>
+                        <ion-label>
+                            {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.AdjuntRequired" | translate}}
+                        </ion-label>
+                    </ion-row>
+                </div>
+
+                <!--Campo Cuenta: Cuenta bancaría y no bancaría-->
+
+                <div *ngIf="eventTypesClass.BankAccountUser === true" class="col-md-12">
+                    <ion-row>
+                        <ion-label class="alert alert-info" role="alert">
+                            {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.BankAccountInfo" | translate}}
+                        </ion-label>
+                    </ion-row>
+                </div>
+
+                <!--File cuenta NO bancaría-->
+
+                <div *ngIf="eventTypesClass.BankAccountUser === false" class="col-md-12">
+
+                    <ion-row>
+                        <ion-label class="emi1-exampleInputEmail1">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelBankAccountTwo" | translate}}</ion-label>
+                    </ion-row>
+
+                    <ion-row>
+                        <app-file-upload (fileUploaded)=" inputFileEvent($event)" [visible]="true" [allowedExtensions]="allowedExtensionsFileUpload" [maxSizeMBAllowed]="fileSizeAllowMB" [pleaceholder]="'Adjunte cuenta bancaría'" [keyword]="'BANK_ACCOUNT_CERTIFICATE'"></app-file-upload>
+                    </ion-row>
+
+                    <ion-row>
+                        <span (click)="viewMessagesInformationEvent('BANK_ACCOUNT_CERTIFICATE')" class="input-group-addon information-file-icon"><em class="fa fa-info"></em></span>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-input class="form-control" [(ngModel)]="eventTypesClass.SendFileBankAccountCertificate" #validateFilesBankAccounts="ngModel" ngControl="validateFilesBankAccounts" id="validateFilesBankAccount" name="validateFilesBankAccount" type="hidden" required
+                            hidden="true"></ion-input>
+                    </ion-row>
+
+                    <div *ngIf="eventTypesClass.SendFileBankAccountCertificate == ''" class="alert-email alert-danger-email alert-file-required">
+                        <ion-row>
+                            <ion-label>
+                                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.AdjuntRequired" | translate}}
+                            </ion-label>
+                        </ion-row>
+                    </div>
+
+                </div>
+
+                <div *ngIf="!typeErrorFile && viewMessagesInformation && viewMessageInformationId == 'BANK_ACCOUNT_CERTIFICATE'">
+                    <ion-row>
+                        <ion-label class="alert alert-info" role="alert">
+                            {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.InfoBankAccountTwo" | translate}}
+                        </ion-label>
+                    </ion-row>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!--Seleccionó: Reembolso por facturación y cobranza-->
+        <div *ngIf="eventTypesClass.ReasonsForReimbursement == '3'">
+
+            <div *ngIf="!typeErrorFile && viewMessagesInformation && viewMessageInformationId == 'BANK_STATEMENT_OR_REMOVABLE_PAYROLL'">
+                <ion-row>
+                    <ion-label class="alert alert-info" role="alert">
+                        {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.InfoBankStatementOrRemovablePayroll" | translate}}
+                    </ion-label>
+                </ion-row>
+            </div>
+
+            <ion-row>
+                <label class="emi1-exampleInputEmail1">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelBankStatementOrRemovablePayroll" | translate}}</label>
+            </ion-row>
+
+            <ion-row>
+                <app-file-upload (fileUploaded)="inputFileEvent($event)" [visible]="true" [allowedExtensions]="allowedExtensionsFileUpload" [maxSizeMBAllowed]="fileSizeAllowMB" [pleaceholder]="'Adjunte extracto bancario'" [keyword]="'BANK_STATEMENT_OR_REMOVABLE_PAYROLL'"></app-file-upload>
+            </ion-row>
+
+            <ion-row>
+                <span (click)="viewMessagesInformationEvent('BANK_STATEMENT_OR_REMOVABLE_PAYROLL')" class="input-group-addon information-file-icon"><em class="fa fa-info"></em></span>
+            </ion-row>
+
+            <div *ngIf="eventTypesClass.SendFileBankStatementOrRemovablePayroll == ''">
+                <ion-row>
+                    <ion-input [(ngModel)]="eventTypesClass.SendFileBankStatementOrRemovablePayroll" #BankStatementOrRemovablePayrolls="ngModel" id="BankStatementOrRemovablePayroll" name="BankStatementOrRemovablePayroll" type="text" required hidden="true" ngControl="BankStatementOrRemovablePayrolls"></ion-input>
+                </ion-row>
+            </div>
+
+            <div *ngIf="eventTypesClass.SendFileBankStatementOrRemovablePayroll == ''" class="alert-email alert-danger-email alert-file-required">
+                <ion-row>
+                    <iopn-label>
+                        {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.AdjuntRequired" | translate}}
+                    </iopn-label>
+                </ion-row>
+            </div>
+
+            <div *ngIf="eventTypesClass.BankAccountUser === true" class="col-md-12">
+                <ion-row>
+                    <ion-label class="alert alert-info" role="alert">
+                        {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.BankAccountInfo" | translate}}
+                    </ion-label>
+                </ion-row>
+            </div>
+
+            <div *ngIf="eventTypesClass.BankAccountUser === false" class="col-md-12">
+                <!--File cuenta NO bancaría-->
+
+                <ion-row>
+                    <ion-label class="emi1-exampleInputEmail1">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelAdjuntBackAccount" | translate}}</ion-label>
+                </ion-row>
+
+                <ion-row>
+                    <app-file-upload (fileUploaded)=" inputFileEvent($event)" [visible]="true" [allowedExtensions]="allowedExtensionsFileUpload" [maxSizeMBAllowed]="fileSizeAllowMB" [pleaceholder]="'Adjunte cuenta bancaría'" [keyword]="'BANK_ACCOUNT'"></app-file-upload>
+                </ion-row>
+
+                <ion-row>
+                    <span (click)="viewMessagesInformationEvent('BANK_ACCOUNT')" class="input-group-addon information-file-icon"><em class="fa fa-info"></em></span>
+                </ion-row>
+
+                <div>
+                    <ion-row>
+                        <ion-input class="form-control" [(ngModel)]="eventTypesClass.SendFileBankAccount" #validateFilesBankAccounts="ngModel" ngControl="validateFilesBankAccounts" id="validateFilesBankAccount" name="validateFilesBankAccount" type="hidden" required hidden="true"></ion-input>
+                    </ion-row>
+                </div>
+
+                <div *ngIf="eventTypesClass.SendFileBankAccount == ''" class="alert-email alert-danger-email alert-file-required">
+                    <ion-row>
+                        <ion-label>
+                            {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.AdjuntRequired" | translate}}
+                        </ion-label>
+                    </ion-row>
+                </div>
+
+            </div>
+
+            <div *ngIf="eventTypesClass.BankAccountUser === false && viewMessagesInformation && viewMessageInformationId == 'BANK_ACCOUNT'" class="col-md-12">
+                <!--Texto info cuenta no bancaría-->
+                <ion-row>
+                    <ion-label class="alert alert-info" role="alert">
+                        {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.NonBankAccountInfo" | translate}}
+                    </ion-label>
+                </ion-row>
+            </div>
+
+        </div>
+
+        <!-- </div>
+
+        </div> -->
+
+    </form>
+
+    <!-- Comentario -->
+
+    <br>
+
+    <form [formGroup]="formEventType">
+
+        <ion-row>
+            <ion-item>
+                <ion-label position="floating">{{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.LabelComment" | translate}}</ion-label>
+                <textarea formControlName="eventComments" [(ngModel)]="eventTypesClass.eventComments" name="eventComments"></textarea>
+            </ion-item>
+            <ion-col size="12">
+                <ion-label class="ion-validator" *ngIf="this.formEventType.controls.eventComments.hasError('required')">
+                    {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.CommentRequired" | translate}}
+                </ion-label>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label *ngIf="eventTypesClass.EventComment.length>0 && eventTypesClass.EventComment.length<=eventCommentsMinChar  ">
+                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.CommonValidatedMin" | translate}}
+            </ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label class="container-characters-counter" *ngIf="eventTypesClass.EventComment.length==0">
+                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.MaxLengthComment" | translate}} {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.AccountCharactersInfo" | translate}}
+            </ion-label>
+        </ion-row>
+
+        <ion-row class="ion-padding-top">
+            <ion-label class="container-characters-counter" *ngIf="eventTypesClass.EventComment.length!=0">
+                {{eventCommentsMaxChar - eventTypesClass.EventComment.length}} {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.AccountCharactersInfo" | translate}}
+            </ion-label>
+        </ion-row>
+
+    </form>
+
+    <ion-row class="ion-padding-top">
+        <ion-col>
+            <ion-checkbox id="checkbox3" type="checkbox" name="AcceptTermsAndConditions" [(ngModel)]="eventTypesClass.AcceptTermsAndConditions" required (click)="eventAcceptTermsAndConditions()">
+                {{"PORTAL.CUSTOMER-SERVICE.GRATITUDE-FORM.AcceptTemrsAndConditions" | translate}}
+            </ion-checkbox>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col>
+            <app-button [configuration]="configurationButtonSend" [disabled]="formEventType.invalid  || formEventType.status == 'DISABLED' || !eventTypesClass.AcceptTermsAndConditions || eventTypesClass.EventComment.length<=eventCommentsMinChar" (click)="sendDataEventType()"></app-button>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="emi1-txttitulofamiliar">Información del usuario</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label class="emi1-txtfamiliar">Información del usuario para el cual se solicita crear el evento.</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label>{{stepOneInformation.checkCustomerIsActiveInfo.FullName}}</ion-label>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+        <ion-label>{{stepOneInformation.checkCustomerIsActiveInfo.DocumentName}}: {{stepOneInformation.checkCustomerIsActiveInfo.Document}}</ion-label>
+    </ion-row>
+
+</section>

@@ -1,0 +1,47 @@
+@import './../../../../../../styles-variables.scss';
+:root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+}
+
+.pending-coordinations__list-container {
+    height: 100%;
+    padding: 10px;
+}
+
+.pending-coordinations__title {
+    padding: 10px;
+}
+
+.pending-coordinations__list-card {
+    margin: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+    /* 5px rounded corners */
+    padding: 10px;
+}
+
+.pending-coordinations__list-card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.pending-coordinations__coordination-name {
+    color: $primary-color;
+    margin-bottom: 0px;
+}
+
+.pending-coordinations__coordination-date {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.pending-coordinations__right-arrow {
+    padding-left: 10px;
+    padding-right: 10px;
+    align-self: flex-end;
+}

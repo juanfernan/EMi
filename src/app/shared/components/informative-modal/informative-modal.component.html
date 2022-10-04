@@ -1,0 +1,52 @@
+<div class="modal-dialog modal-md modal-center-align">
+
+    <div class="modal-body modal-check col-md-12">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="contenedor">
+
+                    <div class="icon-close cursor-pointer">
+                        <a class="cancel" (click)="closeModal()" *ngIf="visibleButtonClose">
+                            <img src="{{imgRoute}}icons/cancel.svg" alt="Imagen">
+                        </a>
+                    </div>
+
+                    <div class="icon-header">
+                        <img src="{{imgRoute}}icons/{{iconHeader}}" alt="icon-header" />
+                    </div>
+
+                    <div class="subTitle">
+                        <span>{{subTitle}}</span>
+                    </div>
+
+                    <div class="description row" *ngIf="description != ''">
+                        <span class="col-md-12">{{description}}</span>
+                    </div>
+
+                    <div class="buttons">
+
+                        <div class="only-button" *ngIf="onlyButtonConfirm">
+                            <app-button id="focusBtn" [configuration]="configurationButton" (click)="confirm()"></app-button>
+                        </div>
+
+                        <div class="row" *ngIf="!onlyButtonConfirm">
+                            <app-button class="col-6 text-center mb-2" [configuration]="configurationButton1" (click)="cancel()">
+                            </app-button>
+                            <app-button class="col-6 text-center mb-3" [configuration]="configurationButton2" (click)="confirm()">
+                            </app-button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,50 @@
+@import '../../../../../../styles-variables.scss';
+
+.container-fingerprint {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logoProperties {
+    width: 120px;
+    margin-bottom: 40px;
+}
+
+.iconProperties {
+    width: 110px;
+    margin-bottom: 30px;
+}
+
+.subtittle-fingerprint {
+    margin: 0 40px 35px;
+    text-align: center;
+}
+
+
+.padding-header {
+    padding: 45px 0;
+}
+
+.tittle-fingerprint {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 35px;
+    color: $primary-color;
+}
+
+.btn-active-fingerprint{
+    width: 250px;
+    height: 40px;
+    border: 1px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 25px;
+    font-weight: 500;
+    line-height: 14px;
+    margin: 0 auto;
+    background-color: $primary-color;
+    color:white;
+}
+

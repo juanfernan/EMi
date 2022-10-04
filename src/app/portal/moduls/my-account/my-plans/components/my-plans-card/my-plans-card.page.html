@@ -1,0 +1,27 @@
+<ion-row *ngFor="let plan of planList let first = first; let last = last" class="row plans-row" [class.last-row]="last">
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>{{getNames(plan)}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-row>
+                <ion-label>Matricula : {{matriculaFamilia}}</ion-label>
+            </ion-row>
+            <ion-row>
+                <ion-label>Modalidad de pago : {{facturacion}}</ion-label>
+            </ion-row>
+            <ion-row>
+                <ion-label>Total : {{getTotal(plan) | currency}}</ion-label>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+
+
+    <ion-row >
+        <ion-col class="ion-content-left " size="12">
+            <app-button [configuration]="configurationButtonDetail" (click)="onShowConsumptions(plan.ProductosContratados)"></app-button>
+        </ion-col>
+    </ion-row>
+
+</ion-row>

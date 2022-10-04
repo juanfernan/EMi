@@ -1,0 +1,25 @@
+@import './../../../../styles-variables.scss';
+ion-content {
+    font-family: 'Mark OT', sans-serif;
+    align-self: center;
+    height: 90%;
+    width: 85%;
+}
+
+ion-label {
+    pointer-events: all !important;
+}
+
+ion-row {
+    margin-bottom: 1px !important;
+}
+
+.label-terms {
+    color: #696F79;
+    line-height: 20px;
+}
+
+.link {
+    color: $link-color;
+    line-height: 20px;
+}

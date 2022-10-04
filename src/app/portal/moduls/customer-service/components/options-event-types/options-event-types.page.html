@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Agradecimientos y reembolsos</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-grid>
+        <ion-row class="ion-padding-top d-flex ion-justify-content-center">
+            <ion-col size="6">
+                <div class="selector-item" [class.selected]="currentSection == 'change-option'" (click)="setSection('change-option')">
+                    <ion-label class="title-secondary">Solicitar tipos de evento</ion-label>
+                </div>
+            </ion-col>
+            <ion-col size="6">
+                <div class="selector-item d-flex ion-justify-content-center" [class.selected]="currentSection == 'change-course'" (click)="setSection('change-course')">
+                    <ion-label class="title-secondary">Reembolsos en curso</ion-label>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div *ngIf="!tracingEventTypesItialization">
+        <app-request-event-types></app-request-event-types>
+    </div>
+
+    <div *ngIf="tracingEventTypesItialization">
+        <app-tracing-event-types [tracingEventTypesItialization]="tracingEventTypesItialization"></app-tracing-event-types>
+    </div>
+
+</ion-content>

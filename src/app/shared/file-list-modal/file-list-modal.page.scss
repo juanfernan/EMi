@@ -1,0 +1,46 @@
+.cancel {
+    color: #a8a5a5;
+    pointer-events: auto;
+}
+
+.col-md-12 {
+    border-radius: 35px;
+    margin-bottom: -8px;
+    margin-top: -10px;
+    background-color: white;
+}
+
+.modal-center-align {
+    justify-content: center;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.contenedor {
+    display: flex;
+    flex-direction: column;
+}
+
+.icon-close {
+    display: flex;
+    justify-content: flex-end;
+    height: 20px;
+}
+
+.icon-header {
+    margin: auto;
+    padding-bottom: 25px;
+}
+
+.file-span {
+    margin-right: 20px;
+    text-decoration: underline;
+    font-family: "Mark OT", sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.title-list-files {
+    font-size: 18px;
+    color: #00466c;
+}

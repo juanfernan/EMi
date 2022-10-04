@@ -1,0 +1,19 @@
+<ion-card>
+    <ion-card-header>
+        <ion-card-title>{{afiliate.FullNames}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-row>
+            <ion-label>Edad: {{getAge(afiliate.BirthDate)}} años</ion-label>
+        </ion-row>
+        <ion-row>
+            <ion-label>{{afiliate.DocumentTypeShort}} : {{afiliate.Document}}</ion-label>
+        </ion-row>
+        <ion-row>
+            <ion-label *ngIf="afiliate.CellPhone">Celular : {{afiliate.CellPhone}}</ion-label>
+        </ion-row>
+        <ion-row>
+            <ion-label *ngIf="afiliate.Email">Correo : {{afiliate.Email}}</ion-label>
+        </ion-row>
+    </ion-card-content>
+</ion-card>
